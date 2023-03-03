@@ -18,8 +18,10 @@ public class MazeChunk : MonoBehaviour {
     public void Generate () {
         chunkPos = new Vector3 (chunkNum.x, 0f, chunkNum.y) * mm.chunkSize;
         CreateFloor ();
-        SolveMaze ();
-        SpawnWallObjects ();
+        if (chunkNum != Vector2.zero) {
+            SolveMaze ();
+            SpawnWallObjects ();
+        }
     }
 
     void CreateFloor () {
