@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class MazeChunk : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public MazeMaker mm;
+    public Vector2Int chunkNum;
+
+    public void Generate () {
+        CreateFloor ();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void CreateFloor () {
+        GameObject g = new GameObject ("Floor Mesh " + chunkNum);
+        g.transform.parent = transform;
+        g.transform.localPosition = Vector3.zero;
+        MeshFilter mf = g.AddComponent<MeshFilter> ();
+        mf.mesh = mm.GetFloorMesh ();
+        MeshRenderer mr = g.AddComponent<MeshRenderer> ();
+        mr.material = mm.floorMaterial;
     }
 }
