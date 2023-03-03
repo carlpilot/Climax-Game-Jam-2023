@@ -11,7 +11,9 @@ public class PlayerInventory : MonoBehaviour
     GameObject activeItemGM;
     Item activeItem;
 
-    int currentItem;
+    int activeItemIndex;
+
+    public GameObject pickupPrefab;
 
     void Awake()
     {
@@ -35,7 +37,7 @@ public class PlayerInventory : MonoBehaviour
         // Set ouline enabled of current item
         for (int i = 0; i < hotbarSize; i++)
         {
-            hotbarSlots[i].SetOutlineHighlight(i == currentItem);
+            hotbarSlots[i].SetOutlineHighlight(i == activeItemIndex);
             if (items[i]){
                 hotbarSlots[i].icon.sprite = items[i].itemImage;
                 hotbarSlots[i].icon.gameObject.SetActive(true);
@@ -74,20 +76,37 @@ public class PlayerInventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha0)){
             SetActiveHotbarSlot(9);
         }
+        // Cycle through items with the scroll wheel
+        if (Input.mouseScrollDelta.y < 0){
+            SetActiveHotbarSlot(activeItemIndex+1);
+        }
+        if (Input.mouseScrollDelta.y > 0){
+            SetActiveHotbarSlot(activeItemIndex-1);
+        }
+
+        if (activeItem != null && Input.GetKeyDown(KeyCode.Q)){
+            var d = Instantiate(pickupPrefab, transform.position+transform.forward*2, Quaternion.identity);
+            d.GetComponent<PickupOnHit>().item = activeItem;
+            items[activeItemIndex] = null;
+            UpdateActiveItem();
+        }
     }
 
     void SetActiveHotbarSlot(int slot){
-        if (slot < 0 || slot >= hotbarSize){
-            return;
+        if (slot < 0){
+            SetActiveHotbarSlot(slot+hotbarSize);
+        } else if (slot >= hotbarSize){
+            SetActiveHotbarSlot(slot-hotbarSize);
+        } else{
+            activeItemIndex = slot;
+            UpdateActiveItem();
         }
-        currentItem = slot;
-        UpdateActiveItem();
     }
 
     public bool AddItem(Item item){
         // Prefer active slot
-        if (items[currentItem] == null){
-            items[currentItem] = item;
+        if (items[activeItemIndex] == null){
+            items[activeItemIndex] = item;
             UpdateActiveItem();
             return true;
         }
@@ -104,18 +123,18 @@ public class PlayerInventory : MonoBehaviour
 
     void UpdateActiveItem(){
         // Ignore if we are already correct
-        if (activeItem == items[currentItem]){
+        if (activeItem == items[activeItemIndex]){
             return;
         }
-        activeItem = items[currentItem];
+        activeItem = items[activeItemIndex];
         if (activeItemGM){
             Destroy(activeItemGM);
         }
-        if (items[currentItem]){
+        if (items[activeItemIndex]){
             if(activeItem.gun){
-                activeItemGM = Instantiate(items[currentItem].gun.gameObject, transform);
+                activeItemGM = Instantiate(items[activeItemIndex].gun.gameObject, transform);
             } else if(activeItem.sword){
-                activeItemGM = Instantiate(items[currentItem].sword.gameObject, transform);
+                activeItemGM = Instantiate(items[activeItemIndex].sword.gameObject, transform);
             } else{
                 print("Not supported active item");
             }
