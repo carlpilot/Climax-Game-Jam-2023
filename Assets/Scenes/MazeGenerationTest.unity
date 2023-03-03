@@ -170,8 +170,7 @@ MonoBehaviour:
   seed: -1
   passagewayWidth: 2.5
   chunkNumCells: 15
-  chanceOfGoingStraight: 0.5
-  chanceOfDeletingWall: 0
+  chanceOfDeletingWall: 0.05
   floorMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
 --- !u!1 &491049229
 GameObject:

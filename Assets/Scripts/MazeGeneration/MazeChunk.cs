@@ -15,7 +15,7 @@ public class MazeChunk : MonoBehaviour {
     bool solved = false;
 
     public void Generate () {
-        //CreateFloor ();
+        CreateFloor ();
         SolveMaze ();
     }
 
@@ -89,6 +89,18 @@ public class MazeChunk : MonoBehaviour {
         vWalls[centre, mm.chunkNumCells] = false;
         hWalls[0, centre] = false;
         hWalls[mm.chunkNumCells, centre] = false;
+
+        // Remove random walls
+        for (int i = 0; i < hWalls.GetLength (0); i++) {
+            for (int j = 0; j < hWalls.GetLength (1); j++) {
+                if (Random.value < mm.chanceOfDeletingWall) hWalls[i, j] = false;
+            }
+        }
+        for (int i = 0; i < vWalls.GetLength (0); i++) {
+            for (int j = 0; j < vWalls.GetLength (1); j++) {
+                if (Random.value < mm.chanceOfDeletingWall) vWalls[i, j] = false;
+            }
+        }
 
         solved = true;
     }
