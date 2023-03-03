@@ -85,6 +85,12 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public bool AddItem(Item item){
+        // Prefer active slot
+        if (items[currentItem] == null){
+            items[currentItem] = item;
+            UpdateActiveItem();
+            return true;
+        }
         for (int i = 0; i < hotbarSize; i++)
         {
             if (items[i] == null){
