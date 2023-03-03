@@ -83,13 +83,20 @@ public class MazeChunk : MonoBehaviour {
             }
         }
 
+        // Remove walls at chunk boundaries
+        int centre = Mathf.FloorToInt (mm.chunkNumCells / 2f);
+        vWalls[centre, 0] = false;
+        vWalls[centre, mm.chunkNumCells] = false;
+        hWalls[0, centre] = false;
+        hWalls[mm.chunkNumCells, centre] = false;
+
         solved = true;
     }
 
     private void OnDrawGizmos () {
         if (!solved) return;
         Gizmos.color = Color.green;
-        Vector3 chunkPos = new Vector3 (chunkNum.x, 0f, chunkNum.y) * (mm.chunkSize + 2); // REMOVE THE +2 ------------------------------------------------
+        Vector3 chunkPos = new Vector3 (chunkNum.x, 0f, chunkNum.y) * mm.chunkSize;
         for (int i = 0; i < hWalls.GetLength (0); i++) {
             float x = (i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize;
             for (int j = 0; j < hWalls.GetLength (1); j++) {
