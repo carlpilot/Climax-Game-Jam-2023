@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: -1
   passagewayWidth: 3
-  chunkNumCells: 31
+  chunkNumCells: 15
   worldRadiusChunks: 5
   chanceOfDeletingWall: 0.1
   floorMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
