@@ -114,6 +114,8 @@ public class PlayerInventory : MonoBehaviour
         if (items[currentItem]){
             if(activeItem.gun){
                 activeItemGM = Instantiate(items[currentItem].gun.gameObject, transform);
+            } else if(activeItem.sword){
+                activeItemGM = Instantiate(items[currentItem].sword.gameObject, transform);
             } else{
                 print("Not supported active item");
             }
