@@ -28,6 +28,7 @@ public class MazeChunk : MonoBehaviour {
         GameObject g = new GameObject ("Floor Mesh " + chunkNum);
         g.transform.parent = transform;
         g.transform.localPosition = Vector3.zero;
+        g.layer = 6;
         MeshFilter mf = g.AddComponent<MeshFilter> ();
         mf.mesh = mm.GetFloorMesh ();
         MeshRenderer mr = g.AddComponent<MeshRenderer> ();
