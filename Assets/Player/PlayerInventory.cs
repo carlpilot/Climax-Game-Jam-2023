@@ -8,6 +8,8 @@ public class PlayerInventory : MonoBehaviour
     public HotbarSlot hotbarTemplate;
     HotbarSlot[] hotbarSlots;
     Item[] items;
+    GameObject activeItemGM;
+    Item activeItem;
 
     int currentItem;
 
@@ -79,5 +81,39 @@ public class PlayerInventory : MonoBehaviour
             return;
         }
         currentItem = slot;
+        UpdateActiveItem();
+    }
+
+    public bool AddItem(Item item){
+        for (int i = 0; i < hotbarSize; i++)
+        {
+            if (items[i] == null){
+                items[i] = item;
+                UpdateActiveItem();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void UpdateActiveItem(){
+        activeItem = items[currentItem];
+        // Ignore if we are already correct
+        if (activeItem == items[currentItem]){
+            return;
+        }
+        if (activeItemGM){
+            Destroy(activeItemGM);
+        }
+        if (items[currentItem]){
+            if(activeItem.gun){
+                activeItemGM = Instantiate(items[currentItem].pickupPrefab, transform);
+            } else{
+                print("Not supported active item");
+            }
+            activeItemGM.transform.parent = GetComponent<PlayerMovement>().head.transform;
+            activeItemGM.transform.localRotation = Quaternion.identity;
+            activeItemGM.transform.localPosition = Vector3.zero;
+        }
     }
 }

@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
     [Header("Item Info")]
     public string itemName;
     public Sprite itemImage;
 
-    [Header("Gun")]
-    public bool isGun;
-    public GameObject gunPrefab;
-    public bool isFullAuto;
-    public float fireRate;
-    public GameObject bullet;
+    [Header("Pickup")]
+    public GameObject pickupPrefab;
 
-    [Header("Drugs")]
-    public bool isDrug;
-    public float drugEffectTime;
-    public float speedBoost;
-    public float healthBoost;
+    [Header("Types (pick one)")]
+    public Gun gun;
 }
