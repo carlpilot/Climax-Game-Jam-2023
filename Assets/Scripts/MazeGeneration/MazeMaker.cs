@@ -7,6 +7,7 @@ public class MazeMaker : MonoBehaviour {
     public float chunkSize { get => passagewayWidth * chunkNumCells; }
 
     [Header ("World Settings")]
+    public int seed = -1;
     public float passagewayWidth;
     public int chunkNumCells;
 
@@ -22,6 +23,8 @@ public class MazeMaker : MonoBehaviour {
     Mesh floorMesh;
 
     private void Start () {
+        if (seed == -1) seed = Random.Range (int.MinValue + 1, int.MaxValue);
+
         for (int i = -5; i <= 5; i++) {
             for (int j = -5; j <= 5; j++) {
                 GenerateChunk (new Vector2Int (i, j));
