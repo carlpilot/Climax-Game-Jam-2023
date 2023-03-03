@@ -11,12 +11,15 @@ public class MazeChunk : MonoBehaviour {
     bool[,] hWalls;
     bool[,] vWalls;
 
+    Vector3 chunkPos;
     Vector2Int unassigned = new Vector2Int (-1, -1);
     bool solved = false;
 
     public void Generate () {
+        chunkPos = new Vector3 (chunkNum.x, 0f, chunkNum.y) * mm.chunkSize;
         CreateFloor ();
         SolveMaze ();
+        SpawnWallObjects ();
     }
 
     void CreateFloor () {
@@ -105,10 +108,31 @@ public class MazeChunk : MonoBehaviour {
         solved = true;
     }
 
+    void SpawnWallObjects() {
+        for (int i = 0; i < hWalls.GetLength (0); i++) {
+            for (int j = 0; j < hWalls.GetLength (1); j++) {
+                if (!hWalls[i, j]) continue;
+                GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                g.transform.position = new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((j + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.localScale = new Vector3 (0.5f, 2f, mm.chunkSize / mm.chunkNumCells);
+                g.transform.parent = transform;
+            }
+        }
+        for (int i = 0; i < vWalls.GetLength (0); i++) {
+            for (int j = 0; j < vWalls.GetLength (1); j++) {
+                if (!vWalls[i, j]) continue;
+                GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.localScale = new Vector3 (mm.chunkSize / mm.chunkNumCells, 2f, 0.5f);
+                g.transform.parent = transform;
+            }
+        }
+    }
+
+    /*
     private void OnDrawGizmos () {
         if (!solved) return;
         Gizmos.color = Color.green;
-        Vector3 chunkPos = new Vector3 (chunkNum.x, 0f, chunkNum.y) * mm.chunkSize;
         for (int i = 0; i < hWalls.GetLength (0); i++) {
             float x = (i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize;
             for (int j = 0; j < hWalls.GetLength (1); j++) {
@@ -126,4 +150,5 @@ public class MazeChunk : MonoBehaviour {
             }
         }
     }
+    */
 }
