@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenerateMaze : MonoBehaviour {
+public class MazeMaker : MonoBehaviour {
 
     public float chunkSize { get => passagewayWidth * chunkNumCells; }
 
