@@ -97,17 +97,17 @@ public class PlayerInventory : MonoBehaviour
     }
 
     void UpdateActiveItem(){
-        activeItem = items[currentItem];
         // Ignore if we are already correct
         if (activeItem == items[currentItem]){
             return;
         }
+        activeItem = items[currentItem];
         if (activeItemGM){
             Destroy(activeItemGM);
         }
         if (items[currentItem]){
             if(activeItem.gun){
-                activeItemGM = Instantiate(items[currentItem].pickupPrefab, transform);
+                activeItemGM = Instantiate(items[currentItem].gun.gameObject, transform);
             } else{
                 print("Not supported active item");
             }
