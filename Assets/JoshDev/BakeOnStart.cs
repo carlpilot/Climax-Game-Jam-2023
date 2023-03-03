@@ -18,6 +18,9 @@ public class BakeOnStart : MonoBehaviour
     
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GetComponent<NavMeshSurface>().BuildNavMesh();
+        }
     }
 }
