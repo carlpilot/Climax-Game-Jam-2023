@@ -167,10 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e2c48c746d8aa247ac4aa2c5fc41ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: -1
   passagewayWidth: 2.5
-  chunkNumCells: 5
-  chanceOfGoingStraight: 0.5
-  chanceOfDeletingWall: 0
+  chunkNumCells: 15
+  chanceOfDeletingWall: 0.05
   floorMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
 --- !u!1 &491049229
 GameObject:

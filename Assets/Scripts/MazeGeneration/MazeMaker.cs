@@ -13,8 +13,6 @@ public class MazeMaker : MonoBehaviour {
 
     [Header ("Generation Options")]
     [Range (0f, 1f)]
-    public float chanceOfGoingStraight;
-    [Range (0f, 1f)]
     public float chanceOfDeletingWall;
 
     [Header ("Materials")]
