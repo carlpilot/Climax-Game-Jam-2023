@@ -32,6 +32,7 @@ public class MazeChunk : MonoBehaviour {
         MeshFilter mf = g.AddComponent<MeshFilter> ();
         mf.mesh = mm.GetFloorMesh ();
         MeshRenderer mr = g.AddComponent<MeshRenderer> ();
+        MeshCollider mc = g.AddComponent<MeshCollider> ();
         mr.material = mm.floorMaterial;
     }
 
@@ -112,6 +113,7 @@ public class MazeChunk : MonoBehaviour {
     }
 
     void SpawnWallObjects() {
+        // Horizontal walls
         for (int i = 0; i < hWalls.GetLength (0); i++) {
             for (int j = 0; j < hWalls.GetLength (1); j++) {
                 if (!hWalls[i, j]) continue;
@@ -121,12 +123,24 @@ public class MazeChunk : MonoBehaviour {
                 g.transform.parent = transform;
             }
         }
+
+        // Vertical walls
         for (int i = 0; i < vWalls.GetLength (0); i++) {
             for (int j = 0; j < vWalls.GetLength (1); j++) {
                 if (!vWalls[i, j]) continue;
                 GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
                 g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
                 g.transform.localScale = new Vector3 (mm.chunkSize / mm.chunkNumCells, 2f, 0.5f);
+                g.transform.parent = transform;
+            }
+        }
+
+        // Pillars
+        for(int i = 0; i <= mm.chunkNumCells; i++) {
+            for(int j = 0; j <= mm.chunkNumCells; j++) {
+                GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.localScale = new Vector3 (0.7f, 2.5f, 0.7f);
                 g.transform.parent = transform;
             }
         }
