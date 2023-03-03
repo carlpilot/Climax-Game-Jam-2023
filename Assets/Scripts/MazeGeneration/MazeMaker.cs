@@ -32,7 +32,7 @@ public class MazeMaker : MonoBehaviour {
     }
 
     public void GenerateChunk (Vector2Int chunkNum) {
-        Vector3 worldPosition = new Vector3 (chunkNum.x * chunkSize, 0f, chunkNum.y * chunkSize);
+        Vector3 worldPosition = new Vector3 (chunkNum.x, 0f, chunkNum.y) * chunkSize;
         GameObject chunk = new GameObject ("Chunk " + chunkNum);
         chunk.transform.position = worldPosition;
         MazeChunk mc = chunk.AddComponent<MazeChunk> ();

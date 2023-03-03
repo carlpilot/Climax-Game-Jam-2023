@@ -113,6 +113,20 @@ public class MazeChunk : MonoBehaviour {
     }
 
     void SpawnWallObjects() {
+        // Remove duplicate walls
+        if(chunkNum.x > 0 && chunkNum != Vector2Int.right) {
+            for (int i = 0; i < hWalls.GetLength (1); i++) hWalls[0, i] = false;
+        }
+        if(chunkNum.x < 0 && chunkNum != Vector2Int.left) {
+            for (int i = 0; i < hWalls.GetLength (1); i++) hWalls[mm.chunkNumCells, i] = false;
+        }
+        if(chunkNum.y > 0 && chunkNum != Vector2Int.up) {
+            for (int j = 0; j < vWalls.GetLength (0); j++) vWalls[j, 0] = false;
+        }
+        if(chunkNum.y < 0 && chunkNum != Vector2Int.down) {
+            for (int j = 0; j < vWalls.GetLength (0); j++) vWalls[j, mm.chunkNumCells] = false;
+        }
+
         // Horizontal walls
         for (int i = 0; i < hWalls.GetLength (0); i++) {
             for (int j = 0; j < hWalls.GetLength (1); j++) {
