@@ -1942,71 +1942,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1497417647}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1525811782
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1525811783}
-  - component: {fileID: 1525811785}
-  - component: {fileID: 1525811784}
-  m_Layer: 0
-  m_Name: Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1525811783
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525811782}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1861991138}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1525811784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525811782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d3c43e65a30c1a19258f10466a73a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 30
-  enemyPrefab: {fileID: 1642685637007118686, guid: 409495e35624cce0db648f5439c9f04a,
-    type: 3}
-  spawnDelay: 2
---- !u!114 &1525811785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525811782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d3c43e65a30c1a19258f10466a73a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 30
-  enemyPrefab: {fileID: 5474497382946799412, guid: a8c68f79ee2f08f04ac92b8fc3661edc,
-    type: 3}
-  spawnDelay: 5
 --- !u!1 &1611089753
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,12 +2293,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!4 &1861991138 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8377967547664371589, guid: c8fda5b44bde54109a54f282c21c9814,
-    type: 3}
-  m_PrefabInstance: {fileID: 1861991118}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2015047380
 PrefabInstance:
   m_ObjectHideFlags: 0
