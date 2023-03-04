@@ -1544,6 +1544,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayDuration: 120
   light: {fileID: 491049229}
+  daytimeSpawnRadius: 30
+  nighttimeSpawnRadius: 50
+  currentSpawnDelay: 10
+  currentWaveCount: 2
+  enemyPrefabs:
+  - {fileID: 9079795913719198336, guid: 6e1eafdfaa32fa08d960f2485d7b8bf9, type: 3}
+  - {fileID: 3830795042888953062, guid: b29945014590014958931ed1271ff6ba, type: 3}
+  - {fileID: 3240321922839490531, guid: af2dc43f55242ed088622bf67979ce0c, type: 3}
+  - {fileID: 2531897553941225564, guid: 64fb1b68a7b0c8ec0b8381b27afac440, type: 3}
+  enemySpawnChances:
+  - 5
+  - 4
+  - 2
+  - 1
 --- !u!4 &1249743551
 Transform:
   m_ObjectHideFlags: 0
