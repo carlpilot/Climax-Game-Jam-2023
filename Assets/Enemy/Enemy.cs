@@ -21,11 +21,14 @@ public class Enemy : MonoBehaviour
     public float knockbackForce = 2f;
     public bool enableCollisionChaining = false;
 
+    Sword sword;
+
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        sword = GetComponentInChildren<Sword>();
     }
     
     void Start()
@@ -48,7 +51,11 @@ public class Enemy : MonoBehaviour
                 agent.SetDestination(player.transform.position);
                 isAttacking = false;
             }
+        } else{
+            isAttacking = false;
         }
+
+        if (sword) sword.aiIsAttacking = isAttacking;
     }
 
     public void TakeDamage(float damage)

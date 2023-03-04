@@ -12,6 +12,10 @@ public class Sword : MonoBehaviour
 
     public float damageDelay = 0.15f;
 
+    public bool isPlayerSword = true;
+
+    public bool aiIsAttacking = false;
+
     public bool isBlocking {get; private set;}
     void Awake()
     {
@@ -27,15 +31,23 @@ public class Sword : MonoBehaviour
     {
         // Check if the animator is in the idle state
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")){
-            if(Input.GetMouseButtonDown(0)){
+            if((Input.GetMouseButtonDown(0) && isPlayerSword) || (aiIsAttacking && !isPlayerSword)){
                 animator.Play("Swing");
-                // Damage all enemies within range
-                foreach (var enemy in GameObject.FindObjectsOfType<Enemy>())
-                {
-                    var swordPos = transform.position-transform.forward;
-                    if (Vector3.Distance(transform.position, enemy.transform.position) < range && Vector3.Angle(transform.forward, enemy.transform.position - swordPos) < angle)
+                if (isPlayerSword){
+                    foreach (var enemy in GameObject.FindObjectsOfType<Enemy>())
                     {
-                        StartCoroutine(TakeDamageAfter(damageDelay, damage, enemy, enemy.transform.position - swordPos));
+                        if (isHittable(enemy.transform))
+                        {
+                            var swordPos = transform.position-transform.forward;
+                            StartCoroutine(TakeDamageAfter(damageDelay, damage, enemy, enemy.transform.position - swordPos));
+                        }
+                    }
+                }else{
+                    var player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerHealth>();
+                    if (isHittable(player.transform))
+                    {
+                        var swordPos = transform.position-transform.forward;
+                        StartCoroutine(TakePlayerDamageAfter(damageDelay, damage, player));
                     }
                 }
             }
@@ -50,5 +62,16 @@ public class Sword : MonoBehaviour
         yield return new WaitForSeconds(delay);
         enemy.TakeDamage(damage);
         enemy.Knockback(dir.normalized, knockback);
+    }
+
+    IEnumerator TakePlayerDamageAfter(float delay, float damage, PlayerHealth player)
+    {
+        yield return new WaitForSeconds(delay);
+        player.TakeDamage(damage);
+    }
+
+    bool isHittable(Transform t){
+        var swordPos = transform.position-transform.forward;
+        return Vector3.Distance(transform.position, t.position) < range && Vector3.Angle(transform.forward, t.position - swordPos) < angle;
     }
 }
