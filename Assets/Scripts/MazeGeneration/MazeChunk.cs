@@ -113,6 +113,7 @@ public class MazeChunk : MonoBehaviour {
     }
 
     void SpawnWallObjects() {
+
         // Remove duplicate walls
         if(chunkNum.x > 0 && chunkNum != Vector2Int.right) {
             for (int i = 0; i < hWalls.GetLength (1); i++) hWalls[0, i] = false;
@@ -127,14 +128,19 @@ public class MazeChunk : MonoBehaviour {
             for (int j = 0; j < vWalls.GetLength (0); j++) vWalls[j, mm.chunkNumCells] = false;
         }
 
+        List<MeshFilter> meshesToCombine = new List<MeshFilter> ();
+
         // Horizontal walls
         for (int i = 0; i < hWalls.GetLength (0); i++) {
             for (int j = 0; j < hWalls.GetLength (1); j++) {
                 if (!hWalls[i, j]) continue;
-                GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                // GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                GameObject g = new GameObject ();
+                g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
                 g.transform.position = new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((j + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
                 g.transform.localScale = new Vector3 (0.5f, 2f, mm.chunkSize / mm.chunkNumCells);
                 g.transform.parent = transform;
+                meshesToCombine.Add (g.GetComponent<MeshFilter> ());
             }
         }
 
@@ -142,10 +148,13 @@ public class MazeChunk : MonoBehaviour {
         for (int i = 0; i < vWalls.GetLength (0); i++) {
             for (int j = 0; j < vWalls.GetLength (1); j++) {
                 if (!vWalls[i, j]) continue;
-                GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                // GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                GameObject g = new GameObject ();
+                g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
                 g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
                 g.transform.localScale = new Vector3 (mm.chunkSize / mm.chunkNumCells, 2f, 0.5f);
                 g.transform.parent = transform;
+                meshesToCombine.Add (g.GetComponent<MeshFilter> ());
             }
         }
 
@@ -159,13 +168,22 @@ public class MazeChunk : MonoBehaviour {
                 generatePillar |= (i > 0 && i < mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells) && vWalls[i, j] != vWalls[i - 1, j]) || (j > 0 && j < mm.chunkNumCells && (i == 0 || i == mm.chunkNumCells) && hWalls[i, j] != hWalls[i, j - 1]); // edge ends
                 generatePillar |= (i == 0 && (j == 0 || j == mm.chunkNumCells)) || (i == mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells)); // all chunk corners
                 if (generatePillar) {
-                    GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                    GameObject g = new GameObject ();
+                    g.AddComponent<MeshFilter> ().mesh = mm.pillarMesh;
                     g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
                     g.transform.localScale = new Vector3 (0.7f, 2.5f, 0.7f);
                     g.transform.parent = transform;
+                    meshesToCombine.Add (g.GetComponent<MeshFilter> ());
                 }
             }
         }
+
+        GameObject walls = new GameObject ();
+        Mesh combined = MeshCombiner.CombineMeshes (meshesToCombine.ToArray ());
+        walls.AddComponent<MeshFilter> ().mesh = combined;
+        walls.AddComponent<MeshRenderer> ().material = mm.wallMaterial;
+        walls.AddComponent<MeshCollider> ().sharedMesh = combined;
+        walls.transform.parent = transform;
     }
 
     /*

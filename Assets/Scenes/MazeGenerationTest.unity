@@ -306,9 +306,13 @@ MonoBehaviour:
   seed: -1
   passagewayWidth: 4
   chunkNumCells: 15
-  worldRadiusChunks: 5
+  worldRadiusChunks: 3
+  forceRegenerate: 0
   chanceOfDeletingWall: 0.05
   floorMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
+  wallMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
+  wallMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  pillarMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &488161796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3545,7 +3549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1611089754
 Transform:
   m_ObjectHideFlags: 0
