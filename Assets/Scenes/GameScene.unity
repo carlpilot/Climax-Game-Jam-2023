@@ -1702,7 +1702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e2c48c746d8aa247ac4aa2c5fc41ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: -1
+  seed: 217291261
   passagewayWidth: 4
   chunkNumCells: 15
   worldRadiusChunks: 2
@@ -1752,6 +1752,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d8271d3f4a64e1448fae122d02e47a2, type: 2}
   buildMenu: {fileID: 693159582}
   rotationStepDeg: 45
+  placeLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   placePreviewMatValid: {fileID: 2100000, guid: 9e7dc31d8c03ccd458eb399a7a6c2e3e,
     type: 2}
   placePreviewMatInvalid: {fileID: 2100000, guid: a4eafceae9bc4e543b5265dfedc99616,

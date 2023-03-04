@@ -15,18 +15,21 @@ public class Construction : MonoBehaviour
 
     [Header ("Placing Behaviour")]
     public float rotationStepDeg = 45.0f;
+    public LayerMask placeLayerMask;
     public Material placePreviewMatValid, placePreviewMatInvalid;
 
     [Header("Keyboard Assignments")]
     public KeyCode buildKey = KeyCode.B;
     public KeyCode rotateKey = KeyCode.R;
 
+    ResourceManager rm;
     BuildMenu menu;
     GameObject placePreview;
     Buildable activeBuildable;
 
     private void Awake () {
         inst = this;
+        rm = FindObjectOfType<ResourceManager> ();
         menu = buildMenu.GetComponent<BuildMenu> ();
         placePreview = new GameObject ("Place Preview");
         placePreview.SetActive (false);
@@ -42,10 +45,13 @@ public class Construction : MonoBehaviour
         // Manipulate place preview
         if(placePreview.activeInHierarchy) {
 
+            // cancel with Esc
+            if (Input.GetKeyDown (KeyCode.Escape)) placePreview.SetActive (false);
+
             // move to cursor position
             Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray, out hit)) {
+            if (Physics.Raycast (ray, out hit, maxDistance: 1000f, layerMask: placeLayerMask)) {
                 placePreview.transform.position = hit.point;
             }
 
@@ -57,9 +63,13 @@ public class Construction : MonoBehaviour
 
             // Place object
             if(Input.GetMouseButtonDown(0)) {
-                GameObject g = Instantiate (activeBuildable.prefab);
-                g.transform.position = placePreview.transform.position;
-                g.transform.rotation = placePreview.transform.rotation;
+                if (rm.Remove (activeBuildable.costs)) {
+                    GameObject g = Instantiate (activeBuildable.prefab);
+                    g.transform.position = placePreview.transform.position;
+                    g.transform.rotation = placePreview.transform.rotation;
+                }
+                // if resources are now insufficient, set invalid material
+                if (!rm.SufficientResources (activeBuildable.costs)) SetPlacePreviewMaterial (placePreviewMatInvalid);
             }
         }
     }
