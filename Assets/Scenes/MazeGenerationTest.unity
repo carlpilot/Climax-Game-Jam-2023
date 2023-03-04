@@ -170,7 +170,7 @@ MonoBehaviour:
   seed: -1
   passagewayWidth: 4
   chunkNumCells: 15
-  worldRadiusChunks: 3
+  worldRadiusChunks: 2
   forceRegenerate: 0
   chanceOfDeletingWall: 0.2
   wallHeight: 3
