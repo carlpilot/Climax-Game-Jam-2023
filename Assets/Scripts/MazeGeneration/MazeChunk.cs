@@ -197,6 +197,7 @@ public class MazeChunk : MonoBehaviour {
         walls.AddComponent<MeshFilter> ().mesh = combined;
         walls.AddComponent<MeshRenderer> ().material = mm.wallMaterial;
         walls.AddComponent<MeshCollider> ().sharedMesh = combined;
+        walls.layer = 7;
         walls.transform.parent = transform;
     }
 
