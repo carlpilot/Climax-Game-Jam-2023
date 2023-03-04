@@ -34,5 +34,6 @@ public class BuildIcon : MonoBehaviour {
 
     public void Select () {
         Debug.Log ("Selected " + b.name);
+        Construction.inst.SelectBuildable (b);
     }
 }

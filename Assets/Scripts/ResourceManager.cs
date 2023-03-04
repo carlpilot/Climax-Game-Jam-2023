@@ -16,6 +16,7 @@ public class ResourceManager : MonoBehaviour {
     private void Awake () {
         resourceCounts = new int[System.Enum.GetValues (typeof (ResourceType)).Length];
         for (int i = 0; i < resourceCounts.Length; i++) resourceCounts[i] = 0;
+        UpdateDisplay ();
     }
 
     public void Add (int amount, ResourceType type) {
@@ -31,7 +32,7 @@ public class ResourceManager : MonoBehaviour {
     public void UpdateDisplay () {
         resourceInventoryParent.gameObject.SetActive (!inventoryEmpty);
         // clear any children
-        for (int i = 0; i < resourceInventoryParent.childCount; i++) Destroy (resourceInventoryParent.GetChild (i));
+        for (int i = 0; i < resourceInventoryParent.childCount; i++) Destroy (resourceInventoryParent.GetChild (i).gameObject);
         // instantiate new resources
         for(int i = 0; i < resourceCounts.Length; i++) {
             if(resourceCounts[i] > 0) {
