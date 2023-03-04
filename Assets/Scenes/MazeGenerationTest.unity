@@ -176,8 +176,8 @@ MonoBehaviour:
   wallHeight: 2
   pillarHeight: 2.5
   floorMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
-  wallMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
-  pillarMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
+  wallMaterial: {fileID: 2100000, guid: 82aaec21631cbe1489320eaae21e4a72, type: 2}
+  pillarMaterial: {fileID: 2100000, guid: a1b1858474692924da50bfd4dd0951b1, type: 2}
   wallMesh: {fileID: 2945628201578631725, guid: e58222e8261301248a6069f24d7ba9b8,
     type: 3}
   pillarMesh: {fileID: 5784990932006127398, guid: eb6df8f0721eb1349b735ed373bfa0da,
