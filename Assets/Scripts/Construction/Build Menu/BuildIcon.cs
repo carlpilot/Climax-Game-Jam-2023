@@ -23,12 +23,12 @@ public class BuildIcon : MonoBehaviour {
 
         if (b.woodRequired > 0) {
             RequiredResource r = Instantiate (menu.resourcePrefab, resourceParent).GetComponent<RequiredResource> ();
-            r.Setup (menu.woodIcon, b.woodRequired);
+            r.Setup (menu.rm.icons[(int) ResourceManager.ResourceType.Wood], b.woodRequired);
         }
 
         if (b.metalRequired > 0) {
             RequiredResource r = Instantiate (menu.resourcePrefab, resourceParent).GetComponent<RequiredResource> ();
-            r.Setup (menu.metalIcon, b.metalRequired);
+            r.Setup (menu.rm.icons[(int) ResourceManager.ResourceType.Metal], b.metalRequired);
         }
     }
 
