@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MazeMaker : MonoBehaviour {
 
@@ -26,7 +27,13 @@ public class MazeMaker : MonoBehaviour {
     public Mesh wallMesh;
     public Mesh pillarMesh;
 
+    [Header ("UI")]
+    public GameObject mazeShiftNotice;
+    public Slider mazeShiftProgress;
+
     Mesh floorMesh;
+    int floorMeshRes = 0;
+    float floorPW = 0f;
 
     Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject> ();
 
@@ -53,6 +60,28 @@ public class MazeMaker : MonoBehaviour {
         FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
     }
 
+    public void StepGenerateWorld () {
+        seed++; // randomise the world every time it regenerates
+        mazeShiftProgress.value = 0f;
+        StartCoroutine (RegenerateCoroutine ());
+    }
+
+    IEnumerator RegenerateCoroutine() {
+        mazeShiftNotice.SetActive (true);
+        int numToGenerate = (worldRadiusChunks * 2 + 1) * (worldRadiusChunks * 2 + 1);
+        int numGenerated = 0;
+        for (int i = -worldRadiusChunks; i <= worldRadiusChunks; i++) {
+            for (int j = -worldRadiusChunks; j <= worldRadiusChunks; j++) {
+                GenerateChunk (new Vector2Int (i, j));
+                numGenerated++;
+                mazeShiftProgress.value = (float) numGenerated / numToGenerate;
+                yield return new WaitForEndOfFrame ();
+            }
+        }
+        FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
+        mazeShiftNotice.SetActive (false);
+    }
+
     public void GenerateChunk (Vector2Int chunkNum) {
         if (chunks.ContainsKey (chunkNum)) RemoveChunk (chunkNum);
         Vector3 worldPosition = new Vector3 (chunkNum.x, 0f, chunkNum.y) * chunkSize;
@@ -70,7 +99,7 @@ public class MazeMaker : MonoBehaviour {
             Destroy (g);
         }
         chunks = new Dictionary<Vector2Int, GameObject> ();
-        GenerateWorld ();
+        StepGenerateWorld ();
     }
 
     public void RemoveChunk (Vector2Int chunkNum) {
@@ -79,7 +108,7 @@ public class MazeMaker : MonoBehaviour {
     }
 
     public Mesh GetFloorMesh () {
-        if (floorMesh != null) return floorMesh;
+        if (floorMesh != null && floorMeshRes == chunkNumCells && floorPW == passagewayWidth) return floorMesh;
         Mesh m = new Mesh ();
         m.name = "Floor Mesh";
 
@@ -112,6 +141,8 @@ public class MazeMaker : MonoBehaviour {
         m.RecalculateBounds ();
 
         floorMesh = m;
+        floorMeshRes = chunkNumCells;
+        floorPW = passagewayWidth;
         return m;
     }
 }
