@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
             if (player)
             {
                 var sword = player.GetComponentInChildren<Sword>();
-                if (sword && sword.isBlocking && Vector3.Angle(transform.forward, -sword.transform.forward) < 90){
+                if (sword && sword.isBlocking){
                     transform.forward = -transform.forward;
                     var rb = GetComponent<Rigidbody>();
                     rb.velocity = -rb.velocity;

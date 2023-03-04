@@ -67,6 +67,8 @@ public class Sword : MonoBehaviour
     IEnumerator TakePlayerDamageAfter(float delay, float damage, PlayerHealth player)
     {
         yield return new WaitForSeconds(delay);
+        var sword = player.GetComponentInChildren<Sword>();
+        if (sword && sword.isBlocking) yield break;
         player.TakeDamage(damage);
     }
 
