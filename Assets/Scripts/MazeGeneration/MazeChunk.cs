@@ -198,6 +198,7 @@ public class MazeChunk : MonoBehaviour {
         }
 
         GameObject walls = new GameObject ();
+        walls.name = "Walls " + chunkNum;
         Mesh combinedWalls = MeshCombiner.CombineMeshes (wallCombine.ToArray ());
         walls.AddComponent<MeshFilter> ().mesh = combinedWalls;
         walls.AddComponent<MeshRenderer> ().material = mm.wallMaterial;
@@ -206,6 +207,7 @@ public class MazeChunk : MonoBehaviour {
         walls.transform.parent = transform;
 
         GameObject pillars = new GameObject ();
+        pillars.name = "Pillars " + chunkNum;
         Mesh combinedPillars = MeshCombiner.CombineMeshes (pillarCombine.ToArray ());
         pillars.AddComponent<MeshFilter> ().mesh = combinedPillars;
         pillars.AddComponent<MeshRenderer> ().material = mm.pillarMaterial;
