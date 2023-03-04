@@ -119,6 +119,11 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
+    public void EmptyCurrentHotbarSlot(){
+        items[activeItemIndex] = null;
+        UpdateActiveItem();
+    }
+
     void UpdateActiveItem(){
         // Ignore if we are already correct
         if (activeItem == items[activeItemIndex]){
@@ -133,6 +138,8 @@ public class PlayerInventory : MonoBehaviour
                 activeItemGM = Instantiate(items[activeItemIndex].gun.gameObject, transform);
             } else if(activeItem.sword){
                 activeItemGM = Instantiate(items[activeItemIndex].sword.gameObject, transform);
+            } else if (activeItem.healthbox){
+                activeItemGM = Instantiate(items[activeItemIndex].healthbox.gameObject, transform);
             } else{
                 print("Not supported active item");
             }
