@@ -24,6 +24,11 @@ public class Enemy : MonoBehaviour
     Sword sword;
     Gun gun;
 
+    float sineTimer;
+    public float shootBurstSpeed = 1f;
+    // between -1 and 1
+    public float shootBurstThreshold = 0f;
+
 
     void Awake()
     {
@@ -35,6 +40,7 @@ public class Enemy : MonoBehaviour
     
     void Start()
     {
+        sineTimer = Random.Range(0f, 200f);
         player = GameObject.FindGameObjectWithTag(playerTag).GetComponentInChildren<PlayerMovement>().gameObject;
     }
     
@@ -56,7 +62,7 @@ public class Enemy : MonoBehaviour
                     agent.isStopped = false;
                     agent.SetDestination(player.transform.position);
                 }
-                isAttacking = canSeePlayer;
+                isAttacking = canSeePlayer && Mathf.Sin(sineTimer) > shootBurstThreshold;
             } else{
                 if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
                 {
@@ -77,6 +83,8 @@ public class Enemy : MonoBehaviour
 
         if (sword) sword.aiIsAttacking = isAttacking;
         if (gun) gun.aiIsAttacking = isAttacking;
+
+        sineTimer += Time.deltaTime * shootBurstSpeed;
     }
 
     public void TakeDamage(float damage)
