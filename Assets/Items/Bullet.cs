@@ -7,6 +7,15 @@ public class Bullet : MonoBehaviour
     public GameObject hitParticlesPrefab;
     public float directDamage = 20f;
     public float knockbackForce = 10f;
+    
+    void Start()
+    {
+        StartCoroutine(DestroyAfter(20f));
+    }
+    IEnumerator DestroyAfter(float time){
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
+    }
 
     void Update()
     {
@@ -42,4 +51,5 @@ public class Bullet : MonoBehaviour
             }
         }
     }
+    
 }
