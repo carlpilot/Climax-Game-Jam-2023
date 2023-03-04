@@ -58,7 +58,8 @@ public class Enemy : MonoBehaviour
                 {
                     // Stop the navmesh agent
                     agent.isStopped = true;
-                    transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
+                    var targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime);
                 } else{
                     // Start the navmesh agent
                     agent.isStopped = false;
@@ -70,7 +71,8 @@ public class Enemy : MonoBehaviour
                 {
                     // Stop the navmesh agent
                     agent.isStopped = true;
-                    transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
+                    var targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime);
                     isAttacking = true;
                 } else{
                     // Start the navmesh agent
