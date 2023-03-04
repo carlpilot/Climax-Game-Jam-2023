@@ -52,7 +52,7 @@ public class Sword : MonoBehaviour
                 }
             }
         }
-        animator.SetBool("isBlocking", Input.GetMouseButton(1));
+        animator.SetBool("isBlocking", Input.GetMouseButton(1)&&isPlayerSword);
         isBlocking = animator.GetCurrentAnimatorStateInfo(0).IsName("Block");
 
     }

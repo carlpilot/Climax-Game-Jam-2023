@@ -11,8 +11,9 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.1f);
-        foreach (var col in hitColliders)
+        if (hitColliders.Length > 0)
         {
+            var col = hitColliders[0];
             var p = Instantiate(hitParticlesPrefab, transform.position, Quaternion.identity);
             p.SetActive(true);
             gameObject.SetActive(false);
@@ -21,16 +22,24 @@ public class Bullet : MonoBehaviour
             {
                 enemy.TakeDamage(directDamage);
                 enemy.Knockback(transform.forward, knockbackForce);
+                Destroy(gameObject);
             }
             var player = col.gameObject.GetComponent<PlayerHealth>();
             if (player)
             {
-                player.TakeDamage(directDamage);
+                var sword = player.GetComponentInChildren<Sword>();
+                if (sword && sword.isBlocking && Vector3.Angle(transform.forward, -sword.transform.forward) < 90){
+                    transform.forward = -transform.forward;
+                    var rb = GetComponent<Rigidbody>();
+                    rb.velocity = -rb.velocity;
+                    transform.Translate(Vector3.forward * 0.15f, Space.Self);
+                    p.SetActive(false);
+                    gameObject.SetActive(true);
+                } else{
+                    player.TakeDamage(directDamage);
+                    Destroy(gameObject);
+                }
             }
-        }
-        if (hitColliders.Length > 0)
-        {
-            Destroy(gameObject);
         }
     }
 }

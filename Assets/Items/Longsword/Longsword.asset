@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Longsword
   m_EditorClassIdentifier: 
   itemName: Longsword
-  itemImage: {fileID: 21300000, guid: c57c50f64613cfb3ca3c8ad967ab9aa0, type: 3}
+  itemImage: {fileID: 21300000, guid: 6d3c932da82b890f295cc9889c873a44, type: 3}
   pickupPrefab: {fileID: 2310552708018082511, guid: 1195f989836b5f62eaf0b06d2dee2a55,
     type: 3}
   gun: {fileID: 0}
