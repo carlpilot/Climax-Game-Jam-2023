@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
 
     Rigidbody rb;
 
+    public float recoverySpeed = 0.1f;
+
 
     void Awake()
     {
@@ -67,8 +69,24 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         rb.velocity = direction * force;
-        yield return new WaitForSeconds(force/5f);
+        while (rb.velocity.magnitude > recoverySpeed)
+        {
+            yield return null;
+        }
         rb.isKinematic = true;
         agent.enabled = true;
+    }
+
+    // Check if we collide with any other enemies
+    void OnCollisionEnter(Collision col)
+    {
+        var enemy = col.gameObject.GetComponent<Enemy>();
+        if (enemy)
+        {
+            // Get the direction to the other enemy
+            Vector3 direction = (col.gameObject.transform.position - transform.position).normalized;
+            // Apply the knockback
+            enemy.Knockback(direction, 10.0f);
+        }
     }
 }

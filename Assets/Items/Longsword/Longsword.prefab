@@ -101,7 +101,7 @@ MonoBehaviour:
   range: 4
   damage: 60
   angle: 45
-  knockback: 20
+  knockback: 10
   damageDelay: 0.15
 --- !u!1001 &6658705046235340251
 PrefabInstance:
