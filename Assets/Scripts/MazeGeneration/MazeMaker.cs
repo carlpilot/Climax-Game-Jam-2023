@@ -95,11 +95,6 @@ public class MazeMaker : MonoBehaviour {
         mc.chunkNum = chunkNum;
         mc.Generate ();
 
-        GameObject navFloor = Instantiate (navMeshPrefab, chunk.transform);
-        navFloor.name = "Floor " + chunkNum;
-        navFloor.GetComponent<NavMeshSurface> ().size = new Vector3 (chunkSize + 1, 5f, chunkSize + 1);
-        navFloor.GetComponent<NavMeshSurface> ().BuildNavMesh ();
-
         chunks[chunkNum] = chunk;
     }
 
