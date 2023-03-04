@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     Rigidbody rb;
 
     public float recoverySpeed = 0.1f;
+    public float knockbackForce = 2f;
+    public bool enableCollisionChaining = false;
 
 
     void Awake()
@@ -60,9 +62,13 @@ public class Enemy : MonoBehaviour
 
     public void Knockback(Vector3 direction, float force)
     {
-        rb.isKinematic = false;
-        agent.enabled = false;
-        StartCoroutine(KnockbackNextFrame(direction, force));
+        if (rb.isKinematic){
+            rb.isKinematic = false;
+            agent.enabled = false;
+            StartCoroutine(KnockbackNextFrame(direction, force));
+        } else{
+            rb.velocity = direction * force;
+        }
     }
 
     IEnumerator KnockbackNextFrame(Vector3 direction, float force)
@@ -80,13 +86,15 @@ public class Enemy : MonoBehaviour
     // Check if we collide with any other enemies
     void OnCollisionEnter(Collision col)
     {
+        if (!enableCollisionChaining) return;
         var enemy = col.gameObject.GetComponent<Enemy>();
         if (enemy)
         {
             // Get the direction to the other enemy
             Vector3 direction = (col.gameObject.transform.position - transform.position).normalized;
             // Apply the knockback
-            enemy.Knockback(direction, 10.0f);
+            enemy.Knockback(direction, knockbackForce);
+            
         }
     }
 }
