@@ -9,7 +9,7 @@ public class EnemySpawnManager : MonoBehaviour
     public GameObject light;
     void Awake()
     {
-        
+        time = dayDuration/4f*2.1f;
     }
     
     void Start()
@@ -19,8 +19,10 @@ public class EnemySpawnManager : MonoBehaviour
     
     void Update()
     {
-        var degrees = time/dayDuration * Mathf.PI * 2f;
-        var currentBrightness = Mathf.Sin(degrees);
-        light.transform.rotation = Quaternion.Euler(0, 0, degrees * 180f);
+        var rads = time/dayDuration * Mathf.PI * 2f;
+        var degs = rads/Mathf.PI * 180f;
+        var currentBrightness = Mathf.Sin(rads);
+        light.transform.rotation = Quaternion.Euler(-degs, 30, 0);
+        time += Time.deltaTime;
     }
 }

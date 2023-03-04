@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1023c0ff710adf28d973b125779a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 1
+  dayDuration: 120
   light: {fileID: 491049229}
 --- !u!4 &1249743551
 Transform:
