@@ -10,8 +10,18 @@ PrefabInstance:
     - target: {fileID: 1029248601696635914, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
         type: 3}
       propertyPath: m_Name
-      value: GenericBullet
+      value: PistolBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 1761543783003781448, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9cd72250f3fceb0e95f5d3fa40aa527, type: 2}
+    - target: {fileID: 2394433879890272193, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9cd72250f3fceb0e95f5d3fa40aa527, type: 2}
     - target: {fileID: 3347406414764691651, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
         type: 3}
       propertyPath: m_RootOrder
