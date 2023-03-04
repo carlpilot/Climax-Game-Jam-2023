@@ -16,5 +16,5 @@ public class Item : ScriptableObject
     [Header("Types (pick one)")]
     public Gun gun;
     public Sword sword;
-    public HealthBox healthbox;
+    public ToolBox toolbox;
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 341296163565e7927a3269471c3dc0b3, type: 3}
-  m_Name: Health
+  m_Name: Shifter
   m_EditorClassIdentifier: 
-  itemName: HealthBox
-  itemImage: {fileID: 21300000, guid: d9efc4fb825bd783a9e8407402e8a7a7, type: 3}
-  pickupPrefab: {fileID: 7797057918050619845, guid: 8347d985a73419c118a2b2ab202bbd20,
+  itemName: Shifter
+  itemImage: {fileID: 0}
+  pickupPrefab: {fileID: 2304736525451562235, guid: 5dccc17084669eafa938427e46d4f3ec,
     type: 3}
   gun: {fileID: 0}
   sword: {fileID: 0}
-  toolbox: {fileID: 3562447267814365504, guid: 5a51cd1c5861ad6f4b0bbdef1d5cb7ab, type: 3}
+  toolbox: {fileID: 5278374724333255931, guid: a242c88ca68e9d75abad7417cc9869c0, type: 3}
