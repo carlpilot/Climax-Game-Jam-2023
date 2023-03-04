@@ -200,6 +200,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildables: []
+  buildMenu: {fileID: 0}
+  rotationStepDeg: 45
+  placeLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  placePreviewMatValid: {fileID: 0}
+  placePreviewMatInvalid: {fileID: 0}
+  buildKey: 98
+  rotateKey: 114
 --- !u!1001 &63243035
 PrefabInstance:
   m_ObjectHideFlags: 0
