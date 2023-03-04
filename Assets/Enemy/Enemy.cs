@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     public bool enableCollisionChaining = false;
 
     Sword sword;
+    Gun gun;
 
 
     void Awake()
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         sword = GetComponentInChildren<Sword>();
+        gun = GetComponentInChildren<Gun>();
     }
     
     void Start()
@@ -40,22 +42,41 @@ public class Enemy : MonoBehaviour
     {
         if (rb.isKinematic)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
-            {
-                // Stop the navmesh agent
-                agent.isStopped = true;
-                isAttacking = true;
+            if (gun){
+                // Check if we raycast towards the player that we hit the player
+                var canSeePlayer =  (Physics.Raycast(transform.position, player.transform.position - transform.position, out var hit, 100.0f) && hit.collider.gameObject.GetComponent<PlayerHealth>());
+                
+                if (Vector3.Distance(transform.position, player.transform.position) < attackRange && canSeePlayer)
+                {
+                    // Stop the navmesh agent
+                    agent.isStopped = true;
+                    transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position, Vector3.up));
+                } else{
+                    // Start the navmesh agent
+                    agent.isStopped = false;
+                    agent.SetDestination(player.transform.position);
+                }
+                isAttacking = canSeePlayer;
             } else{
-                // Start the navmesh agent
-                agent.isStopped = false;
-                agent.SetDestination(player.transform.position);
-                isAttacking = false;
+                if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+                {
+                    // Stop the navmesh agent
+                    agent.isStopped = true;
+                    transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position, Vector3.up));
+                    isAttacking = true;
+                } else{
+                    // Start the navmesh agent
+                    agent.isStopped = false;
+                    agent.SetDestination(player.transform.position);
+                    isAttacking = false;
+                }
             }
         } else{
             isAttacking = false;
         }
 
         if (sword) sword.aiIsAttacking = isAttacking;
+        if (gun) gun.aiIsAttacking = isAttacking;
     }
 
     public void TakeDamage(float damage)

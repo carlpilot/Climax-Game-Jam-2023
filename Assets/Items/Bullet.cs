@@ -22,6 +22,11 @@ public class Bullet : MonoBehaviour
                 enemy.TakeDamage(directDamage);
                 enemy.Knockback(transform.forward, knockbackForce);
             }
+            var player = col.gameObject.GetComponent<PlayerHealth>();
+            if (player)
+            {
+                player.TakeDamage(directDamage);
+            }
         }
         if (hitColliders.Length > 0)
         {

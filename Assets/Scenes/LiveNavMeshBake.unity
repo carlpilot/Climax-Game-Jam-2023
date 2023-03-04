@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72707418}
   - component: {fileID: 72707419}
+  - component: {fileID: 72707420}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -167,8 +168,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d3c43e65a30c1a19258f10466a73a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRadius: 30
-  enemyPrefab: {fileID: 311110705051888663, guid: 89763dddc2415d1fb933170895286401,
+  spawnRadius: 15
+  enemyPrefab: {fileID: 1642685637007118686, guid: 409495e35624cce0db648f5439c9f04a,
+    type: 3}
+  spawnDelay: 2
+--- !u!114 &72707420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72707417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d3c43e65a30c1a19258f10466a73a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRadius: 15
+  enemyPrefab: {fileID: 5358131057614193093, guid: 3a4bf65c7bad531859163b62091dfd4d,
     type: 3}
   spawnDelay: 2
 --- !u!1 &93449355

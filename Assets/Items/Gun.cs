@@ -16,6 +16,10 @@ public class Gun : MonoBehaviour
 
     public float spread = 0.1f;
 
+    public bool isPlayerGun = true;
+
+    public bool aiIsAttacking = false;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -29,7 +33,8 @@ public class Gun : MonoBehaviour
     void Update()
     {
         var canShoot = animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
-        if (canShoot && ((Input.GetMouseButtonDown(0) && !isFullAuto) || (Input.GetMouseButton(0) && isFullAuto)))
+        var playershoot = ((Input.GetMouseButtonDown(0) && !isFullAuto) || (Input.GetMouseButton(0) && isFullAuto));
+        if (canShoot && ((playershoot && isPlayerGun) || (aiIsAttacking && !isPlayerGun)))
         {
             var spreadVel = Vector3.ProjectOnPlane(Random.insideUnitSphere, muzzle.forward).normalized * spread;
             var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
