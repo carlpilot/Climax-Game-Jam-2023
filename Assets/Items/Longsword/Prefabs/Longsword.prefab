@@ -103,6 +103,8 @@ MonoBehaviour:
   angle: 45
   knockback: 10
   damageDelay: 0.15
+  isPlayerSword: 1
+  aiIsAttacking: 0
 --- !u!1001 &6658705046235340251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -185,6 +187,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fac818a2d619e539c8e811b2948b7186,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 761cacc28dbfdf3069c6b48928226f0c, type: 2}
     - target: {fileID: 919132149155446097, guid: fac818a2d619e539c8e811b2948b7186,
         type: 3}
       propertyPath: m_Name

@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float health = 100;
+    public float health {get; private set;}
+    public float maxHealth = 500;
+    public HealthBar bar;
     void Awake()
     {
-        
+        health = maxHealth;
     }
     
     void Start()
     {
-        
+        bar.SetHealth(health, maxHealth);
     }
     
     void Update()
@@ -25,8 +27,10 @@ public class PlayerHealth : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            health = 0;
             //Destroy(gameObject);
             print("Get oofed");
         }
+        bar.SetHealth(health, maxHealth);
     }
 }
