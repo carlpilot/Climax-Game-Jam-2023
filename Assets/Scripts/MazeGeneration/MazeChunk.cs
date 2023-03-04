@@ -113,6 +113,20 @@ public class MazeChunk : MonoBehaviour {
     }
 
     void SpawnWallObjects() {
+        // Remove duplicate walls
+        if(chunkNum.x > 0 && chunkNum != Vector2Int.right) {
+            for (int i = 0; i < hWalls.GetLength (1); i++) hWalls[0, i] = false;
+        }
+        if(chunkNum.x < 0 && chunkNum != Vector2Int.left) {
+            for (int i = 0; i < hWalls.GetLength (1); i++) hWalls[mm.chunkNumCells, i] = false;
+        }
+        if(chunkNum.y > 0 && chunkNum != Vector2Int.up) {
+            for (int j = 0; j < vWalls.GetLength (0); j++) vWalls[j, 0] = false;
+        }
+        if(chunkNum.y < 0 && chunkNum != Vector2Int.down) {
+            for (int j = 0; j < vWalls.GetLength (0); j++) vWalls[j, mm.chunkNumCells] = false;
+        }
+
         // Horizontal walls
         for (int i = 0; i < hWalls.GetLength (0); i++) {
             for (int j = 0; j < hWalls.GetLength (1); j++) {
@@ -138,10 +152,18 @@ public class MazeChunk : MonoBehaviour {
         // Pillars
         for(int i = 0; i <= mm.chunkNumCells; i++) {
             for(int j = 0; j <= mm.chunkNumCells; j++) {
-                GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
-                g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
-                g.transform.localScale = new Vector3 (0.7f, 2.5f, 0.7f);
-                g.transform.parent = transform;
+                bool generatePillar = false;
+                bool nonedge = i > 0 && j > 0 && i < mm.chunkNumCells && j < mm.chunkNumCells;
+                generatePillar |= nonedge && (hWalls[i, j] != hWalls[i, j - 1] && vWalls[i, j] != vWalls[i - 1, j]); // corners
+                generatePillar |= nonedge && ((hWalls[i, j] != hWalls[i, j - 1] && !vWalls[i, j] && !vWalls[i - 1, j]) || (vWalls[i, j] != vWalls[i - 1, j] && !hWalls[i, j] && !hWalls[i, j - 1])); // ends
+                generatePillar |= (i > 0 && i < mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells) && vWalls[i, j] != vWalls[i - 1, j]) || (j > 0 && j < mm.chunkNumCells && (i == 0 || i == mm.chunkNumCells) && hWalls[i, j] != hWalls[i, j - 1]); // edge ends
+                generatePillar |= (i == 0 && (j == 0 || j == mm.chunkNumCells)) || (i == mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells)); // all chunk corners
+                if (generatePillar) {
+                    GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
+                    g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                    g.transform.localScale = new Vector3 (0.7f, 2.5f, 0.7f);
+                    g.transform.parent = transform;
+                }
             }
         }
     }
