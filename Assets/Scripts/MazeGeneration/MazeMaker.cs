@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class MazeMaker : MonoBehaviour {
@@ -29,6 +30,8 @@ public class MazeMaker : MonoBehaviour {
                 GenerateChunk (new Vector2Int (i, j));
             }
         }
+
+        FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
     }
 
     public void GenerateChunk (Vector2Int chunkNum) {
