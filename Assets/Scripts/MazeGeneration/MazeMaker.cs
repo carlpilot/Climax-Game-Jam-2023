@@ -33,6 +33,9 @@ public class MazeMaker : MonoBehaviour {
     public GameObject mazeShiftNotice;
     public Slider mazeShiftProgress;
 
+    [Header ("Resources")]
+    public ResourceChance[] resourceChances;
+
     Mesh floorMesh;
     int floorMeshRes = 0;
     float floorPW = 0f;
@@ -149,4 +152,10 @@ public class MazeMaker : MonoBehaviour {
         floorPW = passagewayWidth;
         return m;
     }
+}
+
+[System.Serializable]
+public struct ResourceChance {
+    public GameObject prefab;
+    public float chance;
 }

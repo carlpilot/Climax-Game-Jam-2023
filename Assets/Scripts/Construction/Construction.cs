@@ -40,13 +40,14 @@ public class Construction : MonoBehaviour
         // Open build menu if key pressed
         if(Input.GetKeyDown(buildKey) && !buildMenu.activeInHierarchy) {
             buildMenu.SetActive (true);
+            placePreview.SetActive (false); // cancel place if build reopened
         }
 
         // Manipulate place preview
         if(placePreview.activeInHierarchy) {
 
-            // cancel with Esc
-            if (Input.GetKeyDown (KeyCode.Escape)) placePreview.SetActive (false);
+            // cancel with Esc or RMB
+            if (Input.GetKeyDown (KeyCode.Escape) || Input.GetMouseButtonDown(1)) placePreview.SetActive (false);
 
             // move to cursor position
             Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);

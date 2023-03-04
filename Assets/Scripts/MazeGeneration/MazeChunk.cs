@@ -23,6 +23,7 @@ public class MazeChunk : MonoBehaviour {
         if (chunkNum != Vector2.zero) {
             SolveMaze ();
             CreateWalls ();
+            SpawnResources ();
         }
         CreateNavMeshFloor ();
         if (chunkNum != Vector2.zero) {
@@ -271,6 +272,26 @@ public class MazeChunk : MonoBehaviour {
         l.endTransform = t2;
         l.biDirectional = true;
         l.UpdatePositions ();
+    }
+
+    public void SpawnResources () {
+        // Ensure consistent randomness
+        Random.InitState (("Resources" + mm.seed + chunkNum).GetHashCode ());
+
+        for (int i = 0; i < mm.chunkNumCells; i++) {
+            for(int j = 0; j < mm.chunkNumCells; j++) {
+                for(int k = 0; k < mm.resourceChances.Length; k++) {
+                    if(Random.value < mm.resourceChances[k].chance) {
+                        Vector3 worldPos = chunkWallToWorld (i, j);
+                        GameObject r = Instantiate (mm.resourceChances[k].prefab, transform);
+                        Vector2 random = Vector3.zero;// Random.insideUnitCircle * mm.passagewayWidth / 3.0f;
+                        r.transform.position = worldPos + new Vector3 (random.x, 0f, random.y);
+                        r.transform.Rotate (Vector3.up, Random.Range (-180.0f, 180.0f));
+                        break; // break inner (k) loop, don't spawn another resource on this (i, j) tile
+                    }
+                }
+            }
+        }
     }
 
     /*
