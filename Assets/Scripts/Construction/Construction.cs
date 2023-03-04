@@ -81,6 +81,9 @@ public class Construction : MonoBehaviour
         placePreview.transform.position = Vector3.zero;
         placePreview.transform.rotation = Quaternion.identity;
 
+        // Remove any prior children of the place preview
+        for (int i = 0; i < placePreview.transform.childCount; i++) Destroy (placePreview.transform.GetChild (i).gameObject);
+
         // Instantiate prefab as the place preview
         GameObject g = Instantiate (b.prefab, placePreview.transform);
         foreach (Collider col in placePreview.GetComponentsInChildren<Collider> ()) Destroy (col);
