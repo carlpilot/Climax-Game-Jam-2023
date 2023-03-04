@@ -9,9 +9,8 @@ public class BuildMenu : MonoBehaviour
     public GameObject iconPrefab;
     public GameObject resourcePrefab;
 
-    [Header ("Resource Icons")]
-    public Sprite woodIcon;
-    public Sprite metalIcon;
+    [HideInInspector]
+    public ResourceManager rm;
 
     private void Awake () {
         con = FindObjectOfType<Construction> ();
