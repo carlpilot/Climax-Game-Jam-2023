@@ -10,8 +10,18 @@ PrefabInstance:
     - target: {fileID: 1029248601696635914, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
         type: 3}
       propertyPath: m_Name
-      value: GenericBullet
+      value: LMGBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 1761543783003781448, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 230e184f0ddc99c65a7e3d0923716ef4, type: 2}
+    - target: {fileID: 2394433879890272193, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 230e184f0ddc99c65a7e3d0923716ef4, type: 2}
     - target: {fileID: 3347406414764691651, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
         type: 3}
       propertyPath: m_RootOrder
@@ -66,6 +76,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540225286501604908, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540225286501604908, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.9295866
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540225286501604908, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973993148641393190, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 576b8f6112a3c282c8b9c2a7c00b9b99, type: 3}
