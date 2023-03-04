@@ -170,9 +170,11 @@ MonoBehaviour:
   seed: -1
   passagewayWidth: 4
   chunkNumCells: 15
-  worldRadiusChunks: 5
+  worldRadiusChunks: 3
   forceRegenerate: 0
-  chanceOfDeletingWall: 0.05
+  chanceOfDeletingWall: 0
+  wallHeight: 2
+  pillarHeight: 2.5
   floorMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
   wallMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
   wallMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -1503,22 +1505,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 697276567, guid: c8fda5b44bde54109a54f282c21c9814, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 697276567, guid: c8fda5b44bde54109a54f282c21c9814, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 697276567, guid: c8fda5b44bde54109a54f282c21c9814, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 697276567, guid: c8fda5b44bde54109a54f282c21c9814, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8377967547870545240, guid: c8fda5b44bde54109a54f282c21c9814,
         type: 3}
       propertyPath: m_Name
@@ -1587,7 +1573,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1861991118}
   m_PrefabAsset: {fileID: 0}
---- !u!96 &1861991125
+--- !u!96 &1861991131
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -1638,7 +1624,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.45833588
+        value: 0.5277786
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1647,7 +1633,7 @@ TrailRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.22221714
+        value: 0.2638889
         inSlope: 0
         outSlope: 0
         tangentMode: 0
