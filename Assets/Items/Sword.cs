@@ -16,6 +16,10 @@ public class Sword : MonoBehaviour
 
     public bool aiIsAttacking = false;
 
+    public TrailRenderer trail;
+
+    public GameObject boom;
+
     public bool isBlocking {get; private set;}
     void Awake()
     {
@@ -54,7 +58,7 @@ public class Sword : MonoBehaviour
         }
         animator.SetBool("isBlocking", Input.GetMouseButton(1)&&isPlayerSword);
         isBlocking = animator.GetCurrentAnimatorStateInfo(0).IsName("Block");
-
+        if (trail) trail.emitting = animator.GetCurrentAnimatorStateInfo(0).IsName("Swing");
     }
 
     IEnumerator TakeDamageAfter(float delay, float damage, Enemy enemy, Vector3 dir)
@@ -62,6 +66,8 @@ public class Sword : MonoBehaviour
         yield return new WaitForSeconds(delay);
         enemy.TakeDamage(damage);
         enemy.Knockback(dir.normalized, knockback);
+        var b = Instantiate(boom, enemy.transform.position, Quaternion.identity);
+        b.SetActive(true);
     }
 
     IEnumerator TakePlayerDamageAfter(float delay, float damage, PlayerHealth player)

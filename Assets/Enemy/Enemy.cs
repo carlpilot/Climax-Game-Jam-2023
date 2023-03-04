@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     Sword sword;
     Gun gun;
 
+    public GameObject deathEffect;
+
     float sineTimer;
     public float shootBurstSpeed = 1f;
     // between -1 and 1
@@ -92,6 +94,8 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            deathEffect.SetActive(true);
+            deathEffect.transform.parent = null;
             Destroy(gameObject);
         }
     }
