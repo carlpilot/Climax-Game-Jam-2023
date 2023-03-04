@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52902297}
   - component: {fileID: 52902298}
+  - component: {fileID: 52902299}
   m_Layer: 0
   m_Name: Handler
   m_TagString: Untagged
@@ -186,6 +187,18 @@ MonoBehaviour:
     type: 3}
   mazeShiftNotice: {fileID: 1199992296}
   mazeShiftProgress: {fileID: 250052862}
+--- !u!114 &52902299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52902296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a4962850c74a445acda2387a6a1196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &63243035
 PrefabInstance:
   m_ObjectHideFlags: 0
