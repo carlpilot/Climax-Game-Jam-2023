@@ -23,7 +23,9 @@ public class MazeChunk : MonoBehaviour {
         if (chunkNum != Vector2.zero) {
             SolveMaze ();
             CreateWalls ();
-            CreateNavMeshFloor ();
+        }
+        CreateNavMeshFloor ();
+        if (chunkNum != Vector2.zero) {
             LinkNavMeshes ();
         }
     }
@@ -229,25 +231,25 @@ public class MazeChunk : MonoBehaviour {
 
     public void LinkNavMeshes () {
         // +x wall
-        if(chunkNum.x >= 0) {
+        if(chunkNum.x >= 0 || chunkNum == Vector2Int.left) {
             for(int j = 0; j < hWalls.GetLength(1); j++) {
                 if (!hWalls[mm.chunkNumCells, j]) CreateOffMeshLink (chunkWallToWorld (mm.chunkNumCells, j + 0.5f), Vector3.right);
             }
         }
         // -x wall
-        if(chunkNum.x <= 0) {
+        if(chunkNum.x <= 0 || chunkNum == Vector2Int.right) {
             for (int j = 0; j < hWalls.GetLength (1); j++) {
                 if (!hWalls[0, j]) CreateOffMeshLink (chunkWallToWorld (0, j + 0.5f), Vector3.right);
             }
         }
         // +z wall
-        if(chunkNum.y >= 0) {
+        if(chunkNum.y >= 0 || chunkNum == Vector2Int.down) {
             for (int i = 0; i < vWalls.GetLength (0); i++) {
                 if (!vWalls[i, mm.chunkNumCells]) CreateOffMeshLink (chunkWallToWorld (i + 0.5f, mm.chunkNumCells), Vector3.forward);
             }
         }
         // -z wall
-        if (chunkNum.y <= 0) {
+        if (chunkNum.y <= 0 || chunkNum == Vector2Int.up) {
             for (int i = 0; i < vWalls.GetLength (0); i++) {
                 if (!vWalls[i, 0]) CreateOffMeshLink (chunkWallToWorld (i + 0.5f, 0), Vector3.forward);
             }
@@ -256,7 +258,7 @@ public class MazeChunk : MonoBehaviour {
 
     void CreateOffMeshLink (Vector3 position, Vector3 spacing) {
         GameObject g = new GameObject ();
-        g.name = "Nav Mesh Link";
+        g.name = "Off Mesh Link";
         g.transform.position = position;
         OffMeshLink l = g.AddComponent<OffMeshLink> ();
         Transform t1 = new GameObject ().transform;
