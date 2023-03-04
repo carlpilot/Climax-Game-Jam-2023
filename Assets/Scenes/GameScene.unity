@@ -1750,6 +1750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildables:
   - {fileID: 11400000, guid: 3d8271d3f4a64e1448fae122d02e47a2, type: 2}
+  - {fileID: 11400000, guid: 251eebfeb756431419e36d78cd6e13c3, type: 2}
   buildMenu: {fileID: 693159582}
   rotationStepDeg: 45
   placeLayerMask:
