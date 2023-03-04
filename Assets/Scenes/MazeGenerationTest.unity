@@ -147,7 +147,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52902296}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -169,16 +169,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: -1
   passagewayWidth: 4
-  chunkNumCells: 15
-  worldRadiusChunks: 2
+  chunkNumCells: 9
+  worldRadiusChunks: 1
   forceRegenerate: 0
   chanceOfDeletingWall: 0.2
-  wallHeight: 3
-  pillarHeight: 3.5
+  wallHeight: 2
+  pillarHeight: 2.5
   floorMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
   wallMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
-  wallMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  pillarMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  pillarMaterial: {fileID: 2100000, guid: 0f0cd3b913df2354aaca13e7de0509d5, type: 2}
+  wallMesh: {fileID: 2945628201578631725, guid: e58222e8261301248a6069f24d7ba9b8,
+    type: 3}
+  pillarMesh: {fileID: 5784990932006127398, guid: eb6df8f0721eb1349b735ed373bfa0da,
+    type: 3}
   mazeShiftNotice: {fileID: 1199992296}
   mazeShiftProgress: {fileID: 250052862}
 --- !u!1001 &63243035
@@ -2017,7 +2020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1611089754
 Transform:
   m_ObjectHideFlags: 0
