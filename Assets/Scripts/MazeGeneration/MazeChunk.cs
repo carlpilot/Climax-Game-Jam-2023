@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MazeChunk : MonoBehaviour {
 
@@ -21,6 +23,8 @@ public class MazeChunk : MonoBehaviour {
         if (chunkNum != Vector2.zero) {
             SolveMaze ();
             CreateWalls ();
+            CreateNavMeshFloor ();
+            LinkNavMeshes ();
         }
     }
 
@@ -151,7 +155,7 @@ public class MazeChunk : MonoBehaviour {
                 if (!hWalls[i, j]) continue;
                 GameObject g = new GameObject ();
                 g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
-                g.transform.position = new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 0f, ((j + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.position = chunkWallToWorld (i, j + 0.5f);
                 g.transform.localScale = new Vector3 (mm.passagewayWidth, mm.wallHeight, mm.passagewayWidth);
                 g.transform.parent = transform;
                 wallCombine.Add (g.GetComponent<MeshFilter> ());
@@ -165,7 +169,7 @@ public class MazeChunk : MonoBehaviour {
                 if (!vWalls[i, j]) continue;
                 GameObject g = new GameObject ();
                 g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
-                g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 0f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.position = chunkWallToWorld (i + 0.5f, j);
                 g.transform.localScale = new Vector3 (mm.passagewayWidth, mm.wallHeight, mm.passagewayWidth);
                 g.transform.parent = transform;
                 g.transform.Rotate (Vector3.up, 90f);
@@ -208,6 +212,61 @@ public class MazeChunk : MonoBehaviour {
         pillars.AddComponent<MeshCollider> ().sharedMesh = combinedPillars;
         pillars.layer = 7;
         pillars.transform.parent = transform;
+    }
+
+    public void CreateNavMeshFloor () {
+        GameObject navFloor = Instantiate (mm.navMeshPrefab, transform);
+        navFloor.name = "Floor " + chunkNum;
+        navFloor.GetComponent<NavMeshSurface> ().size = new Vector3 (mm.chunkSize + 1, 5f, mm.chunkSize + 1);
+        navFloor.GetComponent<NavMeshSurface> ().BuildNavMesh ();
+    }
+
+    public Vector3 chunkWallToWorld (float i, float j) {
+        return new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 0f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+    }
+
+    public void LinkNavMeshes () {
+        // +x wall
+        if(chunkNum.x >= 0) {
+            for(int j = 0; j < hWalls.GetLength(1); j++) {
+                if (!hWalls[mm.chunkNumCells, j]) CreateOffMeshLink (chunkWallToWorld (mm.chunkNumCells, j + 0.5f), Vector3.right);
+            }
+        }
+        // -x wall
+        if(chunkNum.x <= 0) {
+            for (int j = 0; j < hWalls.GetLength (1); j++) {
+                if (!hWalls[0, j]) CreateOffMeshLink (chunkWallToWorld (0, j + 0.5f), Vector3.right);
+            }
+        }
+        // +z wall
+        if(chunkNum.y >= 0) {
+            for (int i = 0; i < vWalls.GetLength (0); i++) {
+                if (!vWalls[i, mm.chunkNumCells]) CreateOffMeshLink (chunkWallToWorld (i + 0.5f, mm.chunkNumCells), Vector3.forward);
+            }
+        }
+        // -z wall
+        if (chunkNum.y <= 0) {
+            for (int i = 0; i < vWalls.GetLength (0); i++) {
+                if (!vWalls[i, 0]) CreateOffMeshLink (chunkWallToWorld (i + 0.5f, 0), Vector3.forward);
+            }
+        }
+    }
+
+    void CreateOffMeshLink (Vector3 position, Vector3 spacing) {
+        GameObject g = new GameObject ();
+        g.name = "Nav Mesh Link";
+        g.transform.position = position;
+        OffMeshLink l = g.AddComponent<OffMeshLink> ();
+        Transform t1 = new GameObject ().transform;
+        t1.position = position + spacing;
+        t1.parent = g.transform;
+        Transform t2 = new GameObject ().transform;
+        t2.position = position - spacing;
+        t2.parent = g.transform;
+        l.startTransform = t1;
+        l.endTransform = t2;
+        l.biDirectional = true;
+        l.UpdatePositions ();
     }
 
     /*
