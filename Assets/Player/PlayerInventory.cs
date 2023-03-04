@@ -15,10 +15,8 @@ public class PlayerInventory : MonoBehaviour
 
     public GameObject pickupPrefab;
 
-    void Awake()
-    {
-        
-    }
+    Dictionary<string, int> ammo = new Dictionary<string, int>();
+
     
     void Start()
     {
@@ -141,6 +139,27 @@ public class PlayerInventory : MonoBehaviour
             activeItemGM.transform.parent = GetComponent<PlayerMovement>().head.transform;
             activeItemGM.transform.localRotation = Quaternion.identity;
             activeItemGM.transform.localPosition = Vector3.zero;
+        }
+    }
+
+    public void AddAmmo(string type, int amount){
+        if (ammo.ContainsKey(type)){
+            ammo[type] += amount;
+        } else{
+            ammo[type] = amount;
+        }
+    }
+
+    public bool HasAmmo(string type){
+        if (ammo.ContainsKey(type)){
+            return ammo[type] >= 1;
+        }
+        return false;
+    }
+
+    public void ConsumeAmmo(string type){
+        if (ammo.ContainsKey(type)){
+            ammo[type] -= 1;
         }
     }
 }

@@ -20,9 +20,14 @@ public class Gun : MonoBehaviour
 
     public bool aiIsAttacking = false;
 
+    PlayerInventory inventory;
+
+    public string ammoType = "Pistol";
+
     void Awake()
     {
         animator = GetComponent<Animator>();
+        if (isPlayerGun) inventory = GetComponentInParent<PlayerInventory>();
     }
     
     void Start()
@@ -34,10 +39,12 @@ public class Gun : MonoBehaviour
     {
         var canShoot = animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
         var playershoot = ((Input.GetMouseButtonDown(0) && !isFullAuto) || (Input.GetMouseButton(0) && isFullAuto));
+        if (isPlayerGun) playershoot = playershoot && inventory.HasAmmo(ammoType);
         if (canShoot && ((playershoot && isPlayerGun) || (aiIsAttacking && !isPlayerGun)))
         {
             animator.Play("Shoot");
             StartCoroutine(shootAfter(shootDelay));
+            if (isPlayerGun) inventory.ConsumeAmmo(ammoType);
         }
     }
 

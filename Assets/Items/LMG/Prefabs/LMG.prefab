@@ -88,6 +88,7 @@ MonoBehaviour:
   spread: 0.2
   isPlayerGun: 1
   aiIsAttacking: 0
+  ammoType: LMG
 --- !u!95 &1854079468
 Animator:
   serializedVersion: 5
