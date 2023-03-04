@@ -163,7 +163,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72707417}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39d3c43e65a30c1a19258f10466a73a0, type: 3}
   m_Name: 
@@ -185,9 +185,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 15
-  enemyPrefab: {fileID: 5358131057614193093, guid: 3a4bf65c7bad531859163b62091dfd4d,
+  enemyPrefab: {fileID: 5474497382946799412, guid: a8c68f79ee2f08f04ac92b8fc3661edc,
     type: 3}
-  spawnDelay: 2
+  spawnDelay: 5
 --- !u!1 &93449355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,7 +2598,7 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 8da32ba6edb223e719f95ef502d1d6ee,
+      objectReference: {fileID: 11400000, guid: ce8384d7d864f4032a796af8e7727264,
         type: 2}
     - target: {fileID: 5704041594929566375, guid: 0bebf3cf47ab50ceeb535187450fafb5,
         type: 3}
