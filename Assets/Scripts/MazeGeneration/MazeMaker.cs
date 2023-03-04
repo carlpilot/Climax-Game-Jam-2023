@@ -20,6 +20,7 @@ public class MazeMaker : MonoBehaviour {
     public float chanceOfDeletingWall;
     public float wallHeight = 2.0f;
     public float pillarHeight = 2.5f;
+    public GameObject navMeshPrefab;
 
     [Header ("Visual")]
     public Material floorMaterial;
@@ -58,7 +59,7 @@ public class MazeMaker : MonoBehaviour {
                 GenerateChunk (new Vector2Int (i, j));
             }
         }
-        FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
+        // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
     }
 
     public void StepGenerateWorld () {
@@ -79,7 +80,7 @@ public class MazeMaker : MonoBehaviour {
                 yield return new WaitForEndOfFrame ();
             }
         }
-        FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
+        // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
         mazeShiftNotice.SetActive (false);
     }
 
@@ -88,10 +89,17 @@ public class MazeMaker : MonoBehaviour {
         Vector3 worldPosition = new Vector3 (chunkNum.x, 0f, chunkNum.y) * chunkSize;
         GameObject chunk = new GameObject ("Chunk " + chunkNum);
         chunk.transform.position = worldPosition;
+
         MazeChunk mc = chunk.AddComponent<MazeChunk> ();
         mc.mm = this;
         mc.chunkNum = chunkNum;
         mc.Generate ();
+
+        GameObject navFloor = Instantiate (navMeshPrefab, chunk.transform);
+        navFloor.name = "Floor " + chunkNum;
+        navFloor.GetComponent<NavMeshSurface> ().size = new Vector3 (chunkSize + 1, 5f, chunkSize + 1);
+        navFloor.GetComponent<NavMeshSurface> ().BuildNavMesh ();
+
         chunks[chunkNum] = chunk;
     }
 
