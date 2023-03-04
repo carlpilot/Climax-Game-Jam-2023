@@ -142,19 +142,20 @@ public class MazeChunk : MonoBehaviour {
             for (int i = 0; i < vWalls.GetLength (0); i++) vWalls[i, 0] = true;
         }
 
-        List<MeshFilter> meshesToCombine = new List<MeshFilter> ();
+        List<MeshFilter> wallCombine = new List<MeshFilter> ();
+        List<MeshFilter> pillarCombine = new List<MeshFilter> ();
 
         // Horizontal walls
         for (int i = 0; i < hWalls.GetLength (0); i++) {
             for (int j = 0; j < hWalls.GetLength (1); j++) {
                 if (!hWalls[i, j]) continue;
-                // GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
                 GameObject g = new GameObject ();
                 g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
-                g.transform.position = new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, mm.wallHeight / 2f, ((j + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
-                g.transform.localScale = new Vector3 (0.5f, mm.wallHeight, mm.chunkSize / mm.chunkNumCells);
+                g.transform.position = new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 0f, ((j + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.localScale = new Vector3 (mm.passagewayWidth, mm.wallHeight, mm.passagewayWidth);
                 g.transform.parent = transform;
-                meshesToCombine.Add (g.GetComponent<MeshFilter> ());
+                wallCombine.Add (g.GetComponent<MeshFilter> ());
+                //g.AddComponent<MeshRenderer> ().material = mm.wallMaterial;
             }
         }
 
@@ -162,13 +163,14 @@ public class MazeChunk : MonoBehaviour {
         for (int i = 0; i < vWalls.GetLength (0); i++) {
             for (int j = 0; j < vWalls.GetLength (1); j++) {
                 if (!vWalls[i, j]) continue;
-                // GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
                 GameObject g = new GameObject ();
                 g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
-                g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, mm.wallHeight / 2f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
-                g.transform.localScale = new Vector3 (mm.chunkSize / mm.chunkNumCells, mm.wallHeight, 0.5f);
+                g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 0f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.localScale = new Vector3 (mm.passagewayWidth, mm.wallHeight, mm.passagewayWidth);
                 g.transform.parent = transform;
-                meshesToCombine.Add (g.GetComponent<MeshFilter> ());
+                g.transform.Rotate (Vector3.up, 90f);
+                wallCombine.Add (g.GetComponent<MeshFilter> ());
+                //g.AddComponent<MeshRenderer> ().material = mm.wallMaterial;
             }
         }
 
@@ -184,21 +186,28 @@ public class MazeChunk : MonoBehaviour {
                 if (generatePillar) {
                     GameObject g = new GameObject ();
                     g.AddComponent<MeshFilter> ().mesh = mm.pillarMesh;
-                    g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, mm.pillarHeight / 2f, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
-                    g.transform.localScale = new Vector3 (0.7f, mm.pillarHeight, 0.7f);
+                    g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, mm.pillarHeight, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
                     g.transform.parent = transform;
-                    meshesToCombine.Add (g.GetComponent<MeshFilter> ());
+                    pillarCombine.Add (g.GetComponent<MeshFilter> ());
                 }
             }
         }
 
         GameObject walls = new GameObject ();
-        Mesh combined = MeshCombiner.CombineMeshes (meshesToCombine.ToArray ());
-        walls.AddComponent<MeshFilter> ().mesh = combined;
+        Mesh combinedWalls = MeshCombiner.CombineMeshes (wallCombine.ToArray ());
+        walls.AddComponent<MeshFilter> ().mesh = combinedWalls;
         walls.AddComponent<MeshRenderer> ().material = mm.wallMaterial;
-        walls.AddComponent<MeshCollider> ().sharedMesh = combined;
+        walls.AddComponent<MeshCollider> ().sharedMesh = combinedWalls;
         walls.layer = 7;
         walls.transform.parent = transform;
+
+        GameObject pillars = new GameObject ();
+        Mesh combinedPillars = MeshCombiner.CombineMeshes (pillarCombine.ToArray ());
+        pillars.AddComponent<MeshFilter> ().mesh = combinedPillars;
+        pillars.AddComponent<MeshRenderer> ().material = mm.pillarMaterial;
+        pillars.AddComponent<MeshCollider> ().sharedMesh = combinedPillars;
+        pillars.layer = 7;
+        pillars.transform.parent = transform;
     }
 
     /*

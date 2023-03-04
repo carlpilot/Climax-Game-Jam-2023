@@ -24,6 +24,7 @@ public class MazeMaker : MonoBehaviour {
     [Header ("Visual")]
     public Material floorMaterial;
     public Material wallMaterial;
+    public Material pillarMaterial;
     public Mesh wallMesh;
     public Mesh pillarMesh;
 

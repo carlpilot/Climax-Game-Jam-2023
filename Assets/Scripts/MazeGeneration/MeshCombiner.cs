@@ -5,7 +5,6 @@ public static class MeshCombiner {
     public static Mesh CombineMeshes (MeshFilter[] meshFilters) {
         // Create a new empty mesh
         Mesh combinedMesh = new Mesh ();
-        combinedMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
         // Combine all meshes into the new mesh
         CombineInstance[] combineInstances = new CombineInstance[meshFilters.Length];
