@@ -12,29 +12,47 @@ public class MazeMaker : MonoBehaviour {
     public float passagewayWidth;
     public int chunkNumCells;
     public int worldRadiusChunks;
+    public bool forceRegenerate = false;
 
     [Header ("Generation Options")]
     [Range (0f, 1f)]
     public float chanceOfDeletingWall;
 
-    [Header ("Materials")]
+    [Header ("Visual")]
     public Material floorMaterial;
+    public Material wallMaterial;
+    public Mesh wallMesh;
+    public Mesh pillarMesh;
 
     Mesh floorMesh;
+
+    Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject> ();
 
     private void Start () {
         if (seed == -1) seed = Random.Range (int.MinValue + 1, int.MaxValue);
 
+        GenerateWorld ();
+    }
+
+    private void Update () {
+        if (forceRegenerate) {
+            RegenerateWorld ();
+            forceRegenerate = false;
+        }
+    }
+
+    public void GenerateWorld () {
+        seed++; // randomise the world every time it regenerates
         for (int i = -worldRadiusChunks; i <= worldRadiusChunks; i++) {
             for (int j = -worldRadiusChunks; j <= worldRadiusChunks; j++) {
                 GenerateChunk (new Vector2Int (i, j));
             }
         }
-
         FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
     }
 
     public void GenerateChunk (Vector2Int chunkNum) {
+        if (chunks.ContainsKey (chunkNum)) RemoveChunk (chunkNum);
         Vector3 worldPosition = new Vector3 (chunkNum.x, 0f, chunkNum.y) * chunkSize;
         GameObject chunk = new GameObject ("Chunk " + chunkNum);
         chunk.transform.position = worldPosition;
@@ -42,6 +60,20 @@ public class MazeMaker : MonoBehaviour {
         mc.mm = this;
         mc.chunkNum = chunkNum;
         mc.Generate ();
+        chunks[chunkNum] = chunk;
+    }
+
+    public void RegenerateWorld () {
+        foreach(GameObject g in chunks.Values) {
+            Destroy (g);
+        }
+        chunks = new Dictionary<Vector2Int, GameObject> ();
+        GenerateWorld ();
+    }
+
+    public void RemoveChunk (Vector2Int chunkNum) {
+        Destroy (chunks[chunkNum].gameObject);
+        chunks.Remove (chunkNum);
     }
 
     public Mesh GetFloorMesh () {
