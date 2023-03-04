@@ -8,8 +8,10 @@ public class EnemySpawnManager : MonoBehaviour
     public float dayDuration = 60f;
     public GameObject light;
 
-    public float daytimeSpawnRadius = 30f;
-    public float nighttimeSpawnRadius = 50f;
+    public float mapSize = 150f;
+    public float enemySpawnRadius = 30f;
+    public float enemySpawnMaxRadius = 80f;
+    public float enemySpawnCentralRadius = 30f;
 
     int waveCount = 0;
     public float currentSpawnDelay = 10f;
@@ -19,9 +21,12 @@ public class EnemySpawnManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public float[] enemySpawnChances;
 
+    GameObject player;
+
     void Awake()
     {
         time = dayDuration/4f*2.1f;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerHealth>().gameObject;
     }
     
     void Start()
@@ -48,7 +53,7 @@ public class EnemySpawnManager : MonoBehaviour
                 var numEnemies = Mathf.Pow(waveCount/5f, 2);
                 for (int i = 0; i < Mathf.CeilToInt(currentWaveCount); i++)
                 {
-                    SpawnEnemy(transform.position, nighttimeSpawnRadius);
+                    SpawnEnemy(transform.position);
                 }
             }
         } else{
@@ -56,13 +61,13 @@ public class EnemySpawnManager : MonoBehaviour
             // Spawn enemies slowly around the player
             if (lastWaveTimer <= 0){
                 lastWaveTimer = currentSpawnDelay;
-                SpawnEnemy(transform.position, nighttimeSpawnRadius);
+                SpawnEnemy(transform.position);
             }
         }
         lastWaveTimer -= Time.deltaTime;
     }
 
-    void SpawnEnemy(Vector3 center, float range){
+    void SpawnEnemy(Vector3 center){
         // Pick a random enemy to spawn with roulette wheel selection
         var totalChance = 0f;
         foreach (var chance in enemySpawnChances)
@@ -75,13 +80,23 @@ public class EnemySpawnManager : MonoBehaviour
         {
             currentChance += enemySpawnChances[i];
             if (rand <= currentChance){
-                var pos = Random.insideUnitSphere;
-                pos.y = 0;
-                pos = pos.normalized * range;
-                var enemy = Instantiate(enemyPrefabs[i], pos+center, Quaternion.identity);
+                var enemy = Instantiate(enemyPrefabs[i], PickSpawnPosition(), Quaternion.identity);
                 enemy.SetActive(true);
                 return;
             }
         }
+    }
+
+    Vector3 PickSpawnPosition(){
+        var pos = new Vector3(Random.Range(-mapSize, mapSize), 0, Random.Range(-mapSize, mapSize));
+        // Cant spawn in the center
+        if (Vector3.Distance(pos, transform.position) < enemySpawnCentralRadius){
+            return PickSpawnPosition();
+        }
+        var d = Vector3.Distance(pos, player.transform.position);
+        if (d < enemySpawnRadius || d > enemySpawnMaxRadius){
+            return PickSpawnPosition();
+        }
+        return pos;
     }
 }

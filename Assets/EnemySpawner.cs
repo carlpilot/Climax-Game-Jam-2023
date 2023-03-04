@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public float spawnRadius = 30f;
+    public float spawnRadiusMin = 30f;
+    public float spawnRadiusMax = 60f;
     public GameObject enemyPrefab;
     public float spawnDelay = 2f;
 
@@ -27,9 +28,9 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnDelay);
-            var pos = Random.insideUnitSphere;
-            pos.y = 0;
-            pos = pos.normalized * spawnRadius;
+            var dist = Random.Range(spawnRadiusMin, spawnRadiusMax);
+            var angle = Random.Range(0, Mathf.PI*2);
+            var pos = new Vector3(dist*Mathf.Sin(angle), 0, dist*Mathf.Cos(angle));
             var enemy = Instantiate(enemyPrefab, pos+transform.position, Quaternion.identity);
             enemy.SetActive(true);
         }
