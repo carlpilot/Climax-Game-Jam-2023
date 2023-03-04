@@ -12,7 +12,11 @@ public class BuildIcon : MonoBehaviour {
     public Image icon;
     public TMP_Text title;
 
-    public void Assign (Buildable b) {
+    Buildable b;
+
+    public void Assign (Buildable buildable) {
+        b = buildable;
+
         menu = FindObjectOfType<BuildMenu> ();
         icon.sprite = b.icon;
         title.text = b.name;
@@ -26,5 +30,9 @@ public class BuildIcon : MonoBehaviour {
             RequiredResource r = Instantiate (menu.resourcePrefab, resourceParent).GetComponent<RequiredResource> ();
             r.Setup (menu.metalIcon, b.metalRequired);
         }
+    }
+
+    public void Select () {
+        Debug.Log ("Selected " + b.name);
     }
 }
