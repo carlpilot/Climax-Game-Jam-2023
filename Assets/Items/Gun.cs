@@ -12,7 +12,7 @@ public class Gun : MonoBehaviour
 
     Animator animator;
 
-    public float bulletTimeout = 0.25f;
+    public float shootDelay = 0;
 
     public float spread = 0.1f;
 
@@ -36,10 +36,16 @@ public class Gun : MonoBehaviour
         var playershoot = ((Input.GetMouseButtonDown(0) && !isFullAuto) || (Input.GetMouseButton(0) && isFullAuto));
         if (canShoot && ((playershoot && isPlayerGun) || (aiIsAttacking && !isPlayerGun)))
         {
-            var spreadVel = Vector3.ProjectOnPlane(Random.insideUnitSphere, muzzle.forward).normalized * spread;
-            var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed+spreadVel;
             animator.Play("Shoot");
+            StartCoroutine(shootAfter(shootDelay));
         }
+    }
+
+    IEnumerator shootAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        var spreadVel = Vector3.ProjectOnPlane(Random.insideUnitSphere, muzzle.forward).normalized * spread;
+        var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed+spreadVel;
     }
 }
