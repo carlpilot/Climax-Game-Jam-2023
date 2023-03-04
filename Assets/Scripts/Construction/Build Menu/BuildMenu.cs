@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildMenu : MonoBehaviour
-{
+public class BuildMenu : MonoBehaviour {
+
     Construction con;
     public Transform iconParent;
     public GameObject iconPrefab;
@@ -14,13 +14,13 @@ public class BuildMenu : MonoBehaviour
 
     private void Awake () {
         con = FindObjectOfType<Construction> ();
+        rm = FindObjectOfType<ResourceManager> ();
         Populate ();
     }
 
     void Populate () {
-        for(int i = 0; i < con.buildables.Length; i++) {
-            GameObject newIcon = Instantiate (iconPrefab, iconParent);
-            newIcon.GetComponent<BuildIcon> ().Assign (con.buildables[i]);
+        for (int i = 0; i < con.buildables.Length; i++) {
+            Instantiate (iconPrefab, iconParent).GetComponent<BuildIcon> ().Assign (con.buildables[i]);
         }
     }
 }
