@@ -17,6 +17,8 @@ public class MazeMaker : MonoBehaviour {
     [Header ("Generation Options")]
     [Range (0f, 1f)]
     public float chanceOfDeletingWall;
+    public float wallHeight = 2.0f;
+    public float pillarHeight = 2.5f;
 
     [Header ("Visual")]
     public Material floorMaterial;

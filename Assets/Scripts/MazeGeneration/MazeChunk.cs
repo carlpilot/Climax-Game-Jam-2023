@@ -137,8 +137,8 @@ public class MazeChunk : MonoBehaviour {
                 // GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
                 GameObject g = new GameObject ();
                 g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
-                g.transform.position = new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((j + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
-                g.transform.localScale = new Vector3 (0.5f, 2f, mm.chunkSize / mm.chunkNumCells);
+                g.transform.position = new Vector3 ((i / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, mm.wallHeight / 2f, ((j + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.localScale = new Vector3 (0.5f, mm.wallHeight, mm.chunkSize / mm.chunkNumCells);
                 g.transform.parent = transform;
                 meshesToCombine.Add (g.GetComponent<MeshFilter> ());
             }
@@ -151,8 +151,8 @@ public class MazeChunk : MonoBehaviour {
                 // GameObject g = GameObject.CreatePrimitive (PrimitiveType.Cube);
                 GameObject g = new GameObject ();
                 g.AddComponent<MeshFilter> ().mesh = mm.wallMesh;
-                g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
-                g.transform.localScale = new Vector3 (mm.chunkSize / mm.chunkNumCells, 2f, 0.5f);
+                g.transform.position = new Vector3 (((i + 0.5f) / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize, mm.wallHeight / 2f, (j / (float) mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                g.transform.localScale = new Vector3 (mm.chunkSize / mm.chunkNumCells, mm.wallHeight, 0.5f);
                 g.transform.parent = transform;
                 meshesToCombine.Add (g.GetComponent<MeshFilter> ());
             }
@@ -170,8 +170,8 @@ public class MazeChunk : MonoBehaviour {
                 if (generatePillar) {
                     GameObject g = new GameObject ();
                     g.AddComponent<MeshFilter> ().mesh = mm.pillarMesh;
-                    g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, 1f, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
-                    g.transform.localScale = new Vector3 (0.7f, 2.5f, 0.7f);
+                    g.transform.position = new Vector3 (((float) i / mm.chunkNumCells - 0.5f) * mm.chunkSize, mm.pillarHeight / 2f, ((float) j / mm.chunkNumCells - 0.5f) * mm.chunkSize) + chunkPos;
+                    g.transform.localScale = new Vector3 (0.7f, mm.pillarHeight, 0.7f);
                     g.transform.parent = transform;
                     meshesToCombine.Add (g.GetComponent<MeshFilter> ());
                 }
