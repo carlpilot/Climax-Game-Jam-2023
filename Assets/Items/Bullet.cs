@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     public GameObject hitParticlesPrefab;
     public float directDamage = 20f;
     public float knockbackForce = 10f;
+    [HideInInspector]
+    public float speed = 10f;
     
     void Start()
     {
@@ -50,6 +52,7 @@ public class Bullet : MonoBehaviour
                 }
             }
         }
+        transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
     }
     
 }

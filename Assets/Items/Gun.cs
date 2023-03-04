@@ -44,8 +44,9 @@ public class Gun : MonoBehaviour
     IEnumerator shootAfter(float delay)
     {
         yield return new WaitForSeconds(delay);
-        var spreadVel = Vector3.ProjectOnPlane(Random.insideUnitSphere, muzzle.forward).normalized * spread;
+        var spreadVel = Vector3.Project(Random.insideUnitSphere, muzzle.right) * spread;
         var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed+spreadVel;
+        bullet.transform.forward = muzzle.forward + spreadVel;
+        bullet.GetComponent<Bullet>().speed = bulletSpeed;
     }
 }

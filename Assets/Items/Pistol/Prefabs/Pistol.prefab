@@ -116,7 +116,7 @@ MonoBehaviour:
   bulletSpeed: 10
   isFullAuto: 0
   shootDelay: 0
-  spread: 0.5
+  spread: 0.1
   isPlayerGun: 1
   aiIsAttacking: 0
 --- !u!95 &2006760852561622543

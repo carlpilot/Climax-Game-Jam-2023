@@ -84,8 +84,8 @@ MonoBehaviour:
     type: 3}
   bulletSpeed: 15
   isFullAuto: 1
-  bulletTimeout: 0.25
-  spread: 0.1
+  shootDelay: 0
+  spread: 0.2
   isPlayerGun: 1
   aiIsAttacking: 0
 --- !u!95 &1854079468
