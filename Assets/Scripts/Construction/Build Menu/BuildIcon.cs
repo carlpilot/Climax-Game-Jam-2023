@@ -21,6 +21,7 @@ public class BuildIcon : MonoBehaviour {
         icon.sprite = b.icon;
         title.text = b.name;
 
+        /*
         if (b.woodRequired > 0) {
             RequiredResource r = Instantiate (menu.resourcePrefab, resourceParent).GetComponent<RequiredResource> ();
             r.Setup (menu.rm.icons[(int) ResourceManager.ResourceType.Wood], b.woodRequired);
@@ -29,6 +30,12 @@ public class BuildIcon : MonoBehaviour {
         if (b.metalRequired > 0) {
             RequiredResource r = Instantiate (menu.resourcePrefab, resourceParent).GetComponent<RequiredResource> ();
             r.Setup (menu.rm.icons[(int) ResourceManager.ResourceType.Metal], b.metalRequired);
+        }
+        */
+
+        foreach(Cost c in b.costs) {
+            RequiredResource r = Instantiate (menu.resourcePrefab, resourceParent).GetComponent<RequiredResource> ();
+            r.Setup (menu.rm.icons[(int) c.type], c.amount);
         }
     }
 

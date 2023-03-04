@@ -11,7 +11,12 @@ public class Buildable : ScriptableObject {
     public GameObject prefab;
 
     [Header ("Resources")]
-    public int woodRequired;
-    public int metalRequired;
+    public Cost[] costs;
 
+}
+
+[System.Serializable]
+public struct Cost {
+    public ResourceManager.ResourceType type;
+    public int amount;
 }

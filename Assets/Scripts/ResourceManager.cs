@@ -24,9 +24,23 @@ public class ResourceManager : MonoBehaviour {
         UpdateDisplay ();
     }
 
+    public bool SufficientResources (Cost[] costs) {
+        bool allSufficient = true;
+        foreach (Cost c in costs) {
+            allSufficient &= resourceCounts[(int) c.type] >= c.amount;
+        }
+        return allSufficient;
+    }
+
     public bool Remove (int amount, ResourceType type) {
         if (resourceCounts[(int) type] >= amount) { Add (-amount, type); return true; } else return false;
         // update display is dealt with in the Add function
+    }
+
+    public bool Remove (Cost[] costs) {
+        if (SufficientResources (costs)) {
+            foreach (Cost c in costs) Add (-c.amount, c.type); return true;
+        } else return false;
     }
 
     public void UpdateDisplay () {

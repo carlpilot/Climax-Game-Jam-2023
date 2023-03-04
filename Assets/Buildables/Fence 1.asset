@@ -15,5 +15,6 @@ MonoBehaviour:
   name: Wooden Fence
   icon: {fileID: 21300000, guid: 46095736227f21d4aa526f22095c5b51, type: 3}
   prefab: {fileID: 3050634161004551584, guid: 809f880539cab0e49bacef2c8a9c4e16, type: 3}
-  woodRequired: 6
-  metalRequired: 0
+  costs:
+  - type: 0
+    amount: 6
