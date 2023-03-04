@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a4962850c74a445acda2387a6a1196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildables: []
 --- !u!1001 &63243035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1523,7 +1524,7 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: ce8384d7d864f4032a796af8e7727264,
+      objectReference: {fileID: 11400000, guid: 73f32b4a65d17bf8390b8de66037cd19,
         type: 2}
     - target: {fileID: 5704041594929566375, guid: 0bebf3cf47ab50ceeb535187450fafb5,
         type: 3}
@@ -2317,7 +2318,7 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: ce8384d7d864f4032a796af8e7727264,
+      objectReference: {fileID: 11400000, guid: b304ad165603bee9496fe60adc701acd,
         type: 2}
     - target: {fileID: 5704041594929566375, guid: 0bebf3cf47ab50ceeb535187450fafb5,
         type: 3}
