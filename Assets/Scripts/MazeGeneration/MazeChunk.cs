@@ -20,7 +20,7 @@ public class MazeChunk : MonoBehaviour {
         CreateFloor ();
         if (chunkNum != Vector2.zero) {
             SolveMaze ();
-            SpawnWallObjects ();
+            CreateWalls ();
         }
     }
 
@@ -112,20 +112,34 @@ public class MazeChunk : MonoBehaviour {
         solved = true;
     }
 
-    void SpawnWallObjects() {
+    void CreateWalls () {
 
         // Remove duplicate walls
         if(chunkNum.x > 0 && chunkNum != Vector2Int.right) {
-            for (int i = 0; i < hWalls.GetLength (1); i++) hWalls[0, i] = false;
+            for (int j = 0; j < hWalls.GetLength (1); j++) hWalls[0, j] = false;
         }
         if(chunkNum.x < 0 && chunkNum != Vector2Int.left) {
-            for (int i = 0; i < hWalls.GetLength (1); i++) hWalls[mm.chunkNumCells, i] = false;
+            for (int j = 0; j < hWalls.GetLength (1); j++) hWalls[mm.chunkNumCells, j] = false;
         }
         if(chunkNum.y > 0 && chunkNum != Vector2Int.up) {
-            for (int j = 0; j < vWalls.GetLength (0); j++) vWalls[j, 0] = false;
+            for (int i = 0; i < vWalls.GetLength (0); i++) vWalls[i, 0] = false;
         }
         if(chunkNum.y < 0 && chunkNum != Vector2Int.down) {
-            for (int j = 0; j < vWalls.GetLength (0); j++) vWalls[j, mm.chunkNumCells] = false;
+            for (int i = 0; i < vWalls.GetLength (0); i++) vWalls[i, mm.chunkNumCells] = false;
+        }
+
+        // Add walls around edges of the map
+        if (chunkNum.x == mm.worldRadiusChunks) {
+            for (int j = 0; j < hWalls.GetLength (1); j++) hWalls[mm.chunkNumCells, j] = true;
+        }
+        if (chunkNum.x == -mm.worldRadiusChunks) {
+            for (int j = 0; j < hWalls.GetLength (1); j++) hWalls[0, j] = true;
+        }
+        if (chunkNum.y == mm.worldRadiusChunks) {
+            for (int i = 0; i < vWalls.GetLength (0); i++) vWalls[i, mm.chunkNumCells] = true;
+        }
+        if (chunkNum.y == -mm.worldRadiusChunks) {
+            for (int i = 0; i < vWalls.GetLength (0); i++) vWalls[i, 0] = true;
         }
 
         List<MeshFilter> meshesToCombine = new List<MeshFilter> ();
