@@ -424,6 +424,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railgun
       objectReference: {fileID: 0}
+    - target: {fileID: 4462554729174185300, guid: 0ee450b0c0a6164f4af6e15265ce61c4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ee450b0c0a6164f4af6e15265ce61c4, type: 3}
 --- !u!4 &2918999305966623922 stripped
@@ -719,6 +724,11 @@ PrefabInstance:
         type: 3}
       propertyPath: attackRange
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
+        type: 3}
+      propertyPath: shootLayerMask.m_Bits
+      value: 763
       objectReference: {fileID: 0}
     - target: {fileID: 311110705051888663, guid: 89763dddc2415d1fb933170895286401,
         type: 3}

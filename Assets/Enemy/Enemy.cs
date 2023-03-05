@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
     // between -1 and 1
     public float shootBurstThreshold = 0f;
 
+    public LayerMask shootLayerMask;
+
     [Header ("Drops")]
     public GameObject dropsPrefab;
     public int resourceValueOverride = -1;
@@ -73,7 +75,7 @@ public class Enemy : MonoBehaviour
             } else{
                 if (gun){
                     // Check if we raycast towards the player that we hit the player
-                    var canSeePlayer =  (Physics.Raycast(transform.position, player.transform.position - transform.position, out var hit, 100.0f) && hit.collider.gameObject.GetComponent<PlayerHealth>());
+                    var canSeePlayer =  (Physics.Raycast(transform.position, player.transform.position - transform.position, out var hit, 100.0f, shootLayerMask) && hit.collider.gameObject.GetComponent<PlayerHealth>());
                     
                     if (Vector3.Distance(transform.position, player.transform.position) < attackRange && canSeePlayer)
                     {

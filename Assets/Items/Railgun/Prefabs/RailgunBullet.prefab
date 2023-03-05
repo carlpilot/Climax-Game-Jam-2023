@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: knockbackForce
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: -2613127048977169681, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
+        type: 3}
+      propertyPath: hitLayerMask.m_Bits
+      value: 767
+      objectReference: {fileID: 0}
     - target: {fileID: 1029248601696635914, guid: 576b8f6112a3c282c8b9c2a7c00b9b99,
         type: 3}
       propertyPath: m_Name
