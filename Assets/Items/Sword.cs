@@ -40,12 +40,14 @@ public class Sword : MonoBehaviour
             if((Input.GetMouseButtonDown(0) && isPlayerSword) || (aiIsAttacking && !isPlayerSword)){
                 animator.Play("Swing");
                 if (isPlayerSword){
+                    var hitEnemy = false;
                     foreach (var enemy in GameObject.FindObjectsOfType<Enemy>())
                     {
                         if (isHittable(enemy.transform))
                         {
                             var swordPos = transform.position-transform.forward;
-                            StartCoroutine(TakeDamageAfter(damageDelay, damage, enemy, enemy.transform.position - swordPos));
+                            StartCoroutine(TakeDamageAfter(damageDelay, damage, enemy, enemy.transform.position - swordPos, !hitEnemy));
+                            hitEnemy = true;
                         }
                     }
                     ReduceDurability();
@@ -65,13 +67,14 @@ public class Sword : MonoBehaviour
         if (trail) trail.emitting = animator.GetCurrentAnimatorStateInfo(0).IsName("Swing");
     }
 
-    IEnumerator TakeDamageAfter(float delay, float damage, Enemy enemy, Vector3 dir)
+    IEnumerator TakeDamageAfter(float delay, float damage, Enemy enemy, Vector3 dir, bool playSound)
     {
         yield return new WaitForSeconds(delay);
         enemy.TakeDamage(damage);
         enemy.Knockback(dir.normalized, knockback);
         var b = Instantiate(boom, enemy.transform.position, Quaternion.identity);
         b.SetActive(true);
+        if (playSound) GetComponent<AudioSource>().Play();
     }
 
     IEnumerator TakePlayerDamageAfter(float delay, float damage, PlayerHealth player)
