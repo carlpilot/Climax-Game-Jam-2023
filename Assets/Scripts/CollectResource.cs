@@ -9,8 +9,10 @@ public class CollectResource : MonoBehaviour {
     public int value;
     public ResourceManager.ResourceType type;
 
+
     private void Awake () {
         rm = FindObjectOfType<ResourceManager> ();
+        transform.Rotate(0, Random.Range(0, 360), 0, Space.World);
     }
 
     private void OnTriggerEnter (Collider other) {
