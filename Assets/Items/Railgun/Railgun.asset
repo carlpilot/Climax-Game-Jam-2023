@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Railgun
   m_EditorClassIdentifier: 
   itemName: Railgun
-  itemImage: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
+  itemImage: {fileID: 21300000, guid: 8b905d1cf65d77644bde1aa9e1a41fcc, type: 3}
   pickupPrefab: {fileID: 6469458634331880102, guid: 3c0cb564aa4e841348933f29e5ab0d3b,
     type: 3}
   gun: {fileID: 2584631127890965858, guid: 0ee450b0c0a6164f4af6e15265ce61c4, type: 3}
   sword: {fileID: 0}
+  toolbox: {fileID: 0}
+  durability: 100
+  maxDurability: 100
