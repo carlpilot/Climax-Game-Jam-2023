@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -716,7 +716,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -767,14 +767,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700503988}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &880222451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,7 +1603,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDay: 0
-  dayLength: 120
+  currentTime: 0
+  dayLength: 30
   forceNextDay: 0
   sun: {fileID: 700503990}
   sunAngle:
@@ -1612,33 +1613,33 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 434.12552
-      outSlope: 434.12552
+      inSlope: 305.07373
+      outSlope: 305.07373
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.13157894
+      outWeight: 0.0756579
     - serializedVersion: 3
       time: 0.5
-      value: 90
-      inSlope: 22.945353
-      outSlope: 22.945353
+      value: 65
+      inSlope: 0.93486273
+      outSlope: 0.93486273
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.34736836
+      outWeight: 0.17763186
     - serializedVersion: 3
       time: 1
-      value: 180
-      inSlope: 472.2287
-      outSlope: 472.2287
+      value: 0
+      inSlope: -313.5064
+      outSlope: -313.5064
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.08157909
-      outWeight: 0.33333334
+      inWeight: 0.0625
+      outWeight: 0.31579018
     - serializedVersion: 3
       time: 1.25
-      value: 225
+      value: -45
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1648,18 +1649,51 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  sunIntensity:
+  sunHeading:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: -75
       inSlope: 0
       outSlope: 0
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 435.6893
+      outSlope: 435.6893
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.03684199
+    - serializedVersion: 3
+      time: 1
+      value: 75
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  sunIntensity:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 2.1661785
+      outSlope: 2.1661785
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.09539474
     - serializedVersion: 3
       time: 0.5
       value: 1
@@ -1672,11 +1706,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0.5
-      inSlope: -1.3333334
-      outSlope: -1.3333334
-      tangentMode: 136
+      inSlope: -2.2129483
+      outSlope: -2.2129483
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.36184216
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1.25

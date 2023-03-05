@@ -7,10 +7,12 @@ public class GameManager : MonoBehaviour
 
     [Header ("Timekeeping")]
     public int currentDay = 0;
+    public float currentTime = 0f;
     public float dayLength;
     public bool forceNextDay = false;
     public Light sun;
     public AnimationCurve sunAngle;
+    public AnimationCurve sunHeading;
     public AnimationCurve sunIntensity;
 
     [Header ("Maze Settings")]
@@ -22,18 +24,29 @@ public class GameManager : MonoBehaviour
     [Header ("Enemies")]
     public EnemyWave[] waves;
 
+    float startIntensity;
+
     GameObject player;
     MazeMaker mm;
 
     private void Awake () {
         if (startingSeed == -1) startingSeed = Random.Range (int.MinValue + 1, int.MaxValue - 100000);
+
         mm = FindObjectOfType<MazeMaker> ();
         player = FindObjectOfType<CharacterController> ().gameObject;
+
+        startIntensity = sun.intensity;
+
         UpdateMazeProperties ();
         mm.GenerateWorld ();
     }
 
     private void Update () {
+        currentTime += Time.deltaTime;
+
+        sun.transform.eulerAngles = new Vector3 (sunAngle.Evaluate (currentTime / dayLength), sunHeading.Evaluate(currentTime / dayLength), 0f);
+        sun.intensity = sunIntensity.Evaluate (currentTime / dayLength) * startIntensity;
+
         if(forceNextDay) {
             NextDay ();
             forceNextDay = false;
@@ -42,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     public void NextDay () {
         currentDay++;
+        currentTime = 0.0f;
         KillAllEnemies ();
         UpdateMazeProperties ();
         mm.RegenerateWorld ();
