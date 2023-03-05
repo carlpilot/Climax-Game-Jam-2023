@@ -59,7 +59,7 @@ MonoBehaviour:
   aiIsAttacking: 0
   ammoType: Railgun
   durability: 100
-  holdPosition: {fileID: 0}
+  holdPosition: {fileID: 4462554729174185300}
 --- !u!95 &2584631127890965857
 Animator:
   serializedVersion: 5

@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     public float speed = 1.0f;
     public float rotationSpeed = 1.0f;
 
+    public static float cameraShake = 0;
+
     void Awake()
     {
         
@@ -25,6 +27,10 @@ public class CameraController : MonoBehaviour
         // Move the camera to the players position + the offset with a lerp
         transform.position = Vector3.Lerp(transform.position, player.transform.position + offset, speed * Time.deltaTime);
         // Look at the player with a lerp
+        // Calcualte a random quaternion to add to the look rotation
+        var randomRotation = Quaternion.Euler(Random.Range(-cameraShake, cameraShake), Random.Range(-cameraShake, cameraShake), Random.Range(-cameraShake, cameraShake));
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), rotationSpeed * Time.deltaTime);
+        // Add the random rotation to the look rotation
+        transform.rotation = transform.rotation * randomRotation;
     }
 }

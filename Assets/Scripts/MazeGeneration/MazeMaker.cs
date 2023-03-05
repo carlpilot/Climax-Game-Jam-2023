@@ -36,6 +36,8 @@ public class MazeMaker : MonoBehaviour {
     [Header ("Resources")]
     public ResourceChance[] resourceChances;
 
+    public Image fader;
+
     public bool rebuildInProgress { get; private set; } = false;
 
     Mesh floorMesh;
@@ -81,6 +83,16 @@ public class MazeMaker : MonoBehaviour {
     IEnumerator RegenerateCoroutine() {
         rebuildInProgress = true;
         Time.timeScale = 0;
+        var temp = 0f;
+        while (temp < 1){
+            temp += Time.unscaledDeltaTime;
+            fader.color = new Color(0, 0, 0, temp);
+            yield return null;
+        }
+        foreach(GameObject g in chunks.Values) {
+            Destroy (g);
+        }
+        chunks = new Dictionary<Vector2Int, GameObject> ();
         mazeShiftNotice.SetActive (true);
         int numToGenerate = (worldRadiusChunks * 2 + 1) * (worldRadiusChunks * 2 + 1);
         int numGenerated = 0;
@@ -89,11 +101,17 @@ public class MazeMaker : MonoBehaviour {
                 GenerateChunk (new Vector2Int (i, j));
                 numGenerated++;
                 mazeShiftProgress.value = (float) numGenerated / numToGenerate;
-                yield return new WaitForEndOfFrame ();
+                yield return null;
             }
         }
         // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
         mazeShiftNotice.SetActive (false);
+        temp = 1f;
+        while (temp > 0){
+            temp -= Time.unscaledDeltaTime;
+            fader.color = new Color(0, 0, 0, temp);
+            yield return null;
+        }
         Time.timeScale = 1;
         rebuildInProgress = false;
     }
@@ -113,10 +131,10 @@ public class MazeMaker : MonoBehaviour {
     }
 
     public void RegenerateWorld () {
-        foreach(GameObject g in chunks.Values) {
+        /*foreach(GameObject g in chunks.Values) {
             Destroy (g);
         }
-        chunks = new Dictionary<Vector2Int, GameObject> ();
+        chunks = new Dictionary<Vector2Int, GameObject> ();*/
         StepGenerateWorld ();
     }
 
