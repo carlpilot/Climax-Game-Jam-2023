@@ -14,7 +14,7 @@ public class AmmoBox : MonoBehaviour
     
     void Start()
     {
-        
+        transform.Rotate(0, Random.Range(0, 360), 0, Space.World);
     }
     
     void Update()
