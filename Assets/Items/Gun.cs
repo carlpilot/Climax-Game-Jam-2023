@@ -28,15 +28,17 @@ public class Gun : MonoBehaviour {
     public Transform holdPosition;
 
     Construction con;
+    GameManager gm;
 
     void Awake () {
         con = FindObjectOfType<Construction> ();
+        gm = FindObjectOfType<GameManager> ();
         animator = GetComponent<Animator> ();
         if (isPlayerGun) inventory = GetComponentInParent<PlayerInventory> ();
     }
 
     void Update () {
-        var canShoot = animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") && !con.isPlacing && !con.buildMenuOpen;
+        var canShoot = animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") && !con.isPlacing && !con.buildMenuOpen && !gm.isPaused;
         var playershoot = ((Input.GetMouseButtonDown (0) && !isFullAuto) || (Input.GetMouseButton (0) && isFullAuto));
         if (isPlayerGun) playershoot = playershoot && inventory.HasAmmo (ammoType);
         if (canShoot && ((playershoot && isPlayerGun) || (aiIsAttacking && !isPlayerGun))) {

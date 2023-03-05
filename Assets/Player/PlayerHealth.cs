@@ -2,35 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
-{
-    public float health {get; private set;}
+public class PlayerHealth : MonoBehaviour {
+    public float health { get; private set; }
     public float maxHealth = 500;
     public HealthBar bar;
-    void Awake()
-    {
+
+    GameManager gm;
+
+    void Awake () {
         health = maxHealth;
-    }
-    
-    void Start()
-    {
-        bar.SetHealth(health, maxHealth);
-    }
-    
-    void Update()
-    {
-        
+        gm = FindObjectOfType<GameManager> ();
     }
 
-    public void TakeDamage(float damage)
-    {
+    void Start () {
+        bar.SetHealth (health, maxHealth);
+    }
+
+    public void TakeDamage (float damage) {
         health -= damage;
-        if (health <= 0)
-        {
+        if (health <= 0) {
             health = 0;
-            //Destroy(gameObject);
-            print("Get oofed");
+            gm.Lose ();
         }
-        bar.SetHealth(health, maxHealth);
+        bar.SetHealth (health, maxHealth);
     }
 }

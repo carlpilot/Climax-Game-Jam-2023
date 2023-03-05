@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
     [Header ("Timekeeping")]
     public int currentDay = 0;
@@ -30,7 +31,10 @@ public class GameManager : MonoBehaviour
 
     [Header ("Misc")]
     public GameObject pauseMenu;
-    public TMP_Text daysSurvived;
+    public GameObject loseMenu;
+    public TMP_Text daysSurvivedPause;
+    public TMP_Text daysSurvivedLose;
+    public Image fader;
 
     float startIntensity;
 
@@ -45,7 +49,7 @@ public class GameManager : MonoBehaviour
     Construction con;
     MazeMaker mm;
 
-    bool isPaused = false;
+    public bool isPaused { get; private set; } = false;
 
     private void Awake () {
         if (startingSeed == -1) startingSeed = Random.Range (int.MinValue + 1, int.MaxValue - 100000);
@@ -86,12 +90,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void TryPause () {
-        if (mm.rebuildInProgress) return;
-        if(con.buildMenu.activeInHierarchy) {
-            con.buildMenu.SetActive (false);
-        }
-        con.CancelPlace ();
+        if (mm.rebuildInProgress || con.isPlacing || con.buildMenuOpen) return;
         pauseMenu.SetActive (true);
+        daysSurvivedPause.text = "Days Survived: " + currentDay;
         isPaused = true;
         Time.timeScale = 0;
     }
@@ -101,6 +102,25 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
     }
+
+    public void Lose () {
+        loseMenu.SetActive (true);
+        daysSurvivedPause.text = "You lived for " + currentDay + " day" + (currentDay == 1 ? "" : "s");
+        Time.timeScale = 0;
+        StartCoroutine (FadeOut ());
+    }
+
+    IEnumerator FadeOut () {
+        var temp = 0f;
+        while (temp < 1) {
+            temp += Time.unscaledDeltaTime;
+            fader.color = new Color (0, 0, 0, temp);
+            yield return null;
+        }
+    }
+
+    public void BackToMainMenu () => SceneManager.LoadScene (0);
+    public void ReloadLevel () => SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 
     public void NextDay () {
         con.CancelPlace ();
