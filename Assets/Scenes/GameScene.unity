@@ -1830,14 +1830,52 @@ MonoBehaviour:
     chance: 0.1
     firstDay: 0
     minDistance: 0
+  - prefab: {fileID: 2757547490001343914, guid: 82b8927482e5f4d438cf5d1df74d3c0e,
+      type: 3}
+    chance: 0.007
+    firstDay: 0
+    minDistance: 0
   - prefab: {fileID: 7059460807095889975, guid: de52a20b0f1a62e4ca4d8be51bd6aa16,
       type: 3}
     chance: 0.003
     firstDay: 0
     minDistance: 0
-  - prefab: {fileID: 2757547490001343914, guid: 82b8927482e5f4d438cf5d1df74d3c0e,
+  - prefab: {fileID: 4432545917445770228, guid: 86dcc6b19d698e249accf236f3d20ad4,
       type: 3}
-    chance: 0.5
+    chance: 0.01
+    firstDay: 0
+    minDistance: 0
+  - prefab: {fileID: 1864170692494571402, guid: 7f002ba9822f2c34188124fc557d1f9c,
+      type: 3}
+    chance: 0.01
+    firstDay: 0
+    minDistance: 0
+  - prefab: {fileID: 1633672669723684992, guid: 90c4d19981951a04a838fd960e41105b,
+      type: 3}
+    chance: 0.005
+    firstDay: 0
+    minDistance: 0
+  - prefab: {fileID: 7562527535660364193, guid: f7d8411b7ee1113db87aa0ff36bf42ff,
+      type: 3}
+    chance: 0.01
+    firstDay: 0
+    minDistance: 0
+  - prefab: {fileID: 849739261340993965, guid: 51d63fa444662ba4d96347ceaea89f56, type: 3}
+    chance: 0.0025
+    firstDay: 0
+    minDistance: 0
+  - prefab: {fileID: 7864880718688145496, guid: db587675aca905625b04ac9d9a154934,
+      type: 3}
+    chance: 0.005
+    firstDay: 0
+    minDistance: 0
+  - prefab: {fileID: 1146656656745426917, guid: cb4a55a5cfe6d3646852e10c35125998,
+      type: 3}
+    chance: 0.00125
+    firstDay: 0
+    minDistance: 0
+  - prefab: {fileID: 601304160654027177, guid: 704e2374e2f63e2ae9823d4182815f42, type: 3}
+    chance: 0.0025
     firstDay: 0
     minDistance: 0
   gm: {fileID: 0}
