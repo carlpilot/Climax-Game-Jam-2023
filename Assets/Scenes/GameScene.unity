@@ -3264,7 +3264,7 @@ MonoBehaviour:
   resourceChances:
   - prefab: {fileID: 4173772181301237586, guid: 5502ce0f735ea994589861a72170ed4e,
       type: 3}
-    chance: 0.1
+    chance: 0.05
     firstDay: 0
     minDistance: 0
   - prefab: {fileID: 2757547490001343914, guid: 82b8927482e5f4d438cf5d1df74d3c0e,
