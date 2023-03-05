@@ -1674,7 +1674,11 @@ MonoBehaviour:
   currentDay: 0
   dayLength: 120
   forceNextDay: 0
+<<<<<<< Updated upstream
   sun: {fileID: 0}
+=======
+  sun: {fileID: 700503990}
+>>>>>>> Stashed changes
   startingSeed: -1
   wallRemovalFalloff:
     serializedVersion: 2
@@ -1702,7 +1706,31 @@ MonoBehaviour:
     m_RotationOrder: 4
   startRemovalFactor: 0.9
   daysToMaxFalloff: 10
+<<<<<<< Updated upstream
   waves: []
+=======
+  waves:
+  - prefab: {fileID: 0}
+    numToSpawnMin: 0
+    numToSpawnMax: 0
+    numTimesToRecurPerNight: 0
+    firstNightToOccur: 0
+  - prefab: {fileID: 0}
+    numToSpawnMin: 0
+    numToSpawnMax: 0
+    numTimesToRecurPerNight: 0
+    firstNightToOccur: 0
+  - prefab: {fileID: 0}
+    numToSpawnMin: 0
+    numToSpawnMax: 0
+    numTimesToRecurPerNight: 0
+    firstNightToOccur: 0
+  - prefab: {fileID: 0}
+    numToSpawnMin: 0
+    numToSpawnMax: 0
+    numTimesToRecurPerNight: 0
+    firstNightToOccur: 0
+>>>>>>> Stashed changes
 --- !u!1 &1606705146
 GameObject:
   m_ObjectHideFlags: 0
