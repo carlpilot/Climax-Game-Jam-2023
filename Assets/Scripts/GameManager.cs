@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public AnimationCurve sunAngle;
     public AnimationCurve sunHeading;
     public AnimationCurve sunIntensity;
+    public Gradient sunColour;
 
     [Header ("Maze Settings")]
     public int startingSeed = -1;
@@ -39,13 +40,16 @@ public class GameManager : MonoBehaviour
 
         UpdateMazeProperties ();
         mm.GenerateWorld ();
+        OnDayStart ();
     }
 
     private void Update () {
         currentTime += Time.deltaTime;
+        float dayFraction = currentTime / dayLength;
 
-        sun.transform.eulerAngles = new Vector3 (sunAngle.Evaluate (currentTime / dayLength), sunHeading.Evaluate(currentTime / dayLength), 0f);
-        sun.intensity = sunIntensity.Evaluate (currentTime / dayLength) * startIntensity;
+        sun.transform.eulerAngles = new Vector3 (sunAngle.Evaluate (dayFraction), sunHeading.Evaluate(dayFraction), 0f);
+        sun.intensity = sunIntensity.Evaluate (dayFraction) * startIntensity;
+        sun.color = sunColour.Evaluate (dayFraction);
 
         if(forceNextDay) {
             NextDay ();
@@ -59,6 +63,11 @@ public class GameManager : MonoBehaviour
         KillAllEnemies ();
         UpdateMazeProperties ();
         mm.RegenerateWorld ();
+        OnDayStart ();
+    }
+
+    public void OnDayStart () {
+
     }
 
     public void UpdateMazeProperties () {
