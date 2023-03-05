@@ -291,12 +291,14 @@ public class MazeChunk : MonoBehaviour {
         for (int i = 0; i < mm.chunkNumCells; i++) {
             for(int j = 0; j < mm.chunkNumCells; j++) {
                 for(int k = 0; k < mm.resourceChances.Length; k++) {
-                    if(Random.value < mm.resourceChances[k].chance) {
+                    if(mm.gm.currentDay >= mm.resourceChances[k].firstDay && Random.value < mm.resourceChances[k].chance) {
                         Vector3 worldPos = chunkWallToWorld (i + 0.5f, j + 0.5f);
-                        GameObject r = Instantiate (mm.resourceChances[k].prefab, transform);
-                        Vector2 random = Vector3.zero;// Random.insideUnitCircle * mm.passagewayWidth / 3.0f;
-                        r.transform.position = worldPos + new Vector3 (random.x, 0f, random.y);
-                        break; // break inner (k) loop, don't spawn another resource on this (i, j) tile
+                        if (mm.resourceChances[k].minDistance == 0 || worldPos.magnitude > mm.resourceChances[k].minDistance) {
+                            GameObject r = Instantiate (mm.resourceChances[k].prefab, transform);
+                            Vector2 random = Vector3.zero;// Random.insideUnitCircle * mm.passagewayWidth / 3.0f;
+                            r.transform.position = worldPos + new Vector3 (random.x, 0f, random.y);
+                            break; // break inner (k) loop, don't spawn another resource on this (i, j) tile
+                        }
                     }
                 }
             }
