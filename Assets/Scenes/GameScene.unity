@@ -1469,75 +1469,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189616109}
   m_CullTransparentMesh: 1
---- !u!1001 &1196045988
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3360090647243969632, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
-        type: 3}
-      propertyPath: m_Name
-      value: CentralDecs
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cffd13bbe0ee70f3c81eee5c9c728f2d, type: 3}
 --- !u!1 &1270502833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,11 +1605,6 @@ MonoBehaviour:
   currentDay: 0
   dayLength: 120
   forceNextDay: 0
-<<<<<<< Updated upstream
-  sun: {fileID: 0}
-=======
-  sun: {fileID: 700503990}
->>>>>>> Stashed changes
   startingSeed: -1
   wallRemovalFalloff:
     serializedVersion: 2
@@ -1706,31 +1632,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   startRemovalFactor: 0.9
   daysToMaxFalloff: 10
-<<<<<<< Updated upstream
-  waves: []
-=======
-  waves:
-  - prefab: {fileID: 0}
-    numToSpawnMin: 0
-    numToSpawnMax: 0
-    numTimesToRecurPerNight: 0
-    firstNightToOccur: 0
-  - prefab: {fileID: 0}
-    numToSpawnMin: 0
-    numToSpawnMax: 0
-    numTimesToRecurPerNight: 0
-    firstNightToOccur: 0
-  - prefab: {fileID: 0}
-    numToSpawnMin: 0
-    numToSpawnMax: 0
-    numTimesToRecurPerNight: 0
-    firstNightToOccur: 0
-  - prefab: {fileID: 0}
-    numToSpawnMin: 0
-    numToSpawnMax: 0
-    numTimesToRecurPerNight: 0
-    firstNightToOccur: 0
->>>>>>> Stashed changes
+  enemyPrefabs: []
 --- !u!1 &1606705146
 GameObject:
   m_ObjectHideFlags: 0
