@@ -9,6 +9,7 @@ public class PickupOnHit : MonoBehaviour
     public float rotationSpeed = 100f;
     public float bounceSpeed = 1f;
     public float bounceHeight = 1f;
+    public float heightOffset = 1;
     
     void Start()
     {
@@ -19,7 +20,7 @@ public class PickupOnHit : MonoBehaviour
     {
         rotater.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         // Move the rotater up and down with a sine wave
-        rotater.localPosition = new Vector3(0, Mathf.Sin(Time.time*bounceSpeed) *bounceHeight, 0);
+        rotater.localPosition = new Vector3(0, Mathf.Sin(Time.time*bounceSpeed) *bounceHeight+heightOffset, 0);
     }
 
     void OnTriggerEnter(Collider other)

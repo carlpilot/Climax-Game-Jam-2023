@@ -9,6 +9,8 @@ public class ToolBox : MonoBehaviour
 
     public bool isShift = false;
 
+    public Transform holdPosition;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))

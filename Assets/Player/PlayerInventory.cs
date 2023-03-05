@@ -106,7 +106,9 @@ public class PlayerInventory : MonoBehaviour
             } else if (activeItem.sword) {
                 activeItem.durability = activeItemGM.GetComponent<Sword>().durability;
                 ikTarget.transform.position = activeItemGM.GetComponent<Sword>().holdPosition.position;
-            } else{
+            } else if (activeItem.toolbox) {
+                ikTarget.transform.position = activeItemGM.GetComponent<ToolBox>().holdPosition.position;
+            }  else{
                 ikTarget.transform.position = activeItemGM.transform.position;
             }
 
