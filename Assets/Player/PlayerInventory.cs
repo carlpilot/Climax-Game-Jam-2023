@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerInventory : MonoBehaviour
     int activeItemIndex;
 
     public GameObject pickupPrefab;
+
+    public TextMeshProUGUI ammoCountText;
 
     Dictionary<string, int> ammo = new Dictionary<string, int>();
 
@@ -80,6 +83,14 @@ public class PlayerInventory : MonoBehaviour
         }
         if (Input.mouseScrollDelta.y > 0){
             SetActiveHotbarSlot(activeItemIndex-1);
+        }
+
+        if (activeItem && activeItem.gun){
+            ammoCountText.transform.parent.gameObject.SetActive(true);
+            ammoCountText.text = ammo[activeItem.gun.ammoType].ToString();
+        } else{
+            ammoCountText.transform.parent.gameObject.SetActive(false);
+            ammoCountText.text = "";
         }
 
         if (activeItem != null && Input.GetKeyDown(KeyCode.Q)){
