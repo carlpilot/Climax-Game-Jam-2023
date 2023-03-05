@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour
         deathEffect.SetActive (true);
         deathEffect.transform.parent = null;
         if (dropsPrefab != null) {
-            GameObject g = Instantiate (dropsPrefab, transform.position, Quaternion.identity);
+            GameObject g = Instantiate (dropsPrefab, Vector3.Scale (transform.position, Vector3.one - Vector3.up), dropsPrefab.transform.rotation);
             if (resourceValueOverride >= 0) g.GetComponent<CollectResource> ().value = resourceValueOverride;
         }
         Destroy (gameObject);

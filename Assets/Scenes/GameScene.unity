@@ -1372,7 +1372,10 @@ MonoBehaviour:
     chance: 0.1
   - prefab: {fileID: 7059460807095889975, guid: de52a20b0f1a62e4ca4d8be51bd6aa16,
       type: 3}
-    chance: 0.005
+    chance: 0.003
+  - prefab: {fileID: 2757547490001343914, guid: 82b8927482e5f4d438cf5d1df74d3c0e,
+      type: 3}
+    chance: 0.007
 --- !u!4 &1270502836
 Transform:
   m_ObjectHideFlags: 0

@@ -20026,6 +20026,17 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
+        type: 3}
+      propertyPath: dropsPrefab
+      value: 
+      objectReference: {fileID: 2757547490001343914, guid: 82b8927482e5f4d438cf5d1df74d3c0e,
+        type: 3}
+    - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
+        type: 3}
+      propertyPath: resourceValueOverride
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 311110705051888663, guid: 89763dddc2415d1fb933170895286401,
         type: 3}
       propertyPath: m_Name
