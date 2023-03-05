@@ -42,6 +42,11 @@ public class PlayerInventory : MonoBehaviour
             if (items[i]){
                 hotbarSlots[i].icon.sprite = items[i].itemImage;
                 hotbarSlots[i].icon.gameObject.SetActive(true);
+                if (items[i].gun) {
+                    hotbarSlots[i].SetDurability((float)items[i].durability / (float)items[i].maxDurability);
+                } else {
+                    hotbarSlots[i].SetDurability(1);
+                }
             } else{
                 hotbarSlots[i].icon.gameObject.SetActive(false);
             }
@@ -93,6 +98,12 @@ public class PlayerInventory : MonoBehaviour
             ammoCountText.text = "";
         }
 
+        if (activeItem){
+            if (activeItem.gun) {
+                activeItem.durability = activeItemGM.GetComponent<Gun>().durability;
+            }
+        }
+
         if (activeItem != null && Input.GetKeyDown(KeyCode.Q)){
             var d = Instantiate(pickupPrefab, transform.position+transform.forward*2, Quaternion.identity);
             d.GetComponent<PickupOnHit>().item = activeItem;
@@ -113,6 +124,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public bool AddItem(Item item){
+        item = Instantiate(item);
         // Prefer active slot
         if (items[activeItemIndex] == null){
             items[activeItemIndex] = item;
@@ -147,6 +159,7 @@ public class PlayerInventory : MonoBehaviour
         if (items[activeItemIndex]){
             if(activeItem.gun){
                 activeItemGM = Instantiate(items[activeItemIndex].gun.gameObject, transform);
+                activeItemGM.GetComponent<Gun>().durability = activeItem.durability;
             } else if(activeItem.sword){
                 activeItemGM = Instantiate(items[activeItemIndex].sword.gameObject, transform);
             }else if(activeItem.toolbox){

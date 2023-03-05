@@ -24,6 +24,8 @@ public class Gun : MonoBehaviour
 
     public string ammoType = "Pistol";
 
+    public int durability = 100;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -44,7 +46,13 @@ public class Gun : MonoBehaviour
         {
             animator.Play("Shoot");
             StartCoroutine(shootAfter(shootDelay));
-            if (isPlayerGun) inventory.ConsumeAmmo(ammoType);
+            if (isPlayerGun){
+                inventory.ConsumeAmmo(ammoType);
+                if (durability <= 0){
+                    GetComponentInParent<PlayerInventory>().EmptyCurrentHotbarSlot();
+                }
+                durability--;
+            }
         }
     }
 

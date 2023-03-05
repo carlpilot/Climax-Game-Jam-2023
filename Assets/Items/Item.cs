@@ -17,4 +17,7 @@ public class Item : ScriptableObject
     public Gun gun;
     public Sword sword;
     public ToolBox toolbox;
+
+    public int durability = 100;
+    public int maxDurability = 100;
 }
