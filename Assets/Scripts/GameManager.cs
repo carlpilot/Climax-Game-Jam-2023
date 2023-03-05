@@ -81,11 +81,11 @@ public class GameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown (KeyCode.Escape)) {
-            if (!isPaused) Pause (); else Unpause ();
+            if (!isPaused) TryPause (); else Unpause ();
         }
     }
 
-    public void Pause () {
+    public void TryPause () {
         if (mm.rebuildInProgress) return;
         if(con.buildMenu.activeInHierarchy) {
             con.buildMenu.SetActive (false);
