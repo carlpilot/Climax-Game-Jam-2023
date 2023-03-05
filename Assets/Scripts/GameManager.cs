@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [Header ("Enemies")]
     public EnemyWave[] enemies;
     public float timeBetweenWaves;
+    public float timeToSurvive;
 
     float startIntensity;
 
@@ -90,6 +91,17 @@ public class GameManager : MonoBehaviour
                 wavesTonight[i, j] = isPresentInWave_i;
             }
         }
+
+        // print tonight's wave info
+        Debug.Log ("---");
+        Debug.Log ("Day " + currentDay + ": There will be " + numWavesTonight + " waves tonight");
+        for(int i = 0; i < numWavesTonight; i++) {
+            Debug.Log ("   Wave " + i);
+            for(int j = 0; j < enemies.Length; j++) {
+                if (wavesTonight[i, j]) Debug.Log ("    - " + enemies[j].name + ": " + enemies[j].Count (currentDay));
+            }
+        }
+        Debug.Log ("---");
     }
 
     void UpdateMazeProperties () {
@@ -104,6 +116,19 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds (timeBetweenWaves);
         }
+        StartCoroutine (WaitToFinishDay ());
+    }
+
+    IEnumerator WaitToFinishDay () {
+        // go to the next day when either all enemies are dead or the player has survived a specified amount of time
+        for(int i = 0; i < timeToSurvive; i++) {
+            yield return new WaitForSeconds (1.0f);
+            if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0) {
+                yield return new WaitForSeconds (1.0f); // bit of an extra wait after killing last enemy
+                break;
+            }
+        }
+        NextDay ();
     }
 
     void SpawnWaveOnce (EnemyWave w) {
@@ -149,10 +174,10 @@ public struct EnemyWave {
 
     public int Count (int day) {
         if (day < firstNight) return 0;
-        return Mathf.RoundToInt (Mathf.Lerp (countMin, countMax, (float) (day - daysToReachMax) / daysToReachMax));
+        return Mathf.RoundToInt (Mathf.Lerp (countMin, countMax, (float) (day - firstNight) / daysToReachMax));
     }
     public int Recurrences (int day) {
         if (day < firstNight) return 0;
-        return Mathf.RoundToInt (Mathf.Lerp (recurrencesMin, recurrencesMax, (float) (day - daysToReachMax) / daysToReachMax));
+        return Mathf.RoundToInt (Mathf.Lerp (recurrencesMin, recurrencesMax, (float) (day - firstNight) / daysToReachMax));
     }
 }
