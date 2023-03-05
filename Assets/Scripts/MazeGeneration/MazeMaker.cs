@@ -36,6 +36,8 @@ public class MazeMaker : MonoBehaviour {
     [Header ("Resources")]
     public ResourceChance[] resourceChances;
 
+    public bool rebuildInProgress { get; private set; } = false;
+
     Mesh floorMesh;
     int floorMeshRes = 0;
     float floorPW = 0f;
@@ -76,6 +78,8 @@ public class MazeMaker : MonoBehaviour {
     }
 
     IEnumerator RegenerateCoroutine() {
+        rebuildInProgress = true;
+        Time.timeScale = 0;
         mazeShiftNotice.SetActive (true);
         int numToGenerate = (worldRadiusChunks * 2 + 1) * (worldRadiusChunks * 2 + 1);
         int numGenerated = 0;
@@ -89,6 +93,8 @@ public class MazeMaker : MonoBehaviour {
         }
         // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
         mazeShiftNotice.SetActive (false);
+        Time.timeScale = 1;
+        rebuildInProgress = false;
     }
 
     public void GenerateChunk (Vector2Int chunkNum) {
