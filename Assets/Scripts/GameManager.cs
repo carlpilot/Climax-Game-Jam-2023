@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
             for(int j = 0; j < enemies.Length; j++) {
                 if (wavesTonight[i, j]) SpawnWaveOnce (enemies[j]);
             }
-            yield return new WaitForSeconds (timeBetweenWaves);
+            if (i != numWavesTonight - 1) yield return new WaitForSeconds (timeBetweenWaves);
         }
         StartCoroutine (WaitToFinishDay ());
     }
@@ -122,9 +122,9 @@ public class GameManager : MonoBehaviour
         // go to the next day when either all enemies are dead or the player has survived a specified amount of time
         for(int i = 0; i < timeToSurvive; i++) {
             yield return new WaitForSeconds (1.0f);
-            if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0) {
+            if (GameObject.FindGameObjectsWithTag ("Enemy").Length == 0) {
                 Debug.Log ("All enemies killed");
-                yield return new WaitForSeconds (1.0f); // bit of an extra wait after killing last enemy
+                yield return new WaitForSeconds (2.0f); // bit of an extra wait after killing last enemy
                 break;
             }
         }
