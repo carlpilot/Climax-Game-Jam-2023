@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class GameManager : MonoBehaviour
     public float timeBetweenWaves;
     public float timeToSurvive;
 
+    [Header ("Misc")]
+    public GameObject pauseMenu;
+    public TMP_Text daysSurvived;
+
     float startIntensity;
 
     int numWavesTonight;
@@ -39,6 +44,8 @@ public class GameManager : MonoBehaviour
     GameObject player;
     Construction con;
     MazeMaker mm;
+
+    bool isPaused = false;
 
     private void Awake () {
         if (startingSeed == -1) startingSeed = Random.Range (int.MinValue + 1, int.MaxValue - 100000);
@@ -72,6 +79,27 @@ public class GameManager : MonoBehaviour
             dayIsOver = true;
             StartCoroutine (SpawnWaves ());
         }
+
+        if (Input.GetKeyDown (KeyCode.Escape)) {
+            if (!isPaused) Pause (); else Unpause ();
+        }
+    }
+
+    public void Pause () {
+        if (mm.rebuildInProgress) return;
+        if(con.buildMenu.activeInHierarchy) {
+            con.buildMenu.SetActive (false);
+        }
+        con.CancelPlace ();
+        pauseMenu.SetActive (true);
+        isPaused = true;
+        Time.timeScale = 0;
+    }
+
+    public void Unpause () {
+        pauseMenu.SetActive (false);
+        isPaused = false;
+        Time.timeScale = 1;
     }
 
     public void NextDay () {

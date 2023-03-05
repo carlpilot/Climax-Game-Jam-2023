@@ -113,6 +113,9 @@ public class Construction : MonoBehaviour {
         placePreview.SetActive (false);
     }
 
+    public bool isPlacing { get => placePreview.activeInHierarchy; }
+    public bool buildMenuOpen { get => wasBuildMenuOpen; }
+
     public void SetPlacePreviewValid (bool valid) {
         _SetPlacePreviewMaterial (valid ? placePreviewMatValid : placePreviewMatInvalid);
         placeValid = valid;
