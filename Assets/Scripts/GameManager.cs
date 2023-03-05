@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour {
@@ -30,7 +31,10 @@ public class GameManager : MonoBehaviour {
 
     [Header ("Misc")]
     public GameObject pauseMenu;
-    public TMP_Text daysSurvived;
+    public GameObject loseMenu;
+    public TMP_Text daysSurvivedPause;
+    public TMP_Text daysSurvivedLose;
+    public Image fader;
 
     float startIntensity;
 
@@ -88,7 +92,7 @@ public class GameManager : MonoBehaviour {
     public void TryPause () {
         if (mm.rebuildInProgress || con.isPlacing || con.buildMenuOpen) return;
         pauseMenu.SetActive (true);
-        daysSurvived.text = "Days Survived: " + currentDay;
+        daysSurvivedPause.text = "Days Survived: " + currentDay;
         isPaused = true;
         Time.timeScale = 0;
     }
@@ -99,7 +103,24 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 1;
     }
 
+    public void Lose () {
+        loseMenu.SetActive (true);
+        daysSurvivedPause.text = "You lived for " + currentDay + " day" + (currentDay == 1 ? "" : "s");
+        Time.timeScale = 0;
+        StartCoroutine (FadeOut ());
+    }
+
+    IEnumerator FadeOut () {
+        var temp = 0f;
+        while (temp < 1) {
+            temp += Time.unscaledDeltaTime;
+            fader.color = new Color (0, 0, 0, temp);
+            yield return null;
+        }
+    }
+
     public void BackToMainMenu () => SceneManager.LoadScene (0);
+    public void ReloadLevel () => SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 
     public void NextDay () {
         con.CancelPlace ();
