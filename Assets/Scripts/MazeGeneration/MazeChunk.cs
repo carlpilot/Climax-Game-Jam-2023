@@ -28,7 +28,7 @@ public class MazeChunk : MonoBehaviour {
             CreateWalls ();
             SpawnResources ();
         }
-        // CreateNavMeshFloor ();
+        CreateNavMeshFloor ();
         if (chunkNum != Vector2.zero) {
             LinkNavMeshes ();
         }

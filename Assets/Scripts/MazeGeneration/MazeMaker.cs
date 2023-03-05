@@ -69,12 +69,6 @@ public class MazeMaker : MonoBehaviour {
                 GenerateChunk (new Vector2Int (i, j));
             }
         }
-        for (int i = -worldRadiusChunks; i <= worldRadiusChunks; i++) {
-            for (int j = -worldRadiusChunks; j <= worldRadiusChunks; j++) {
-                chunks[new Vector2Int (i, j)].GetComponent<MazeChunk> ().CreateNavMeshFloor ();
-            }
-        }
-        // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
     }
 
     public void StepGenerateWorld () {
@@ -97,12 +91,6 @@ public class MazeMaker : MonoBehaviour {
                 yield return new WaitForEndOfFrame ();
             }
         }
-        for (int i = -worldRadiusChunks; i <= worldRadiusChunks; i++) {
-            for (int j = -worldRadiusChunks; j <= worldRadiusChunks; j++) {
-                chunks[new Vector2Int (i, j)].GetComponent<MazeChunk> ().CreateNavMeshFloor ();
-            }
-        }
-        // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
         mazeShiftNotice.SetActive (false);
         Time.timeScale = 1;
         rebuildInProgress = false;
