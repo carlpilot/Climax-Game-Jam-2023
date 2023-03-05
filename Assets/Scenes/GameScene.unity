@@ -3290,30 +3290,30 @@ MonoBehaviour:
   - prefab: {fileID: 1633672669723684992, guid: 90c4d19981951a04a838fd960e41105b,
       type: 3}
     chance: 0.005
-    firstDay: 5
+    firstDay: 3
     minDistance: 40
   - prefab: {fileID: 7562527535660364193, guid: f7d8411b7ee1113db87aa0ff36bf42ff,
       type: 3}
     chance: 0.01
-    firstDay: 5
+    firstDay: 3
     minDistance: 40
   - prefab: {fileID: 849739261340993965, guid: 51d63fa444662ba4d96347ceaea89f56, type: 3}
     chance: 0.0025
-    firstDay: 9
+    firstDay: 7
     minDistance: 60
   - prefab: {fileID: 7864880718688145496, guid: db587675aca905625b04ac9d9a154934,
       type: 3}
     chance: 0.005
-    firstDay: 9
+    firstDay: 7
     minDistance: 60
   - prefab: {fileID: 1146656656745426917, guid: cb4a55a5cfe6d3646852e10c35125998,
       type: 3}
     chance: 0.00125
-    firstDay: 13
+    firstDay: 10
     minDistance: 80
   - prefab: {fileID: 601304160654027177, guid: 704e2374e2f63e2ae9823d4182815f42, type: 3}
     chance: 0.0025
-    firstDay: 13
+    firstDay: 10
     minDistance: 80
   fader: {fileID: 1471539941}
   gm: {fileID: 0}
@@ -3596,7 +3596,7 @@ MonoBehaviour:
     recurrencesMin: 1
     recurrencesMax: 3
     daysToReachMax: 6
-    firstNight: 3
+    firstNight: 2
   - name: LMG Enemy
     prefab: {fileID: 3240321922839490531, guid: af2dc43f55242ed088622bf67979ce0c,
       type: 3}
@@ -3605,7 +3605,7 @@ MonoBehaviour:
     recurrencesMin: 1
     recurrencesMax: 3
     daysToReachMax: 5
-    firstNight: 8
+    firstNight: 6
   - name: Railgun Enemy
     prefab: {fileID: 2531897553941225564, guid: 64fb1b68a7b0c8ec0b8381b27afac440,
       type: 3}
@@ -3614,7 +3614,7 @@ MonoBehaviour:
     recurrencesMin: 1
     recurrencesMax: 2
     daysToReachMax: 5
-    firstNight: 12
+    firstNight: 9
   - name: Boss Enemy
     prefab: {fileID: 254415789460229978, guid: 83a49607821f72cadac65ef513b673c0, type: 3}
     countMin: 1
@@ -3622,7 +3622,7 @@ MonoBehaviour:
     recurrencesMin: 1
     recurrencesMax: 2
     daysToReachMax: 5
-    firstNight: 16
+    firstNight: 12
   timeBetweenWaves: 25
   timeToSurvive: 100000000
   pauseMenu: {fileID: 2037778769}
