@@ -51,6 +51,7 @@ public class PlayerInventory : MonoBehaviour
                 hotbarSlots[i].SetDurability((float)items[i].durability / (float)items[i].maxDurability);
             } else{
                 hotbarSlots[i].icon.gameObject.SetActive(false);
+                hotbarSlots[i].SetDurability(1);
             }
         }
 
