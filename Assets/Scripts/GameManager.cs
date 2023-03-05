@@ -23,9 +23,15 @@ public class GameManager : MonoBehaviour
     public int daysToMaxFalloff;
 
     [Header ("Enemies")]
-    public EnemyWave[] waves;
+    public EnemyWave[] enemies;
+    public float timeBetweenWaves;
 
     float startIntensity;
+
+    int numWavesTonight;
+    bool[,] wavesTonight; // [tonight's wave #, EnemyWave index]
+
+    bool dayIsOver = false;
 
     GameObject player;
     MazeMaker mm;
@@ -55,27 +61,52 @@ public class GameManager : MonoBehaviour
             NextDay ();
             forceNextDay = false;
         }
+
+        if(!dayIsOver && currentTime > dayLength) {
+            dayIsOver = true;
+            StartCoroutine (SpawnWaves ());
+        }
     }
 
     public void NextDay () {
         currentDay++;
         currentTime = 0.0f;
+        dayIsOver = false;
         KillAllEnemies ();
         UpdateMazeProperties ();
         mm.RegenerateWorld ();
         OnDayStart ();
     }
 
-    public void OnDayStart () {
-
+    void OnDayStart () {
+        // calculate which waves include which enemies
+        numWavesTonight = 0;
+        foreach (EnemyWave w in enemies) numWavesTonight = Mathf.Max (numWavesTonight, w.NumTimesToRecur (currentDay));
+        wavesTonight = new bool[numWavesTonight, enemies.Length];
+        for (int j = 0; j < enemies.Length; j++) {
+            int numRecurrences = enemies[j].NumTimesToRecur (currentDay);
+            for (int i = 0; i < wavesTonight.Length; i++) {
+                bool isPresentInWave_i = i >= (numWavesTonight - numRecurrences);
+                wavesTonight[i, j] = isPresentInWave_i;
+            }
+        }
     }
 
-    public void UpdateMazeProperties () {
+    void UpdateMazeProperties () {
         mm.seed = startingSeed + currentDay;
         mm.chanceOfDeletingWall = GetRemovalFactor (currentDay);
     }
 
-    public void SpawnWave (EnemyWave w) {
+    IEnumerator SpawnWaves () {
+        for(int i = 0; i < numWavesTonight; i++) {
+            for(int j = 0; j < enemies.Length; i++) {
+                if (wavesTonight[i, j]) SpawnWaveOnce (enemies[j]);
+            }
+            yield return new WaitForSeconds (timeBetweenWaves);
+        }
+    }
+
+    void SpawnWaveOnce (EnemyWave w) {
         int numToSpawn = w.NumToSpawn (currentDay);
         for(int i = 0; i < numToSpawn; i++) {
             Vector3 spawnPosition = Vector3.zero;
