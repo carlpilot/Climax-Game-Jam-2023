@@ -45,9 +45,11 @@ public class Construction : MonoBehaviour {
     }
 
     bool wasBuildMenuOpen = false;
+    bool wasPlacing = false;
 
     private void Update () {
         wasBuildMenuOpen = buildMenu.activeInHierarchy;
+        wasPlacing = placePreview.activeInHierarchy;
 
         // Open build menu if key pressed
         if (Input.GetKeyDown (buildKey) && !buildMenu.activeInHierarchy && !gm.isPaused) {
@@ -121,7 +123,7 @@ public class Construction : MonoBehaviour {
         placePreview.SetActive (false);
     }
 
-    public bool isPlacing { get => placePreview.activeInHierarchy; }
+    public bool isPlacing { get => wasPlacing; }
     public bool buildMenuOpen { get => wasBuildMenuOpen; }
 
     public void SetPlacePreviewValid (bool valid) {
