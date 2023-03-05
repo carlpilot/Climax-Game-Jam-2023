@@ -27,6 +27,7 @@ public class Construction : MonoBehaviour {
 
     ResourceManager rm;
     MazeMaker mm;
+    GameManager gm;
     BuildMenu menu;
     GameObject placePreview;
 
@@ -37,18 +38,25 @@ public class Construction : MonoBehaviour {
         inst = this;
         rm = FindObjectOfType<ResourceManager> ();
         mm = FindObjectOfType<MazeMaker> ();
+        gm = FindObjectOfType<GameManager> ();
         menu = buildMenu.GetComponent<BuildMenu> ();
         placePreview = new GameObject ("Place Preview");
         placePreview.SetActive (false);
     }
 
+    bool wasBuildMenuOpen = false;
+
     private void Update () {
+        wasBuildMenuOpen = buildMenu.activeInHierarchy;
 
         // Open build menu if key pressed
-        if (Input.GetKeyDown (buildKey) && !buildMenu.activeInHierarchy) {
+        if (Input.GetKeyDown (buildKey) && !buildMenu.activeInHierarchy && !gm.isPaused) {
             buildMenu.SetActive (true);
             placePreview.SetActive (false); // cancel place if build reopened
         }
+
+        // Esc closes build menu
+        if (Input.GetKeyDown (KeyCode.Escape)) buildMenu.SetActive (false);
 
         // Manipulate place preview
         if (placePreview.activeInHierarchy) {
@@ -114,7 +122,7 @@ public class Construction : MonoBehaviour {
     }
 
     public bool isPlacing { get => placePreview.activeInHierarchy; }
-    public bool buildMenuOpen { get => buildMenu.activeInHierarchy; }
+    public bool buildMenuOpen { get => wasBuildMenuOpen; }
 
     public void SetPlacePreviewValid (bool valid) {
         _SetPlacePreviewMaterial (valid ? placePreviewMatValid : placePreviewMatInvalid);
