@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     public float knockbackForce = 10f;
     [HideInInspector]
     public float speed = 10f;
+
+    public bool isEnemyBullet = false;
     
     void Start()
     {
@@ -31,7 +33,7 @@ public class Bullet : MonoBehaviour
             var enemy = col.gameObject.GetComponent<Enemy>();
             if (enemy)
             {
-                enemy.TakeDamage(directDamage);
+                if(!isEnemyBullet) enemy.TakeDamage(directDamage);
                 enemy.Knockback(transform.forward, knockbackForce);
                 Destroy(gameObject);
             }
@@ -46,6 +48,7 @@ public class Bullet : MonoBehaviour
                     transform.Translate(Vector3.forward * 0.15f, Space.Self);
                     p.SetActive(false);
                     gameObject.SetActive(true);
+                    isEnemyBullet = false;
                 } else{
                     player.TakeDamage(directDamage);
                     Destroy(gameObject);

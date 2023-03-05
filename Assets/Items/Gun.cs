@@ -55,5 +55,6 @@ public class Gun : MonoBehaviour
         var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
         bullet.transform.forward = muzzle.forward + spreadVel;
         bullet.GetComponent<Bullet>().speed = bulletSpeed;
+        bullet.GetComponent<Bullet>().isEnemyBullet = !isPlayerGun;
     }
 }
