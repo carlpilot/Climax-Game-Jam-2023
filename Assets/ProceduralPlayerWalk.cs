@@ -32,6 +32,8 @@ public class ProceduralPlayerWalk : MonoBehaviour
     void Update()
     {
         Vector3 velocity = (transform.GetChild(0).position - lastPos) / Time.deltaTime;
+        // Check if any component of the velocity is nan
+        if (velocity.x != velocity.x || velocity.y != velocity.y || velocity.z != velocity.z) velocity = Vector3.zero;
         lastPos = transform.GetChild(0).position;
         t += Time.deltaTime*Mathf.PI*2/stepPeriod;
         for (int i = 0; i < feet.Length; i++)
