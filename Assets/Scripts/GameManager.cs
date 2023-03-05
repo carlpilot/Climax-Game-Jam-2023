@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour {
 
     private void Awake () {
         if (startingSeed == -1) startingSeed = Random.Range (int.MinValue + 1, int.MaxValue - 100000);
+        Time.timeScale = 1;
 
         mm = FindObjectOfType<MazeMaker> ();
         con = FindObjectOfType<Construction> ();

@@ -3393,7 +3393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentDay: 0
   currentTime: 0
-  dayLength: 20
+  dayLength: 120
   forceNextDay: 0
   sun: {fileID: 700503990}
   sunAngle:
