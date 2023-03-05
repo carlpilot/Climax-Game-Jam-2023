@@ -20028,6 +20028,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
         type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
+        type: 3}
       propertyPath: dropsPrefab
       value: 
       objectReference: {fileID: 2757547490001343914, guid: 82b8927482e5f4d438cf5d1df74d3c0e,

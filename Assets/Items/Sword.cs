@@ -61,7 +61,7 @@ public class Sword : MonoBehaviour
             }
         }
         animator.SetBool("isBlocking", Input.GetMouseButton(1)&&isPlayerSword);
-        isBlocking = animator.GetCurrentAnimatorStateInfo(0).IsName("Block");
+        isBlocking = animator.GetCurrentAnimatorStateInfo(0).IsName("Block") || animator.GetCurrentAnimatorStateInfo(0).IsName("BlockBounce");
         if (trail) trail.emitting = animator.GetCurrentAnimatorStateInfo(0).IsName("Swing");
     }
 
@@ -78,7 +78,10 @@ public class Sword : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         var sword = player.GetComponentInChildren<Sword>();
-        if (sword && sword.isBlocking) yield break;
+        if (sword && sword.isBlocking){
+            sword.GetComponent<Animator>().Play("BlockBounce");
+            yield break;
+        }
         player.TakeDamage(damage);
     }
 

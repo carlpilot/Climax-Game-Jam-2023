@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.2f);
         if (hitColliders.Length > 0)
         {
             var col = hitColliders[0];
@@ -50,6 +50,7 @@ public class Bullet : MonoBehaviour
                     gameObject.SetActive(true);
                     isEnemyBullet = false;
                     sword.ReduceDurability();
+                    sword.GetComponent<Animator>().Play("BlockBounce");
                 } else{
                     player.TakeDamage(directDamage);
                     Destroy(gameObject);
