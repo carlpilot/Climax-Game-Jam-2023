@@ -1954,7 +1954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentDay: 0
   currentTime: 0
-  dayLength: 20
+  dayLength: 120
   forceNextDay: 0
   sun: {fileID: 700503990}
   sunAngle:
@@ -2127,7 +2127,7 @@ MonoBehaviour:
       outWeight: 0.074999996
     - serializedVersion: 3
       time: 1
-      value: 0.1
+      value: 0.2
       inSlope: -0.00000002097201
       outSlope: -0.00000002097201
       tangentMode: 0
@@ -2137,7 +2137,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  startRemovalFactor: 0.9
+  startRemovalFactor: 0.5
   daysToMaxFalloff: 10
   enemies:
   - name: Sword Enemy
