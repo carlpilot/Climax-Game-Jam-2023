@@ -9,6 +9,14 @@ public class HotbarSlot : MonoBehaviour
     public Image icon;
     public Image outline;
     public TextMeshProUGUI index;
+    public Image bg;
+
+    Color initColor;
+
+    void Awake()
+    {
+        initColor = bg.color;
+    }
 
     float durabilityPercent;
 
@@ -20,6 +28,7 @@ public class HotbarSlot : MonoBehaviour
     public void SetDurability(float percent)
     {
         durabilityPercent = percent;
-        icon.color = Color.Lerp(Color.red, Color.white, percent);
+        //icon.color = Color.Lerp(Color.red, Color.white, percent);
+        bg.color = Color.Lerp(Color.red, initColor, percent);
     }
 }

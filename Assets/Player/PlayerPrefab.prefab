@@ -308,6 +308,7 @@ MonoBehaviour:
   icon: {fileID: 1689611623}
   outline: {fileID: 1910513375}
   index: {fileID: 653339305}
+  bg: {fileID: 360783903}
 --- !u!1 &841894724
 GameObject:
   m_ObjectHideFlags: 0
