@@ -36,6 +36,12 @@ public class Enemy : MonoBehaviour
     public GameObject dropsPrefab;
     public int resourceValueOverride = -1;
 
+    [Header("Boss")]
+    public bool spawnEnemies = false;
+    public float enemySpawnDelay = 5f;
+    public GameObject[] enemiesToSpawn;
+    float enemySpawnTimer = 0f;
+
 
     void Awake()
     {
@@ -100,7 +106,14 @@ public class Enemy : MonoBehaviour
         if (sword) sword.aiIsAttacking = isAttacking;
         if (gun) gun.aiIsAttacking = isAttacking;
 
+        if (isAttacking && spawnEnemies && enemySpawnTimer <= 0f){
+            enemySpawnTimer = enemySpawnDelay;
+            var enemy = Instantiate(enemiesToSpawn[Random.Range(0, enemiesToSpawn.Length)], transform.position, Quaternion.identity);
+            enemy.GetComponent<Enemy>().Knockback(Vector3.ProjectOnPlane(Random.insideUnitSphere, Vector3.up).normalized, 10f);
+        }
+
         sineTimer += Time.deltaTime * shootBurstSpeed;
+        enemySpawnTimer -= Time.deltaTime;
     }
 
     public void TakeDamage(float damage)
