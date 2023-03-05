@@ -21,6 +21,8 @@ public class EnemySpawnManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public float[] enemySpawnChances;
 
+    static float sunRadians;
+
     GameObject player;
 
     void Awake()
@@ -37,6 +39,7 @@ public class EnemySpawnManager : MonoBehaviour
     void Update()
     {
         var rads = time/dayDuration * Mathf.PI * 2f;
+        sunRadians = rads;
         var degs = rads/Mathf.PI * 180f;
         var currentBrightness = -Mathf.Sin(rads);
         light.transform.rotation = Quaternion.Euler(-degs, 30, 0);
@@ -98,5 +101,10 @@ public class EnemySpawnManager : MonoBehaviour
             return PickSpawnPosition();
         }
         return pos;
+    }
+
+    public static bool IsDayTime(){
+        var currentBrightness = -Mathf.Sin(sunRadians);
+        return currentBrightness > 0;
     }
 }

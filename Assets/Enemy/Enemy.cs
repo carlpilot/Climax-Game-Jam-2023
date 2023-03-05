@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     NavMeshAgent agent;
 
     public float attackRange = 1.0f;
+    public float seekRange = 15.0f;
 
     public bool isAttacking {get; private set;}
 
@@ -50,36 +51,43 @@ public class Enemy : MonoBehaviour
     {
         if (rb.isKinematic)
         {
-            if (gun){
-                // Check if we raycast towards the player that we hit the player
-                var canSeePlayer =  (Physics.Raycast(transform.position, player.transform.position - transform.position, out var hit, 100.0f) && hit.collider.gameObject.GetComponent<PlayerHealth>());
-                
-                if (Vector3.Distance(transform.position, player.transform.position) < attackRange && canSeePlayer)
-                {
-                    // Stop the navmesh agent
-                    agent.isStopped = true;
-                    var targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
-                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime);
-                } else{
-                    // Start the navmesh agent
-                    agent.isStopped = false;
-                    agent.SetDestination(player.transform.position);
-                }
-                isAttacking = canSeePlayer && Mathf.Sin(sineTimer) > shootBurstThreshold;
+            // If it is daytime and we are not in range of the player
+            if (EnemySpawnManager.IsDayTime() && Vector3.Distance(transform.position, player.transform.position) > seekRange)
+            {
+                agent.isStopped = true;
+                isAttacking = false;
             } else{
-                if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
-                {
-                    // Stop the navmesh agent
-                    agent.isStopped = true;
-                    var targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
-                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime);
-                    isAttacking = true;
+                if (gun){
+                    // Check if we raycast towards the player that we hit the player
+                    var canSeePlayer =  (Physics.Raycast(transform.position, player.transform.position - transform.position, out var hit, 100.0f) && hit.collider.gameObject.GetComponent<PlayerHealth>());
+                    
+                    if (Vector3.Distance(transform.position, player.transform.position) < attackRange && canSeePlayer)
+                    {
+                        // Stop the navmesh agent
+                        agent.isStopped = true;
+                        var targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
+                        transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime);
+                    } else{
+                        // Start the navmesh agent
+                        agent.isStopped = false;
+                        agent.SetDestination(player.transform.position);
+                    }
+                    isAttacking = canSeePlayer && Mathf.Sin(sineTimer) > shootBurstThreshold;
                 } else{
-                    // Start the navmesh agent
-                    agent.isStopped = false;
-                    agent.SetDestination(player.transform.position);
-                    isAttacking = false;
-                }
+                    if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+                    {
+                        // Stop the navmesh agent
+                        agent.isStopped = true;
+                        var targetRot = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - transform.position-transform.right, Vector3.up));
+                        transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime);
+                        isAttacking = true;
+                    } else{
+                        // Start the navmesh agent
+                        agent.isStopped = false;
+                        agent.SetDestination(player.transform.position);
+                        isAttacking = false;
+                    }
+                } 
             }
         } else{
             isAttacking = false;
