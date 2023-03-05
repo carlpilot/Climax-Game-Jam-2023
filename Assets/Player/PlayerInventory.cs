@@ -21,6 +21,7 @@ public class PlayerInventory : MonoBehaviour
     Dictionary<string, int> ammo = new Dictionary<string, int>();
 
     public GameObject ikTarget;
+    public Transform handRestingPosition;
 
     
     void Start()
@@ -33,6 +34,7 @@ public class PlayerInventory : MonoBehaviour
             hotbarSlots[i].index.text = (i + 1).ToString();
         }
         hotbarTemplate.gameObject.SetActive(false);
+
     }
     
     void Update()
@@ -108,6 +110,8 @@ public class PlayerInventory : MonoBehaviour
                 ikTarget.transform.position = activeItemGM.transform.position;
             }
 
+        } else{
+            ikTarget.transform.position = handRestingPosition.position;
         }
 
         if (activeItem != null && Input.GetKeyDown(KeyCode.Q)){
