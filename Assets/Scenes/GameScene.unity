@@ -441,6 +441,23 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -38.222656
       objectReference: {fileID: 0}
+    - target: {fileID: 3720610493512352218, guid: c8fda5b44bde54109a54f282c21c9814,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 22.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3720610493512352218, guid: c8fda5b44bde54109a54f282c21c9814,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b34fd1838b55327cb5e2e66fad5cd9a,
+        type: 2}
+    - target: {fileID: 3720610493512352218, guid: c8fda5b44bde54109a54f282c21c9814,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5575792158432482286, guid: 8b34fd1838b55327cb5e2e66fad5cd9a,
+        type: 2}
     - target: {fileID: 8377967547870545240, guid: c8fda5b44bde54109a54f282c21c9814,
         type: 3}
       propertyPath: m_Name
@@ -699,7 +716,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1484,7 +1501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e2c48c746d8aa247ac4aa2c5fc41ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 217291261
+  seed: -1
   passagewayWidth: 4
   chunkNumCells: 15
   worldRadiusChunks: 1

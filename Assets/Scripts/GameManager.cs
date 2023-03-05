@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public int currentDay = 0;
     public float dayLength;
     public bool forceNextDay = false;
+    public Light sun;
 
     [Header ("Maze Settings")]
     public int startingSeed = -1;
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     public int daysToMaxFalloff;
 
     [Header ("Enemies")]
-    public GameObject[] enemyPrefabs;
+    public EnemyWave[] waves;
 
     MazeMaker mm;
 
@@ -46,7 +47,20 @@ public class GameManager : MonoBehaviour
         mm.chanceOfDeletingWall = GetRemovalFactor (currentDay);
     }
 
+    public void SpawnWave (EnemyWave w) {
+
+    }
+
     public float GetRemovalFactor(int day) {
         return wallRemovalFalloff.Evaluate ((float) day / daysToMaxFalloff) * startRemovalFactor;
     }
+}
+
+[System.Serializable]
+public struct EnemyWave {
+    public GameObject prefab;
+    public int numToSpawnMin;
+    public int numToSpawnMax;
+    public int numTimesToRecurPerNight;
+    public int firstNightToOccur;
 }
