@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         wavesTonight = new bool[numWavesTonight, enemies.Length];
         for (int j = 0; j < enemies.Length; j++) {
             int numRecurrences = enemies[j].Recurrences (currentDay);
-            for (int i = 0; i < wavesTonight.Length; i++) {
+            for (int i = 0; i < numWavesTonight; i++) {
                 bool isPresentInWave_i = i >= (numWavesTonight - numRecurrences);
                 wavesTonight[i, j] = isPresentInWave_i;
             }
