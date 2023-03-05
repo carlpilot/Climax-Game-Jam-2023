@@ -81,10 +81,10 @@ public class GameManager : MonoBehaviour
     void OnDayStart () {
         // calculate which waves include which enemies
         numWavesTonight = 0;
-        foreach (EnemyWave w in enemies) numWavesTonight = Mathf.Max (numWavesTonight, w.NumTimesToRecur (currentDay));
+        foreach (EnemyWave w in enemies) numWavesTonight = Mathf.Max (numWavesTonight, w.Recurrences (currentDay));
         wavesTonight = new bool[numWavesTonight, enemies.Length];
         for (int j = 0; j < enemies.Length; j++) {
-            int numRecurrences = enemies[j].NumTimesToRecur (currentDay);
+            int numRecurrences = enemies[j].Recurrences (currentDay);
             for (int i = 0; i < wavesTonight.Length; i++) {
                 bool isPresentInWave_i = i >= (numWavesTonight - numRecurrences);
                 wavesTonight[i, j] = isPresentInWave_i;
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnWaves () {
         for(int i = 0; i < numWavesTonight; i++) {
-            for(int j = 0; j < enemies.Length; i++) {
+            for(int j = 0; j < enemies.Length; j++) {
                 if (wavesTonight[i, j]) SpawnWaveOnce (enemies[j]);
             }
             yield return new WaitForSeconds (timeBetweenWaves);
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     }
 
     void SpawnWaveOnce (EnemyWave w) {
-        int numToSpawn = w.NumToSpawn (currentDay);
+        int numToSpawn = w.Count (currentDay);
         for(int i = 0; i < numToSpawn; i++) {
             Vector3 spawnPosition = Vector3.zero;
             int attempts = 0;
@@ -140,17 +140,19 @@ public struct EnemyWave {
 
     public string name;
     public GameObject prefab;
-    public int numToSpawnMin;
-    public int numToSpawnMax;
-    public int numTimesToRecurMin;
-    public int numTimesToRecurMax;
+    public int countMin;
+    public int countMax;
+    public int recurrencesMin;
+    public int recurrencesMax;
     public int daysToReachMax;
-    public int firstNightToOccur;
+    public int firstNight;
 
-    public int NumToSpawn (int day) {
-        return Mathf.RoundToInt (Mathf.Lerp (numToSpawnMin, numToSpawnMax, (float) (day - daysToReachMax) / daysToReachMax));
+    public int Count (int day) {
+        if (day < firstNight) return 0;
+        return Mathf.RoundToInt (Mathf.Lerp (countMin, countMax, (float) (day - daysToReachMax) / daysToReachMax));
     }
-    public int NumTimesToRecur (int day) {
-        return Mathf.RoundToInt (Mathf.Lerp (numTimesToRecurMin, numTimesToRecurMax, (float) (day - daysToReachMax) / daysToReachMax));
+    public int Recurrences (int day) {
+        if (day < firstNight) return 0;
+        return Mathf.RoundToInt (Mathf.Lerp (recurrencesMin, recurrencesMax, (float) (day - daysToReachMax) / daysToReachMax));
     }
 }

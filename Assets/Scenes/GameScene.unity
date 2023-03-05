@@ -1789,7 +1789,17 @@ MonoBehaviour:
     m_RotationOrder: 4
   startRemovalFactor: 0.9
   daysToMaxFalloff: 10
-  waves: []
+  enemies:
+  - name: Sword Enemy
+    prefab: {fileID: 9079795913719198336, guid: 6e1eafdfaa32fa08d960f2485d7b8bf9,
+      type: 3}
+    countMin: 2
+    countMax: 6
+    recurrencesMin: 1
+    recurrencesMax: 4
+    daysToReachMax: 10
+    firstNight: 0
+  timeBetweenWaves: 20
 --- !u!1 &1606705146
 GameObject:
   m_ObjectHideFlags: 0
