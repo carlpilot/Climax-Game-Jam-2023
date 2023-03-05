@@ -69,6 +69,11 @@ public class MazeMaker : MonoBehaviour {
                 GenerateChunk (new Vector2Int (i, j));
             }
         }
+        for (int i = -worldRadiusChunks; i <= worldRadiusChunks; i++) {
+            for (int j = -worldRadiusChunks; j <= worldRadiusChunks; j++) {
+                chunks[new Vector2Int (i, j)].GetComponent<MazeChunk> ().CreateNavMeshFloor ();
+            }
+        }
         // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
     }
 
@@ -78,7 +83,7 @@ public class MazeMaker : MonoBehaviour {
         StartCoroutine (RegenerateCoroutine ());
     }
 
-    IEnumerator RegenerateCoroutine() {
+    IEnumerator RegenerateCoroutine () {
         rebuildInProgress = true;
         Time.timeScale = 0;
         mazeShiftNotice.SetActive (true);
@@ -90,6 +95,11 @@ public class MazeMaker : MonoBehaviour {
                 numGenerated++;
                 mazeShiftProgress.value = (float) numGenerated / numToGenerate;
                 yield return new WaitForEndOfFrame ();
+            }
+        }
+        for (int i = -worldRadiusChunks; i <= worldRadiusChunks; i++) {
+            for (int j = -worldRadiusChunks; j <= worldRadiusChunks; j++) {
+                chunks[new Vector2Int (i, j)].GetComponent<MazeChunk> ().CreateNavMeshFloor ();
             }
         }
         // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
