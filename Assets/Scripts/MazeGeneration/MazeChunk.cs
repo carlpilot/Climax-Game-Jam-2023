@@ -281,6 +281,7 @@ public class MazeChunk : MonoBehaviour {
         l.endTransform = t2;
         l.biDirectional = true;
         l.UpdatePositions ();
+        g.transform.parent = transform;
     }
 
     public void SpawnResources () {
