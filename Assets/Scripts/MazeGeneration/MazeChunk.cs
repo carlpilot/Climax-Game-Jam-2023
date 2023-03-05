@@ -190,6 +190,8 @@ public class MazeChunk : MonoBehaviour {
                 generatePillar |= nonedge && ((hWalls[i, j] != hWalls[i, j - 1] && !vWalls[i, j] && !vWalls[i - 1, j]) || (vWalls[i, j] != vWalls[i - 1, j] && !hWalls[i, j] && !hWalls[i, j - 1])); // ends
                 generatePillar |= (i > 0 && i < mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells) && vWalls[i, j] != vWalls[i - 1, j]) || (j > 0 && j < mm.chunkNumCells && (i == 0 || i == mm.chunkNumCells) && hWalls[i, j] != hWalls[i, j - 1]); // edge ends
                 generatePillar |= (i == 0 && (j == 0 || j == mm.chunkNumCells)) || (i == mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells)); // all chunk corners
+                generatePillar |= (i > 0 && i < mm.chunkNumCells && !vWalls[i, j] && !vWalls[i - 1, j]) && ((j == 0 && hWalls[i, j]) || (j == mm.chunkNumCells && hWalls[i, j - 1])); // double edge removals (case 1)
+                generatePillar |= (j > 0 && j < mm.chunkNumCells && !hWalls[i, j] && !hWalls[i, j - 1]) && ((i == 0 && vWalls[i, j]) || (i == mm.chunkNumCells && vWalls[i - 1, j])); // double edge removals (case 2)
                 if (generatePillar) {
                     GameObject g = new GameObject ();
                     g.AddComponent<MeshFilter> ().mesh = mm.pillarMesh;
@@ -282,11 +284,10 @@ public class MazeChunk : MonoBehaviour {
             for(int j = 0; j < mm.chunkNumCells; j++) {
                 for(int k = 0; k < mm.resourceChances.Length; k++) {
                     if(Random.value < mm.resourceChances[k].chance) {
-                        Vector3 worldPos = chunkWallToWorld (i, j);
+                        Vector3 worldPos = chunkWallToWorld (i + 0.5f, j + 0.5f);
                         GameObject r = Instantiate (mm.resourceChances[k].prefab, transform);
                         Vector2 random = Vector3.zero;// Random.insideUnitCircle * mm.passagewayWidth / 3.0f;
                         r.transform.position = worldPos + new Vector3 (random.x, 0f, random.y);
-                        r.transform.Rotate (Vector3.up, Random.Range (-180.0f, 180.0f));
                         break; // break inner (k) loop, don't spawn another resource on this (i, j) tile
                     }
                 }
