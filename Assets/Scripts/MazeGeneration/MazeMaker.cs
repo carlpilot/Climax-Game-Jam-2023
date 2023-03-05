@@ -42,10 +42,15 @@ public class MazeMaker : MonoBehaviour {
 
     public Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject> ();
 
-    private void Start () {
-        if (seed == -1) seed = Random.Range (int.MinValue + 1, int.MaxValue);
+    GameManager gm;
 
-        GenerateWorld ();
+    private void Awake () {
+        gm = FindObjectOfType<GameManager> ();
+    }
+
+    private void Start () {
+        if (seed == -1) seed = Random.Range (int.MinValue + 1, int.MaxValue - 100000);
+        if (gm == null) GenerateWorld ();
     }
 
     private void Update () {
@@ -56,7 +61,6 @@ public class MazeMaker : MonoBehaviour {
     }
 
     public void GenerateWorld () {
-        seed++; // randomise the world every time it regenerates
         for (int i = -worldRadiusChunks; i <= worldRadiusChunks; i++) {
             for (int j = -worldRadiusChunks; j <= worldRadiusChunks; j++) {
                 GenerateChunk (new Vector2Int (i, j));
