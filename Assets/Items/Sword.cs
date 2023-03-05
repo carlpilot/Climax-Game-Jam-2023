@@ -22,6 +22,8 @@ public class Sword : MonoBehaviour
 
     public int durability = 100;
 
+    public Transform holdPosition;
+
     public bool isBlocking {get; private set;}
     void Awake()
     {

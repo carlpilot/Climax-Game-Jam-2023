@@ -26,6 +26,8 @@ public class Gun : MonoBehaviour
 
     public int durability = 100;
 
+    public Transform holdPosition;
+
     void Awake()
     {
         animator = GetComponent<Animator>();

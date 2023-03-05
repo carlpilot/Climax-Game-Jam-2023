@@ -20,6 +20,8 @@ public class PlayerInventory : MonoBehaviour
 
     Dictionary<string, int> ammo = new Dictionary<string, int>();
 
+    public GameObject ikTarget;
+
     
     void Start()
     {
@@ -88,6 +90,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (activeItem && activeItem.gun){
             ammoCountText.transform.parent.gameObject.SetActive(true);
+            AddAmmo(activeItem.gun.ammoType, 0);
             ammoCountText.text = ammo[activeItem.gun.ammoType].ToString();
         } else{
             ammoCountText.transform.parent.gameObject.SetActive(false);
@@ -97,9 +100,14 @@ public class PlayerInventory : MonoBehaviour
         if (activeItem){
             if (activeItem.gun) {
                 activeItem.durability = activeItemGM.GetComponent<Gun>().durability;
+                ikTarget.transform.position = activeItemGM.GetComponent<Gun>().holdPosition.position;
             } else if (activeItem.sword) {
                 activeItem.durability = activeItemGM.GetComponent<Sword>().durability;
+                ikTarget.transform.position = activeItemGM.GetComponent<Sword>().holdPosition.position;
+            } else{
+                ikTarget.transform.position = activeItemGM.transform.position;
             }
+
         }
 
         if (activeItem != null && Input.GetKeyDown(KeyCode.Q)){
