@@ -17,6 +17,9 @@ public class MazeChunk : MonoBehaviour {
     Vector2Int unassigned = new Vector2Int (-1, -1);
     bool solved = false;
 
+    [HideInInspector]
+    public GameObject floor, walls, pillars, navFloor;
+
     public void Generate () {
         chunkPos = new Vector3 (chunkNum.x, 0f, chunkNum.y) * mm.chunkSize;
         CreateFloor ();
@@ -32,14 +35,14 @@ public class MazeChunk : MonoBehaviour {
     }
 
     void CreateFloor () {
-        GameObject g = new GameObject ("Floor Mesh " + chunkNum);
-        g.transform.parent = transform;
-        g.transform.localPosition = Vector3.zero;
-        g.layer = 6;
-        MeshFilter mf = g.AddComponent<MeshFilter> ();
+        floor = new GameObject ("Floor Mesh " + chunkNum);
+        floor.transform.parent = transform;
+        floor.transform.localPosition = Vector3.zero;
+        floor.layer = 6;
+        MeshFilter mf = floor.AddComponent<MeshFilter> ();
         mf.mesh = mm.GetFloorMesh ();
-        MeshRenderer mr = g.AddComponent<MeshRenderer> ();
-        MeshCollider mc = g.AddComponent<MeshCollider> ();
+        MeshRenderer mr = floor.AddComponent<MeshRenderer> ();
+        MeshCollider mc = floor.AddComponent<MeshCollider> ();
         mr.material = mm.floorMaterial;
     }
 
@@ -190,6 +193,8 @@ public class MazeChunk : MonoBehaviour {
                 generatePillar |= nonedge && ((hWalls[i, j] != hWalls[i, j - 1] && !vWalls[i, j] && !vWalls[i - 1, j]) || (vWalls[i, j] != vWalls[i - 1, j] && !hWalls[i, j] && !hWalls[i, j - 1])); // ends
                 generatePillar |= (i > 0 && i < mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells) && vWalls[i, j] != vWalls[i - 1, j]) || (j > 0 && j < mm.chunkNumCells && (i == 0 || i == mm.chunkNumCells) && hWalls[i, j] != hWalls[i, j - 1]); // edge ends
                 generatePillar |= (i == 0 && (j == 0 || j == mm.chunkNumCells)) || (i == mm.chunkNumCells && (j == 0 || j == mm.chunkNumCells)); // all chunk corners
+                generatePillar |= (i > 0 && i < mm.chunkNumCells && !vWalls[i, j] && !vWalls[i - 1, j]) && ((j == 0 && hWalls[i, j]) || (j == mm.chunkNumCells && hWalls[i, j - 1])); // double edge removals (case 1)
+                generatePillar |= (j > 0 && j < mm.chunkNumCells && !hWalls[i, j] && !hWalls[i, j - 1]) && ((i == 0 && vWalls[i, j]) || (i == mm.chunkNumCells && vWalls[i - 1, j])); // double edge removals (case 2)
                 if (generatePillar) {
                     GameObject g = new GameObject ();
                     g.AddComponent<MeshFilter> ().mesh = mm.pillarMesh;
@@ -200,7 +205,7 @@ public class MazeChunk : MonoBehaviour {
             }
         }
 
-        GameObject walls = new GameObject ();
+        walls = new GameObject ();
         walls.name = "Walls " + chunkNum;
         Mesh combinedWalls = MeshCombiner.CombineMeshes (wallCombine.ToArray ());
         walls.AddComponent<MeshFilter> ().mesh = combinedWalls;
@@ -209,7 +214,7 @@ public class MazeChunk : MonoBehaviour {
         walls.layer = 7;
         walls.transform.parent = transform;
 
-        GameObject pillars = new GameObject ();
+        pillars = new GameObject ();
         pillars.name = "Pillars " + chunkNum;
         Mesh combinedPillars = MeshCombiner.CombineMeshes (pillarCombine.ToArray ());
         pillars.AddComponent<MeshFilter> ().mesh = combinedPillars;
@@ -220,9 +225,13 @@ public class MazeChunk : MonoBehaviour {
     }
 
     public void CreateNavMeshFloor () {
-        GameObject navFloor = Instantiate (mm.navMeshPrefab, transform);
+        navFloor = Instantiate (mm.navMeshPrefab, transform);
         navFloor.name = "Floor " + chunkNum;
         navFloor.GetComponent<NavMeshSurface> ().size = new Vector3 (mm.chunkSize + 1, 5f, mm.chunkSize + 1);
+        RebuildNavMesh ();
+    }
+
+    public void RebuildNavMesh() {
         navFloor.GetComponent<NavMeshSurface> ().BuildNavMesh ();
     }
 
@@ -282,11 +291,10 @@ public class MazeChunk : MonoBehaviour {
             for(int j = 0; j < mm.chunkNumCells; j++) {
                 for(int k = 0; k < mm.resourceChances.Length; k++) {
                     if(Random.value < mm.resourceChances[k].chance) {
-                        Vector3 worldPos = chunkWallToWorld (i, j);
+                        Vector3 worldPos = chunkWallToWorld (i + 0.5f, j + 0.5f);
                         GameObject r = Instantiate (mm.resourceChances[k].prefab, transform);
                         Vector2 random = Vector3.zero;// Random.insideUnitCircle * mm.passagewayWidth / 3.0f;
                         r.transform.position = worldPos + new Vector3 (random.x, 0f, random.y);
-                        r.transform.Rotate (Vector3.up, Random.Range (-180.0f, 180.0f));
                         break; // break inner (k) loop, don't spawn another resource on this (i, j) tile
                     }
                 }

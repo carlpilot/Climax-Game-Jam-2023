@@ -40,7 +40,7 @@ public class MazeMaker : MonoBehaviour {
     int floorMeshRes = 0;
     float floorPW = 0f;
 
-    Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject> ();
+    public Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject> ();
 
     private void Start () {
         if (seed == -1) seed = Random.Range (int.MinValue + 1, int.MaxValue);
@@ -152,6 +152,9 @@ public class MazeMaker : MonoBehaviour {
         floorPW = passagewayWidth;
         return m;
     }
+
+    public Vector2Int WorldPosToChunkNum (Vector3 worldPos)
+        => new Vector2Int (Mathf.RoundToInt (worldPos.x / chunkSize), Mathf.RoundToInt (worldPos.z / chunkSize));
 }
 
 [System.Serializable]

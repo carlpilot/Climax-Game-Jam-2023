@@ -32,6 +32,10 @@ public class Enemy : MonoBehaviour
     // between -1 and 1
     public float shootBurstThreshold = 0f;
 
+    [Header ("Drops")]
+    public GameObject dropsPrefab;
+    public int resourceValueOverride = -1;
+
 
     void Awake()
     {
@@ -104,10 +108,18 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            deathEffect.SetActive(true);
-            deathEffect.transform.parent = null;
-            Destroy(gameObject);
+            Die ();
         }
+    }
+
+    public void Die () {
+        deathEffect.SetActive (true);
+        deathEffect.transform.parent = null;
+        if (dropsPrefab != null) {
+            GameObject g = Instantiate (dropsPrefab, Vector3.Scale (transform.position, Vector3.one - Vector3.up), dropsPrefab.transform.rotation);
+            if (resourceValueOverride >= 0) g.GetComponent<CollectResource> ().value = resourceValueOverride;
+        }
+        Destroy (gameObject);
     }
 
     public void Knockback(Vector3 direction, float force)
