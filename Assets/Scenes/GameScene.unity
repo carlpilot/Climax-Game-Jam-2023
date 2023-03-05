@@ -762,6 +762,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CentralDecs
       objectReference: {fileID: 0}
+    - target: {fileID: 3360090647243969632, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4229308035924972391, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
         type: 3}
       propertyPath: m_Layer
