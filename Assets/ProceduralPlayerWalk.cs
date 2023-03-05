@@ -46,6 +46,7 @@ public class ProceduralPlayerWalk : MonoBehaviour
             }
             currentValue += stepHeightOfffset;
             if (currentValue < 0) currentValue = 0;
+            if (velocity.magnitude < 0.05f) currentValue = 0f;
             Vector3 hip = feet[i].parent.parent.position;
             Vector3 floorPos = hip + Vector3.down * 1f;
             // Find the point on the floor below the hip with a raycast
