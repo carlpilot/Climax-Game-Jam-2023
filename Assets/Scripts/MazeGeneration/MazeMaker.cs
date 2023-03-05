@@ -71,7 +71,6 @@ public class MazeMaker : MonoBehaviour {
                 GenerateChunk (new Vector2Int (i, j));
             }
         }
-        // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
     }
 
     public void StepGenerateWorld () {
@@ -80,7 +79,7 @@ public class MazeMaker : MonoBehaviour {
         StartCoroutine (RegenerateCoroutine ());
     }
 
-    IEnumerator RegenerateCoroutine() {
+    IEnumerator RegenerateCoroutine () {
         rebuildInProgress = true;
         Time.timeScale = 0;
         var temp = 0f;
@@ -104,7 +103,6 @@ public class MazeMaker : MonoBehaviour {
                 yield return null;
             }
         }
-        // FindObjectOfType<NavMeshSurface> ().BuildNavMesh ();
         mazeShiftNotice.SetActive (false);
         temp = 1f;
         while (temp > 0){
