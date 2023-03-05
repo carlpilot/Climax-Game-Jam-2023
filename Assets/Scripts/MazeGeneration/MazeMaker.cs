@@ -44,7 +44,8 @@ public class MazeMaker : MonoBehaviour {
 
     public Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject> ();
 
-    GameManager gm;
+    [HideInInspector]
+    public GameManager gm;
 
     private void Awake () {
         gm = FindObjectOfType<GameManager> ();
@@ -171,4 +172,6 @@ public class MazeMaker : MonoBehaviour {
 public struct ResourceChance {
     public GameObject prefab;
     public float chance;
+    public int firstDay;
+    public float minDistance;
 }
