@@ -1,32 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class Construction : MonoBehaviour
-{
+public class Construction : MonoBehaviour {
 
     public static Construction inst;
 
-    [Header("Prefabs")]
+    [Header ("Prefabs")]
     public Buildable[] buildables;
 
-    [Header ("Menu")]
+    [Header ("UI")]
     public GameObject buildMenu;
+    public TMP_Text placeErrorText;
 
     [Header ("Placing Behaviour")]
     public float rotationStepDeg = 45.0f;
     public LayerMask placeLayerMask;
     public Material placePreviewMatValid, placePreviewMatInvalid;
 
-    [Header("Keyboard Assignments")]
+    [Header ("Keyboard Assignments")]
     public KeyCode buildKey = KeyCode.B;
     public KeyCode rotateKey = KeyCode.R;
+
+    bool placeValid = false;
 
     ResourceManager rm;
     MazeMaker mm;
     BuildMenu menu;
     GameObject placePreview;
+
     Buildable activeBuildable;
+    Vector2Int placePreviewChunk;
 
     private void Awake () {
         inst = this;
@@ -40,16 +45,21 @@ public class Construction : MonoBehaviour
     private void Update () {
 
         // Open build menu if key pressed
-        if(Input.GetKeyDown(buildKey) && !buildMenu.activeInHierarchy) {
+        if (Input.GetKeyDown (buildKey) && !buildMenu.activeInHierarchy) {
             buildMenu.SetActive (true);
             placePreview.SetActive (false); // cancel place if build reopened
         }
 
         // Manipulate place preview
-        if(placePreview.activeInHierarchy) {
+        if (placePreview.activeInHierarchy) {
+
+            placePreviewChunk = mm.WorldPosToChunkNum (placePreview.transform.position);
+
+            // set valid/invalid
+            SetPlacePreviewValid (rm.SufficientResources (activeBuildable.costs) && placePreviewChunk == Vector2Int.zero);
 
             // cancel with Esc or RMB
-            if (Input.GetKeyDown (KeyCode.Escape) || Input.GetMouseButtonDown(1)) placePreview.SetActive (false);
+            if (Input.GetKeyDown (KeyCode.Escape) || Input.GetMouseButtonDown (1)) placePreview.SetActive (false);
 
             // move to cursor position
             Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -59,22 +69,27 @@ public class Construction : MonoBehaviour
             }
 
             // rotate
-            if(Input.GetKeyDown(rotateKey)) {
+            if (Input.GetKeyDown (rotateKey)) {
                 if (!Input.GetKey (KeyCode.LeftShift)) placePreview.transform.Rotate (Vector3.up, rotationStepDeg);
                 else placePreview.transform.Rotate (Vector3.down, rotationStepDeg);
             }
 
             // Place object
-            if (Input.GetMouseButtonDown (0) && rm.Remove (activeBuildable.costs)) {
+            if (placeValid && Input.GetMouseButtonDown (0) && rm.Remove (activeBuildable.costs)) {
                 GameObject g = Instantiate (activeBuildable.prefab);
                 g.transform.position = placePreview.transform.position;
                 g.transform.rotation = placePreview.transform.rotation;
-                // if resources are now insufficient, set invalid material
-                if (!rm.SufficientResources (activeBuildable.costs)) SetPlacePreviewMaterial (placePreviewMatInvalid);
                 // re-bake chunk nav mesh
-                Vector2Int chunkNum = mm.WorldPosToChunkNum (g.transform.position);
-                mm.chunks[chunkNum].GetComponent<MazeChunk> ().RebuildNavMesh ();
+                mm.chunks[placePreviewChunk].GetComponent<MazeChunk> ().RebuildNavMesh ();
             }
+        }
+
+        bool invalidPlace = !placeValid && placePreview.activeInHierarchy;
+        placeErrorText.gameObject.SetActive (invalidPlace);
+        if (invalidPlace) {
+            if (!rm.SufficientResources (activeBuildable.costs)) placeErrorText.text = "Not enough resources";
+            if (placePreviewChunk != Vector2Int.zero) placeErrorText.text = "Cannot build outside the centre";
+            placeErrorText.rectTransform.position = Input.mousePosition;
         }
     }
 
@@ -91,10 +106,15 @@ public class Construction : MonoBehaviour
         // Instantiate prefab as the place preview
         GameObject g = Instantiate (b.prefab, placePreview.transform);
         foreach (Collider col in placePreview.GetComponentsInChildren<Collider> ()) Destroy (col);
-        SetPlacePreviewMaterial (placePreviewMatValid);
+        SetPlacePreviewValid (true);
     }
 
-    public void SetPlacePreviewMaterial (Material mat) {
+    public void SetPlacePreviewValid (bool valid) {
+        _SetPlacePreviewMaterial (valid ? placePreviewMatValid : placePreviewMatInvalid);
+        placeValid = valid;
+    }
+
+    public void _SetPlacePreviewMaterial (Material mat) {
         foreach (MeshRenderer mr in placePreview.GetComponentsInChildren<MeshRenderer> ()) mr.material = mat;
     }
 }
