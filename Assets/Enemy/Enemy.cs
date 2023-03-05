@@ -44,6 +44,10 @@ public class Enemy : MonoBehaviour
     public GameObject[] enemiesToSpawn;
     float enemySpawnTimer = 0f;
 
+    bool hasTouchedGround = false;
+
+    public ParticleSystem beamParticles;
+
 
     void Awake()
     {
@@ -57,10 +61,20 @@ public class Enemy : MonoBehaviour
     {
         sineTimer = Random.Range(0f, 200f);
         player = GameObject.FindGameObjectWithTag(playerTag).GetComponentInChildren<PlayerMovement>().gameObject;
+        beamParticles.Play();
     }
     
     void Update()
     {
+        if (!hasTouchedGround){
+            transform.Translate(Vector3.up*Time.deltaTime*-2f);
+            if (transform.position.y < 2f){
+                hasTouchedGround = true;
+                Knockback(Vector3.down, 0.2f);
+                beamParticles.Stop();
+            }
+            return;
+        }
         if (rb.isKinematic)
         {
             // If it is daytime and we are not in range of the player
@@ -69,6 +83,9 @@ public class Enemy : MonoBehaviour
                 agent.enabled = false;
                 transform.Translate(Vector3.up*Time.deltaTime*2f);
                 isAttacking = false;
+                if (!beamParticles.isPlaying){
+                    beamParticles.Play();
+                }
                 
             } else{
                 if (gun){

@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
             // find a valid spawn position (with max. attempts cap)
             while (!SpawnPositionValid (spawnPosition) && attempts < 100) {
                 Vector2 circle = Random.insideUnitCircle.normalized * mm.chunkSize / 2f;
-                spawnPosition = player.transform.position + new Vector3 (circle.x, 0f, circle.y);
+                spawnPosition = player.transform.position + new Vector3 (circle.x, Random.Range(10f, 15f), circle.y);
                 attempts++;
             }
             Instantiate (w.prefab, spawnPosition, Quaternion.identity);
