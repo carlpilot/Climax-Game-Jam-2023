@@ -49,6 +49,7 @@ public class Bullet : MonoBehaviour
                     p.SetActive(false);
                     gameObject.SetActive(true);
                     isEnemyBullet = false;
+                    sword.ReduceDurability();
                 } else{
                     player.TakeDamage(directDamage);
                     Destroy(gameObject);

@@ -42,11 +42,7 @@ public class PlayerInventory : MonoBehaviour
             if (items[i]){
                 hotbarSlots[i].icon.sprite = items[i].itemImage;
                 hotbarSlots[i].icon.gameObject.SetActive(true);
-                if (items[i].gun) {
-                    hotbarSlots[i].SetDurability((float)items[i].durability / (float)items[i].maxDurability);
-                } else {
-                    hotbarSlots[i].SetDurability(1);
-                }
+                hotbarSlots[i].SetDurability((float)items[i].durability / (float)items[i].maxDurability);
             } else{
                 hotbarSlots[i].icon.gameObject.SetActive(false);
             }
@@ -101,6 +97,8 @@ public class PlayerInventory : MonoBehaviour
         if (activeItem){
             if (activeItem.gun) {
                 activeItem.durability = activeItemGM.GetComponent<Gun>().durability;
+            } else if (activeItem.sword) {
+                activeItem.durability = activeItemGM.GetComponent<Sword>().durability;
             }
         }
 
@@ -162,6 +160,7 @@ public class PlayerInventory : MonoBehaviour
                 activeItemGM.GetComponent<Gun>().durability = activeItem.durability;
             } else if(activeItem.sword){
                 activeItemGM = Instantiate(items[activeItemIndex].sword.gameObject, transform);
+                activeItemGM.GetComponent<Sword>().durability = activeItem.durability;
             }else if(activeItem.toolbox){
                 activeItemGM = Instantiate(items[activeItemIndex].toolbox.gameObject, transform);
             } else{

@@ -20,6 +20,8 @@ public class Sword : MonoBehaviour
 
     public GameObject boom;
 
+    public int durability = 100;
+
     public bool isBlocking {get; private set;}
     void Awake()
     {
@@ -46,6 +48,8 @@ public class Sword : MonoBehaviour
                             StartCoroutine(TakeDamageAfter(damageDelay, damage, enemy, enemy.transform.position - swordPos));
                         }
                     }
+                    ReduceDurability();
+                    
                 }else{
                     var player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerHealth>();
                     if (isHittable(player.transform))
@@ -81,5 +85,12 @@ public class Sword : MonoBehaviour
     bool isHittable(Transform t){
         var swordPos = transform.position-transform.forward;
         return Vector3.Distance(transform.position, t.position) < range && Vector3.Angle(transform.forward, t.position - swordPos) < angle;
+    }
+
+    public void ReduceDurability(){
+        durability--;
+        if (durability <= 0){
+            GetComponentInParent<PlayerInventory>().EmptyCurrentHotbarSlot();
+        }
     }
 }

@@ -18,3 +18,6 @@ MonoBehaviour:
     type: 3}
   gun: {fileID: 0}
   sword: {fileID: 6658705045680960567, guid: 038ee136a981cc73694c6926c1b12668, type: 3}
+  toolbox: {fileID: 0}
+  durability: 100
+  maxDurability: 100
