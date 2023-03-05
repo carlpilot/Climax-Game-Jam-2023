@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.12107873, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1864,6 +1864,7 @@ MonoBehaviour:
   buildables:
   - {fileID: 11400000, guid: 3d8271d3f4a64e1448fae122d02e47a2, type: 2}
   - {fileID: 11400000, guid: 251eebfeb756431419e36d78cd6e13c3, type: 2}
+  - {fileID: 11400000, guid: ee8d401a63c46424596f27dab17db51d, type: 2}
   buildMenu: {fileID: 693159582}
   placeErrorText: {fileID: 880222453}
   rotationStepDeg: 45
@@ -2097,11 +2098,11 @@ MonoBehaviour:
   - name: Sword Enemy
     prefab: {fileID: 9079795913719198336, guid: 6e1eafdfaa32fa08d960f2485d7b8bf9,
       type: 3}
-    countMin: 2
+    countMin: 1
     countMax: 6
     recurrencesMin: 1
     recurrencesMax: 4
-    daysToReachMax: 10
+    daysToReachMax: 15
     firstNight: 0
   - name: Pistol Enemy
     prefab: {fileID: 3830795042888953062, guid: b29945014590014958931ed1271ff6ba,
@@ -2110,34 +2111,34 @@ MonoBehaviour:
     countMax: 6
     recurrencesMin: 1
     recurrencesMax: 4
-    daysToReachMax: 10
-    firstNight: 0
+    daysToReachMax: 5
+    firstNight: 4
   - name: LMG Enemy
     prefab: {fileID: 3240321922839490531, guid: af2dc43f55242ed088622bf67979ce0c,
       type: 3}
     countMin: 2
     countMax: 6
     recurrencesMin: 1
-    recurrencesMax: 4
-    daysToReachMax: 10
-    firstNight: 0
+    recurrencesMax: 3
+    daysToReachMax: 5
+    firstNight: 8
   - name: Railgun Enemy
     prefab: {fileID: 2531897553941225564, guid: 64fb1b68a7b0c8ec0b8381b27afac440,
       type: 3}
-    countMin: 2
-    countMax: 6
+    countMin: 1
+    countMax: 3
     recurrencesMin: 1
-    recurrencesMax: 4
-    daysToReachMax: 10
-    firstNight: 0
+    recurrencesMax: 2
+    daysToReachMax: 5
+    firstNight: 12
   - name: Boss Enemy
     prefab: {fileID: 254415789460229978, guid: 83a49607821f72cadac65ef513b673c0, type: 3}
-    countMin: 2
-    countMax: 6
+    countMin: 1
+    countMax: 2
     recurrencesMin: 1
-    recurrencesMax: 4
-    daysToReachMax: 10
-    firstNight: 0
+    recurrencesMax: 2
+    daysToReachMax: 5
+    firstNight: 16
   timeBetweenWaves: 20
   timeToSurvive: 60
 --- !u!1 &1606705146

@@ -109,6 +109,10 @@ public class Construction : MonoBehaviour {
         SetPlacePreviewValid (true);
     }
 
+    public void CancelPlace () {
+        placePreview.SetActive (false);
+    }
+
     public void SetPlacePreviewValid (bool valid) {
         _SetPlacePreviewMaterial (valid ? placePreviewMatValid : placePreviewMatInvalid);
         placeValid = valid;
