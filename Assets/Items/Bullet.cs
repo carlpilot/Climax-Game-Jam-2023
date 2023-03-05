@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public GameObject hitParticlesPrefab;
     public float directDamage = 20f;
     public float knockbackForce = 10f;
+    public LayerMask hitLayerMask;
     [HideInInspector]
     public float speed = 10f;
 
@@ -23,7 +24,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.2f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.2f, hitLayerMask);
         if (hitColliders.Length > 0)
         {
             var col = hitColliders[0];

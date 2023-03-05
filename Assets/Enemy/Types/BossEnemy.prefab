@@ -461,6 +461,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
         type: 3}
+      propertyPath: shootLayerMask.m_Bits
+      value: 763
+      objectReference: {fileID: 0}
+    - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
+        type: 3}
       propertyPath: enemiesToSpawn.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -613,6 +618,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961727480424723340, guid: 9fc0cb2b9b3e7f846aa54973c9d60864,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fc0cb2b9b3e7f846aa54973c9d60864, type: 3}

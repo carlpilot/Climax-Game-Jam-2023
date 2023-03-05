@@ -118,6 +118,11 @@ MonoBehaviour:
   hitParticlesPrefab: {fileID: 7973993148641393190}
   directDamage: 20
   knockbackForce: 1
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 767
+  speed: 10
+  isEnemyBullet: 0
 --- !u!1 &1551969143607013137
 GameObject:
   m_ObjectHideFlags: 0

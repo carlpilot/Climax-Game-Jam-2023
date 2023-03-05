@@ -580,6 +580,11 @@ PrefabInstance:
       propertyPath: attackRange
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
+        type: 3}
+      propertyPath: shootLayerMask.m_Bits
+      value: 763
+      objectReference: {fileID: 0}
     - target: {fileID: 311110705051888663, guid: 89763dddc2415d1fb933170895286401,
         type: 3}
       propertyPath: m_Name
@@ -615,6 +620,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3830795042888953056}
     m_Modifications:
+    - target: {fileID: 917325815241241287, guid: 5c80b97de41eac7558e44242beb4ba9f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2006760852561622536, guid: 5c80b97de41eac7558e44242beb4ba9f,
         type: 3}
       propertyPath: isPlayerGun

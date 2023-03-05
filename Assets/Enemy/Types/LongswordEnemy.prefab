@@ -19689,6 +19689,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9079795913719198342}
     m_Modifications:
+    - target: {fileID: 1079002840560074555, guid: 038ee136a981cc73694c6926c1b12668,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6658705045680960565, guid: 038ee136a981cc73694c6926c1b12668,
         type: 3}
       propertyPath: m_Name
@@ -20041,6 +20046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: resourceValueOverride
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 311110705051888662, guid: 89763dddc2415d1fb933170895286401,
+        type: 3}
+      propertyPath: shootLayerMask.m_Bits
+      value: 763
       objectReference: {fileID: 0}
     - target: {fileID: 311110705051888663, guid: 89763dddc2415d1fb933170895286401,
         type: 3}
