@@ -37,12 +37,14 @@ public class GameManager : MonoBehaviour
     public static bool isCurrentlyDay;
 
     GameObject player;
+    Construction con;
     MazeMaker mm;
 
     private void Awake () {
         if (startingSeed == -1) startingSeed = Random.Range (int.MinValue + 1, int.MaxValue - 100000);
 
         mm = FindObjectOfType<MazeMaker> ();
+        con = FindObjectOfType<Construction> ();
         player = FindObjectOfType<CharacterController> ().gameObject;
 
         startIntensity = sun.intensity;
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void NextDay () {
+        con.CancelPlace ();
         currentDay++;
         currentTime = 0.0f;
         dayIsOver = false;

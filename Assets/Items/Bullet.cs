@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float directDamage = 20f;
     public float knockbackForce = 10f;
     public LayerMask hitLayerMask;
+
     [HideInInspector]
     public float speed = 10f;
 

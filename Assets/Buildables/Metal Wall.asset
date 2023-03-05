@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Metal Wall
   m_EditorClassIdentifier: 
   name: Metal Wall
-  icon: {fileID: 21300000, guid: 90be2335d30bcdb46ac55e7cd6a3f21e, type: 3}
+  icon: {fileID: 21300000, guid: cfcd67d21ea1cff4e9162d35113bd8d7, type: 3}
   prefab: {fileID: 6573829569956564485, guid: ba7aca0e30c870d44bc30c953d243791, type: 3}
   costs:
   - type: 0
