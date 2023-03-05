@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.1f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f);
         if (hitColliders.Length > 0)
         {
             var col = hitColliders[0];
