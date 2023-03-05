@@ -11,9 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject head;
     public LayerMask groundMask;
 
+    float startY;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        startY = transform.position.y;
     }
     
     void Start()
@@ -40,5 +43,6 @@ public class PlayerMovement : MonoBehaviour
         // Move the body in the direction of WASD controls
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         controller.Move(move * speed * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x, startY, transform.position.z);
     }
 }
