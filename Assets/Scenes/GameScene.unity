@@ -1800,7 +1800,7 @@ MonoBehaviour:
     daysToReachMax: 10
     firstNight: 0
   timeBetweenWaves: 20
-  timeToSurvive: 0
+  timeToSurvive: 60
 --- !u!1 &1606705146
 GameObject:
   m_ObjectHideFlags: 0

@@ -132,6 +132,7 @@ public class Enemy : MonoBehaviour
     public void Die () {
         deathEffect.SetActive (true);
         deathEffect.transform.parent = null;
+        deathEffect.tag = "Untagged";
         if (dropsPrefab != null) {
             GameObject g = Instantiate (dropsPrefab, Vector3.Scale (transform.position, Vector3.one - Vector3.up), dropsPrefab.transform.rotation);
             if (resourceValueOverride >= 0) g.GetComponent<CollectResource> ().value = resourceValueOverride;

@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < timeToSurvive; i++) {
             yield return new WaitForSeconds (1.0f);
             if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0) {
+                Debug.Log ("All enemies killed");
                 yield return new WaitForSeconds (1.0f); // bit of an extra wait after killing last enemy
                 break;
             }
