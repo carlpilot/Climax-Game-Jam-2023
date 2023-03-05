@@ -64,7 +64,11 @@ public class Enemy : MonoBehaviour
             // If it is daytime and we are not in range of the player
             if (EnemySpawnManager.IsDayTime() && Vector3.Distance(transform.position, player.transform.position) > seekRange)
             {
-                agent.isStopped = true;
+                if (agent.remainingDistance < 1f)
+                {
+                    // Set a random destination
+                    agent.SetDestination(transform.position + new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f)));
+                }
                 isAttacking = false;
             } else{
                 if (gun){
