@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.12107873, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -520,6 +520,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8fda5b44bde54109a54f282c21c9814, type: 3}
+--- !u!1001 &680731071
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120915903361354590, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360090647243969632, guid: cffd13bbe0ee70f3c81eee5c9c728f2d,
+        type: 3}
+      propertyPath: m_Name
+      value: CentralDecs
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cffd13bbe0ee70f3c81eee5c9c728f2d, type: 3}
 --- !u!1 &693159582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,6 +1862,41 @@ MonoBehaviour:
   - name: Sword Enemy
     prefab: {fileID: 9079795913719198336, guid: 6e1eafdfaa32fa08d960f2485d7b8bf9,
       type: 3}
+    countMin: 2
+    countMax: 6
+    recurrencesMin: 1
+    recurrencesMax: 4
+    daysToReachMax: 10
+    firstNight: 0
+  - name: Pistol Enemy
+    prefab: {fileID: 3830795042888953062, guid: b29945014590014958931ed1271ff6ba,
+      type: 3}
+    countMin: 2
+    countMax: 6
+    recurrencesMin: 1
+    recurrencesMax: 4
+    daysToReachMax: 10
+    firstNight: 0
+  - name: LMG Enemy
+    prefab: {fileID: 3240321922839490531, guid: af2dc43f55242ed088622bf67979ce0c,
+      type: 3}
+    countMin: 2
+    countMax: 6
+    recurrencesMin: 1
+    recurrencesMax: 4
+    daysToReachMax: 10
+    firstNight: 0
+  - name: Railgun Enemy
+    prefab: {fileID: 2531897553941225564, guid: 64fb1b68a7b0c8ec0b8381b27afac440,
+      type: 3}
+    countMin: 2
+    countMax: 6
+    recurrencesMin: 1
+    recurrencesMax: 4
+    daysToReachMax: 10
+    firstNight: 0
+  - name: Boss Enemy
+    prefab: {fileID: 254415789460229978, guid: 83a49607821f72cadac65ef513b673c0, type: 3}
     countMin: 2
     countMax: 6
     recurrencesMin: 1
