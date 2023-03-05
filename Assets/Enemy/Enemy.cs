@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour
             // If it is daytime and we are not in range of the player
             if (GameManager.isCurrentlyDay) {
                 agent.isStopped = true;
+                agent.enabled = false;
                 transform.Translate(Vector3.up*Time.deltaTime*2f);
                 isAttacking = false;
                 
