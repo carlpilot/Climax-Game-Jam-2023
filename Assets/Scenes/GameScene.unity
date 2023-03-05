@@ -1604,7 +1604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentDay: 0
   currentTime: 0
-  dayLength: 30
+  dayLength: 120
   forceNextDay: 0
   sun: {fileID: 700503990}
   sunAngle:
@@ -1664,12 +1664,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.5
       value: 0
-      inSlope: 435.6893
-      outSlope: 435.6893
+      inSlope: 278.18152
+      outSlope: 278.18152
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.03684199
+      outWeight: 0.08157885
     - serializedVersion: 3
       time: 1
       value: 75
@@ -1704,13 +1704,22 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0.5
-      inSlope: -2.2129483
-      outSlope: -2.2129483
+      time: 0.86019737
+      value: 0.49815497
+      inSlope: -4.1505537
+      outSlope: -4.1505537
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.36184216
+      inWeight: 0.044642847
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.001
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1.25
@@ -1724,6 +1733,35 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  sunColour:
+    serializedVersion: 2
+    key0: {r: 0.6313726, g: 0, b: 0.32445562, a: 1}
+    key1: {r: 0.81960785, g: 0.17687482, b: 0.16310197, a: 1}
+    key2: {r: 1, g: 0.7607843, b: 0.5019608, a: 0}
+    key3: {r: 0.95, g: 0.99821424, b: 1, a: 0}
+    key4: {r: 0.95, g: 0.99821424, b: 1, a: 0}
+    key5: {r: 1, g: 0.7594937, b: 0.5, a: 0}
+    key6: {r: 0.81960785, g: 0.18039216, b: 0.16470589, a: 0}
+    key7: {r: 0.6313726, g: 0, b: 0.32445562, a: 0}
+    ctime0: 0
+    ctime1: 6554
+    ctime2: 13107
+    ctime3: 19661
+    ctime4: 45875
+    ctime5: 52428
+    ctime6: 58982
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
   startingSeed: -1
   wallRemovalFalloff:
     serializedVersion: 2
@@ -1751,7 +1789,17 @@ MonoBehaviour:
     m_RotationOrder: 4
   startRemovalFactor: 0.9
   daysToMaxFalloff: 10
-  waves: []
+  enemies:
+  - name: Sword Enemy
+    prefab: {fileID: 9079795913719198336, guid: 6e1eafdfaa32fa08d960f2485d7b8bf9,
+      type: 3}
+    countMin: 2
+    countMax: 6
+    recurrencesMin: 1
+    recurrencesMax: 4
+    daysToReachMax: 10
+    firstNight: 0
+  timeBetweenWaves: 20
 --- !u!1 &1606705146
 GameObject:
   m_ObjectHideFlags: 0
