@@ -21,6 +21,11 @@ public class CollectResource : MonoBehaviour {
 
     void Collected () {
         rm.Add (value, type);
+        var ars = GetComponentInChildren<AudioSource> ();
+        if (ars != null){
+            ars.Play ();
+            ars.transform.parent = null;
+        }
         Destroy (this.gameObject);
     }
 }
