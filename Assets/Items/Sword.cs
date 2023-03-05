@@ -24,6 +24,8 @@ public class Sword : MonoBehaviour
 
     public Transform holdPosition;
 
+    public AudioSource sliceSound;
+
     public bool isBlocking {get; private set;}
     void Awake()
     {
@@ -41,6 +43,7 @@ public class Sword : MonoBehaviour
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")){
             if((Input.GetMouseButtonDown(0) && isPlayerSword) || (aiIsAttacking && !isPlayerSword)){
                 animator.Play("Swing");
+                sliceSound.Play();
                 if (isPlayerSword){
                     var hitEnemy = false;
                     foreach (var enemy in GameObject.FindObjectsOfType<Enemy>())
@@ -59,6 +62,7 @@ public class Sword : MonoBehaviour
                     if (isHittable(player.transform))
                     {
                         var swordPos = transform.position-transform.forward;
+                        sliceSound.Play();
                         StartCoroutine(TakePlayerDamageAfter(damageDelay, damage, player));
                     }
                 }
