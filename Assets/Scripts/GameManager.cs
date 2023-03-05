@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     bool dayIsOver = false;
 
+    public static bool isCurrentlyDay;
+
     GameObject player;
     MazeMaker mm;
 
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     private void Update () {
         currentTime += Time.deltaTime;
+        isCurrentlyDay = currentTime < dayLength;
         float dayFraction = currentTime / dayLength;
 
         sun.transform.eulerAngles = new Vector3 (sunAngle.Evaluate (dayFraction), sunHeading.Evaluate(dayFraction), 0f);
@@ -73,7 +76,7 @@ public class GameManager : MonoBehaviour
         currentDay++;
         currentTime = 0.0f;
         dayIsOver = false;
-        KillAllEnemies ();
+        StartCoroutine(KillAllEnemies ());
         UpdateMazeProperties ();
         mm.RegenerateWorld ();
         OnDayStart ();
@@ -152,7 +155,8 @@ public class GameManager : MonoBehaviour
         return spawnPosition != Vector3.zero && Mathf.Abs(chunk.x) <= mm.worldRadiusChunks && Mathf.Abs(chunk.y) <= mm.worldRadiusChunks;
     }
 
-    public void KillAllEnemies () {
+    public IEnumerator KillAllEnemies () {
+        yield return new WaitForSeconds (5f);
         foreach (Enemy e in FindObjectsOfType<Enemy> ()) Destroy (e.gameObject); // bypass Enemy.Die() so there are no drops or effects
     }
 

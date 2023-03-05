@@ -64,14 +64,11 @@ public class Enemy : MonoBehaviour
         if (rb.isKinematic)
         {
             // If it is daytime and we are not in range of the player
-            if (EnemySpawnManager.IsDayTime() && Vector3.Distance(transform.position, player.transform.position) > seekRange)
-            {
-                if (agent.remainingDistance < 1f)
-                {
-                    // Set a random destination
-                    agent.SetDestination(transform.position + new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f)));
-                }
+            if (GameManager.isCurrentlyDay) {
+                agent.isStopped = true;
+                transform.Translate(Vector3.up*Time.deltaTime*2f);
                 isAttacking = false;
+                
             } else{
                 if (gun){
                     // Check if we raycast towards the player that we hit the player
