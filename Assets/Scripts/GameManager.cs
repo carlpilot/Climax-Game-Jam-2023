@@ -93,15 +93,14 @@ public class GameManager : MonoBehaviour
         }
 
         // print tonight's wave info
-        Debug.Log ("---");
+        /*
         Debug.Log ("Day " + currentDay + ": There will be " + numWavesTonight + " waves tonight");
         for(int i = 0; i < numWavesTonight; i++) {
             Debug.Log ("   Wave " + i);
             for(int j = 0; j < enemies.Length; j++) {
                 if (wavesTonight[i, j]) Debug.Log ("    - " + enemies[j].name + ": " + enemies[j].Count (currentDay));
             }
-        }
-        Debug.Log ("---");
+        }*/
     }
 
     void UpdateMazeProperties () {
@@ -133,6 +132,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnWaveOnce (EnemyWave w) {
         int numToSpawn = w.Count (currentDay);
+        Debug.Log ("Spawning wave of " + numToSpawn + " " + w.name);
         for(int i = 0; i < numToSpawn; i++) {
             Vector3 spawnPosition = Vector3.zero;
             int attempts = 0;
