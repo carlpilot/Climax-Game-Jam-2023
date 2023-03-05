@@ -23,6 +23,7 @@ public class Construction : MonoBehaviour
     public KeyCode rotateKey = KeyCode.R;
 
     ResourceManager rm;
+    MazeMaker mm;
     BuildMenu menu;
     GameObject placePreview;
     Buildable activeBuildable;
@@ -30,6 +31,7 @@ public class Construction : MonoBehaviour
     private void Awake () {
         inst = this;
         rm = FindObjectOfType<ResourceManager> ();
+        mm = FindObjectOfType<MazeMaker> ();
         menu = buildMenu.GetComponent<BuildMenu> ();
         placePreview = new GameObject ("Place Preview");
         placePreview.SetActive (false);
@@ -63,14 +65,15 @@ public class Construction : MonoBehaviour
             }
 
             // Place object
-            if(Input.GetMouseButtonDown(0)) {
-                if (rm.Remove (activeBuildable.costs)) {
-                    GameObject g = Instantiate (activeBuildable.prefab);
-                    g.transform.position = placePreview.transform.position;
-                    g.transform.rotation = placePreview.transform.rotation;
-                }
+            if (Input.GetMouseButtonDown (0) && rm.Remove (activeBuildable.costs)) {
+                GameObject g = Instantiate (activeBuildable.prefab);
+                g.transform.position = placePreview.transform.position;
+                g.transform.rotation = placePreview.transform.rotation;
                 // if resources are now insufficient, set invalid material
                 if (!rm.SufficientResources (activeBuildable.costs)) SetPlacePreviewMaterial (placePreviewMatInvalid);
+                // re-bake chunk nav mesh
+                Vector2Int chunkNum = mm.WorldPosToChunkNum (g.transform.position);
+                mm.chunks[chunkNum].GetComponent<MazeChunk> ().RebuildNavMesh ();
             }
         }
     }

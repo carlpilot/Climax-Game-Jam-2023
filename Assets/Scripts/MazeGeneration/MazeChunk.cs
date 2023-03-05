@@ -17,6 +17,9 @@ public class MazeChunk : MonoBehaviour {
     Vector2Int unassigned = new Vector2Int (-1, -1);
     bool solved = false;
 
+    [HideInInspector]
+    public GameObject floor, walls, pillars, navFloor;
+
     public void Generate () {
         chunkPos = new Vector3 (chunkNum.x, 0f, chunkNum.y) * mm.chunkSize;
         CreateFloor ();
@@ -32,14 +35,14 @@ public class MazeChunk : MonoBehaviour {
     }
 
     void CreateFloor () {
-        GameObject g = new GameObject ("Floor Mesh " + chunkNum);
-        g.transform.parent = transform;
-        g.transform.localPosition = Vector3.zero;
-        g.layer = 6;
-        MeshFilter mf = g.AddComponent<MeshFilter> ();
+        floor = new GameObject ("Floor Mesh " + chunkNum);
+        floor.transform.parent = transform;
+        floor.transform.localPosition = Vector3.zero;
+        floor.layer = 6;
+        MeshFilter mf = floor.AddComponent<MeshFilter> ();
         mf.mesh = mm.GetFloorMesh ();
-        MeshRenderer mr = g.AddComponent<MeshRenderer> ();
-        MeshCollider mc = g.AddComponent<MeshCollider> ();
+        MeshRenderer mr = floor.AddComponent<MeshRenderer> ();
+        MeshCollider mc = floor.AddComponent<MeshCollider> ();
         mr.material = mm.floorMaterial;
     }
 
@@ -202,7 +205,7 @@ public class MazeChunk : MonoBehaviour {
             }
         }
 
-        GameObject walls = new GameObject ();
+        walls = new GameObject ();
         walls.name = "Walls " + chunkNum;
         Mesh combinedWalls = MeshCombiner.CombineMeshes (wallCombine.ToArray ());
         walls.AddComponent<MeshFilter> ().mesh = combinedWalls;
@@ -211,7 +214,7 @@ public class MazeChunk : MonoBehaviour {
         walls.layer = 7;
         walls.transform.parent = transform;
 
-        GameObject pillars = new GameObject ();
+        pillars = new GameObject ();
         pillars.name = "Pillars " + chunkNum;
         Mesh combinedPillars = MeshCombiner.CombineMeshes (pillarCombine.ToArray ());
         pillars.AddComponent<MeshFilter> ().mesh = combinedPillars;
@@ -222,9 +225,13 @@ public class MazeChunk : MonoBehaviour {
     }
 
     public void CreateNavMeshFloor () {
-        GameObject navFloor = Instantiate (mm.navMeshPrefab, transform);
+        navFloor = Instantiate (mm.navMeshPrefab, transform);
         navFloor.name = "Floor " + chunkNum;
         navFloor.GetComponent<NavMeshSurface> ().size = new Vector3 (mm.chunkSize + 1, 5f, mm.chunkSize + 1);
+        RebuildNavMesh ();
+    }
+
+    public void RebuildNavMesh() {
         navFloor.GetComponent<NavMeshSurface> ().BuildNavMesh ();
     }
 
