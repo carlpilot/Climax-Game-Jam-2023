@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour
             var p = Instantiate(hitParticlesPrefab, transform.position, Quaternion.identity);
             p.SetActive(true);
             gameObject.SetActive(false);
+            p.GetComponentInChildren<AudioSource>().Play();
             var enemy = col.gameObject.GetComponent<Enemy>();
             if (enemy)
             {

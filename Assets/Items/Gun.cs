@@ -64,5 +64,6 @@ public class Gun : MonoBehaviour
         bullet.transform.forward = muzzle.forward + spreadVel;
         bullet.GetComponent<Bullet>().speed = bulletSpeed;
         bullet.GetComponent<Bullet>().isEnemyBullet = !isPlayerGun;
+        GetComponent<AudioSource>().Play();
     }
 }
