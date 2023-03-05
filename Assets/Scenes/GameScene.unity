@@ -716,7 +716,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1605,6 +1605,91 @@ MonoBehaviour:
   currentDay: 0
   dayLength: 120
   forceNextDay: 0
+  sun: {fileID: 700503990}
+  sunAngle:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 434.12552
+      outSlope: 434.12552
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.13157894
+    - serializedVersion: 3
+      time: 0.5
+      value: 90
+      inSlope: 22.945353
+      outSlope: 22.945353
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.34736836
+    - serializedVersion: 3
+      time: 1
+      value: 180
+      inSlope: 472.2287
+      outSlope: 472.2287
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08157909
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.25
+      value: 225
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  sunIntensity:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: -1.3333334
+      outSlope: -1.3333334
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.25
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   startingSeed: -1
   wallRemovalFalloff:
     serializedVersion: 2
@@ -1632,7 +1717,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   startRemovalFactor: 0.9
   daysToMaxFalloff: 10
-  enemyPrefabs: []
+  waves: []
 --- !u!1 &1606705146
 GameObject:
   m_ObjectHideFlags: 0

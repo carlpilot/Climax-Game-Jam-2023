@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public float dayLength;
     public bool forceNextDay = false;
     public Light sun;
+    public AnimationCurve sunAngle;
+    public AnimationCurve sunIntensity;
 
     [Header ("Maze Settings")]
     public int startingSeed = -1;
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void NextDay () {
         currentDay++;
+        KillAllEnemies ();
         UpdateMazeProperties ();
         mm.RegenerateWorld ();
     }
@@ -60,13 +63,17 @@ public class GameManager : MonoBehaviour
                 spawnPosition = player.transform.position + new Vector3 (circle.x, 0f, circle.y);
                 attempts++;
             }
-            GameObject newEnemy = Instantiate (w.prefab, spawnPosition, Quaternion.identity);
+            Instantiate (w.prefab, spawnPosition, Quaternion.identity);
         }
     }
 
     public bool SpawnPositionValid (Vector3 spawnPosition) {
         Vector2Int chunk = mm.WorldPosToChunkNum (spawnPosition);
         return spawnPosition != Vector3.zero && Mathf.Abs(chunk.x) <= mm.worldRadiusChunks && Mathf.Abs(chunk.y) <= mm.worldRadiusChunks;
+    }
+
+    public void KillAllEnemies () {
+        foreach (Enemy e in FindObjectsOfType<Enemy> ()) Destroy (e.gameObject); // bypass Enemy.Die() so there are no drops or effects
     }
 
     public float GetRemovalFactor(int day) {
