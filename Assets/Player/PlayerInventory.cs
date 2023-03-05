@@ -23,6 +23,8 @@ public class PlayerInventory : MonoBehaviour
     public GameObject ikTarget;
     public Transform handRestingPosition;
 
+    public AudioSource pickupSound;
+
     
     void Start()
     {
@@ -140,6 +142,7 @@ public class PlayerInventory : MonoBehaviour
         // Prefer active slot
         if (items[activeItemIndex] == null){
             items[activeItemIndex] = item;
+            pickupSound.Play();
             UpdateActiveItem();
             return true;
         }
@@ -147,6 +150,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (items[i] == null){
                 items[i] = item;
+                pickupSound.Play();
                 UpdateActiveItem();
                 return true;
             }
