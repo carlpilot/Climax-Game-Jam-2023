@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour {
     public bool isPaused { get; private set; } = false;
 
     private void Awake () {
+        currentDay = MainMenu.initialDay;
         if (startingSeed == -1) startingSeed = Random.Range (int.MinValue + 1, int.MaxValue - 100000);
         Time.timeScale = 1;
 

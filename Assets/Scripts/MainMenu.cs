@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
-    public void Play () {
+    public static int initialDay = 0;
+    public void Play (int day) {
+        initialDay = day;
         SceneManager.LoadScene (1);
     }
 
